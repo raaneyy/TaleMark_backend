@@ -1,0 +1,276 @@
+/* ================================================
+   admin-login.css — Halaman Login Admin TaleMark
+   ================================================ */
+
+/* ----- CSS Variables (mudah diubah tema) ----- */
+:root {
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-sans:  'Inter', system-ui, sans-serif;
+
+    --clr-bg:         #f5f5f5;   /* latar halaman */
+    --clr-card:       #ffffff;   /* latar kartu */
+    --clr-input-bg:   #f2f2f2;   /* latar input */
+    --clr-border:     #e5e5e5;   /* garis pemisah */
+    --clr-text:       #1a1a1a;   /* teks utama */
+    --clr-label:      #555555;   /* teks label */
+    --clr-placeholder:#999999;   /* teks placeholder */
+    --clr-accent:     #1a1a1a;   /* warna tombol & aksen */
+    --clr-accent-hover: #333333; /* warna tombol saat hover */
+    --clr-error:      #d32f2f;   /* teks error merah */
+    --clr-forgot:     #555555;   /* warna link lupa */
+
+    --radius-card:  20px;
+    --radius-input: 10px;
+    --radius-btn:   10px;
+    --shadow-card:  0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* ----- Reset & base ----- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--clr-bg);
+    color: var(--clr-text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ----- Wrapper & Kartu ----- */
+.login-wrapper {
+    width: 100%;
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-card {
+    background: var(--clr-card);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 920px;
+    min-height: 480px;
+    overflow: hidden;
+}
+
+/* ----- Kolom Kiri: Brand / Logo ----- */
+.login-brand {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 48px;
+}
+
+.brand-logo {
+    max-width: 260px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Divider dihapus sesuai desain */
+
+/* ----- Kolom Kanan: Form ----- */
+.login-form-section {
+    flex: 1.1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 56px;
+}
+
+/* Judul form memakai font serif */
+.form-title {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--clr-text);
+    margin-bottom: 36px;
+    line-height: 1.2;
+    white-space: nowrap; /* judul tetap satu baris */
+    text-align: center;
+}
+
+/* ----- Pesan error dari server ----- */
+.alert-error {
+    background-color: #fdecea;
+    color: var(--clr-error);
+    border-left: 3px solid var(--clr-error);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 0.875rem;
+    margin-bottom: 20px;
+}
+
+/* ----- Form Group ----- */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Baris label + link "Lupa?" */
+.label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--clr-label);
+    margin-bottom: 6px;
+}
+
+/* Ketika label berada di .label-row, margin bawah tidak perlu dobel */
+.label-row .form-label {
+    margin-bottom: 0;
+}
+
+/* Link "Lupa?" */
+.link-forgot {
+    font-size: 0.8rem;
+    color: var(--clr-forgot);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s ease;
+}
+
+.link-forgot:hover {
+    color: var(--clr-text);
+}
+
+/* ----- Input ----- */
+.form-input {
+    width: 100%;
+    padding: 13px 16px;
+    background-color: var(--clr-input-bg);
+    border: none;
+    border-radius: var(--radius-input);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: var(--clr-text);
+    outline: none;
+    transition: box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.form-input::placeholder {
+    color: var(--clr-placeholder);
+}
+
+/* Efek fokus halus — hanya ganti warna latar, tanpa outline tebal */
+.form-input:focus {
+    background-color: #e8e8e8;
+    outline: none;
+    box-shadow: none;
+}
+
+/* ----- Wrapper input password (agar ikon bisa di-overlay) ----- */
+.input-password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-password-wrapper .form-input {
+    padding-right: 48px; /* ruang untuk tombol ikon */
+}
+
+/* Tombol toggle show/hide password */
+.btn-toggle-password {
+    position: absolute;
+    right: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--clr-label);
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+    line-height: 0;
+}
+
+.btn-toggle-password:hover {
+    color: var(--clr-text);
+}
+
+/* ----- Pesan error validasi (browser & server) ----- */
+.field-error {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--clr-error);
+    margin-top: 5px;
+    min-height: 1rem; /* jaga agar layout tidak melompat */
+}
+
+/* ----- Tombol Submit ----- */
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    margin-top: 8px;
+    background-color: var(--clr-accent);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-btn);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-submit:hover {
+    background-color: var(--clr-accent-hover);
+}
+
+/* Animasi kecil saat diklik */
+.btn-submit:active {
+    transform: scale(0.99);
+}
+
+/* ================================================
+   Responsif — di bawah 768px: tumpuk ke atas
+   ================================================ */
+@media (max-width: 768px) {
+    .login-card {
+        flex-direction: column;
+        max-width: 420px;
+    }
+
+    .login-brand {
+        padding: 36px 40px 28px;
+    }
+
+    /* Logo diperkecil di mobile */
+    .brand-logo {
+        max-width: 150px;
+    }
+
+    .login-form-section {
+        padding: 28px 36px 40px;
+    }
+
+    .form-title {
+        font-size: 1.8rem;
+        margin-bottom: 24px;
+    }
+}
