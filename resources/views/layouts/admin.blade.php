@@ -111,23 +111,6 @@
                         Siaran Notifikasi
                     </a>
                 </li>
-
-                {{-- Menu Pengaturan Sistem --}}
-                <li class="sidebar-menu-item {{ request()->routeIs('admin.pengaturan*') ? 'active' : '' }}">
-                    <a href="#" id="menu-pengaturan">
-                        <span class="menu-icon">
-                            {{-- Ikon slider pengaturan --}}
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="3" y1="8" x2="21" y2="8"/>
-                                <line x1="8" y1="5" x2="8" y2="11"/>
-                                <line x1="3" y1="16" x2="21" y2="16"/>
-                                <line x1="16" y1="13" x2="16" y2="19"/>
-                            </svg>
-                        </span>
-                        Pengaturan Sistem
-                    </a>
-                </li>
-
             </ul>
         </nav>
 
