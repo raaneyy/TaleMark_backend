@@ -49,9 +49,9 @@
             <p class="sidebar-group-label">Sistem Redaksi</p>
             <ul class="sidebar-menu">
 
-                {{-- Menu Ringkasan --}}
+                {{-- Menu statistik --}}
                 <li class="sidebar-menu-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                    <a href="{{ route('admin.dashboard') }}" id="menu-ringkasan">
+                    <a href="{{ route('admin.dashboard') }}" id="menu-statistik">
                         <span class="menu-icon">
                             {{-- Ikon buku terbuka --}}
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -59,7 +59,7 @@
                                 <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
                             </svg>
                         </span>
-                        Ringkasan
+                        Statistik 
                     </a>
                 </li>
 
