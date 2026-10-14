@@ -1,0 +1,987 @@
+/* =============================================
+   admin-dashboard.css
+   Komponen khusus halaman Dashboard (Ringkasan)
+   ============================================= */
+
+/* =============================================
+   HEADER HALAMAN DASHBOARD
+   ============================================= */
+.page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.page-header-left {
+    flex: 1;
+    min-width: 260px;
+}
+
+/* Label kecil kapital di atas judul */
+.page-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 6px;
+}
+
+/* Judul besar serif */
+.page-title {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    font-weight: 400;
+    font-variant-numeric: lining-nums;
+    color: var(--color-text-primary);
+    line-height: 1.25;
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+}
+
+/* Subjudul italic */
+.page-subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 15px;
+    font-weight: 400;
+    font-variant-numeric: lining-nums;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+}
+
+/* Tombol-tombol di header */
+.page-header-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* =============================================
+   TOMBOL UMUM
+   ============================================= */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 16px;
+    border-radius: var(--radius-md);
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: opacity 0.15s, background 0.15s;
+    white-space: nowrap;
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+
+/* Tombol abu */
+.btn-secondary {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+}
+
+/* Tombol hitam */
+.btn-primary {
+    background: var(--color-black);
+    color: var(--color-white);
+}
+
+/* Tombol kecil (untuk kartu moderasi) */
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 11.5px;
+    border-radius: var(--radius-sm);
+}
+
+/* Tombol bahaya (blokir) */
+.btn-danger {
+    background: var(--color-black);
+    color: var(--color-white);
+}
+
+/* =============================================
+   KARTU UMUM
+   ============================================= */
+.card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+}
+
+/* =============================================
+   GRID 4 KARTU STATISTIK
+   ============================================= */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+/* Kartu statistik individual */
+.stat-card {
+    padding: 20px;
+    position: relative;
+}
+
+/* Label kartu (huruf kapital kecil abu) */
+.stat-card-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 28px;
+}
+
+/* Kotak ikon pojok kanan atas */
+.stat-card-icon {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 30px;
+    height: 30px;
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Angka besar serif */
+.stat-card-value {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 400;
+    font-variant-numeric: lining-nums;
+    color: var(--color-text-primary);
+    line-height: 1.1;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+/* Keterangan di bawah angka */
+.stat-card-desc {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--color-text-muted);
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.stat-card-desc .badge-positive {
+    font-weight: 700;
+    color: var(--color-text-primary);
+    font-size: 11px;
+}
+
+/* Progress bar */
+.stat-progress {
+    height: 3px;
+    background: var(--color-surface);
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.stat-progress-fill {
+    height: 100%;
+    background: var(--color-black);
+    border-radius: 99px;
+}
+
+/* =============================================
+   BARIS TENGAH: grid 2 kolom (kiri lebar, kanan sempit)
+   ============================================= */
+.mid-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+/* Kolom kiri: dua kartu bertumpuk */
+.mid-left {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Kolom kanan: tiga kartu bertumpuk */
+.mid-right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* =============================================
+   KARTU GRAFIK AKTIVITAS MEMBACA
+   ============================================= */
+.chart-card {
+    padding: 22px;
+}
+
+/* Header kartu grafik */
+.chart-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    gap: 12px;
+}
+
+.chart-card-header-left {}
+
+.chart-section-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 5px;
+}
+
+.chart-card-title {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-weight: 400;
+    font-variant-numeric: lining-nums;
+    color: var(--color-text-primary);
+    line-height: 1.3;
+}
+
+/* Area header kanan: legenda + badge */
+.chart-card-header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+/* Legenda grafik */
+.chart-legend {
+    display: flex;
+    gap: 14px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--color-text-secondary);
+}
+
+.legend-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.legend-dot.black { background: var(--color-black); }
+.legend-dot.gray  { background: #b5b5b5; }
+
+/* Badge minggu */
+.badge-week {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    font-size: 9.5px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 99px;
+    letter-spacing: 0.03em;
+}
+
+/* SVG grafik */
+.chart-svg-wrapper {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.chart-svg-wrapper svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Label sumbu X */
+.chart-x-labels {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 16px;
+    margin-top: -2px;
+    margin-bottom: 16px;
+}
+
+.chart-x-label {
+    font-size: 10.5px;
+    color: var(--color-text-muted);
+    text-align: center;
+}
+
+/* Kotak info di bawah grafik */
+.chart-info-box {
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.chart-info-box svg {
+    flex-shrink: 0;
+    color: var(--color-text-muted);
+}
+
+.chart-info-text {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    flex: 1;
+    line-height: 1.5;
+}
+
+.chart-info-link {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    color: var(--color-text-primary);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.chart-info-link:hover {
+    text-decoration: underline;
+}
+
+/* =============================================
+   KARTU MODERASI
+   ============================================= */
+.moderation-card {
+    padding: 22px;
+}
+
+/* Header moderasi */
+.moderation-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 8px;
+}
+
+/* Titik merah + label perhatian */
+.moderation-alert-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-danger);
+    margin-bottom: 6px;
+}
+
+.alert-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-danger);
+    flex-shrink: 0;
+}
+
+.moderation-card-title {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-weight: 400;
+    font-variant-numeric: lining-nums;
+    color: var(--color-text-primary);
+    line-height: 1.3;
+}
+
+/* Badge "4 TERTUNDA" */
+.badge-pending {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 5px 10px;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    flex-shrink: 0;
+    align-self: flex-start;
+}
+
+/* Sub-bagian dalam kartu moderasi */
+.moderation-section {
+    margin-bottom: 22px;
+}
+
+.moderation-section:last-child {
+    margin-bottom: 0;
+}
+
+/* Header sub-bagian: judul kecil + tautan */
+.moderation-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.moderation-section-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+.moderation-link {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    transition: color 0.15s;
+}
+
+.moderation-link:hover {
+    color: var(--color-text-primary);
+    text-decoration: underline;
+}
+
+/* Grid dua kartu buku berdampingan */
+.book-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* Kartu buku individual */
+.book-item {
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Baris atas: sampul + info ISBN */
+.book-item-top {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+/* Placeholder sampul buku */
+.book-cover {
+    width: 40px;
+    height: 54px;
+    background: var(--color-border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.book-cover svg {
+    opacity: 0.4;
+}
+
+.book-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.book-isbn {
+    font-size: 9.5px;
+    color: var(--color-text-muted);
+    margin-bottom: 3px;
+    font-weight: 500;
+}
+
+/* Judul buku serif */
+.book-title {
+    font-family: var(--font-serif);
+    font-size: 13.5px;
+    font-weight: 400;
+    font-variant-numeric: lining-nums;
+    color: var(--color-text-primary);
+    line-height: 1.3;
+    margin-bottom: 4px;
+}
+
+.book-proposer {
+    font-size: 10.5px;
+    color: var(--color-text-muted);
+}
+
+/* Tombol aksi di bawah info buku */
+.book-item-actions {
+    display: flex;
+    gap: 6px;
+}
+
+/* Garis pemisah tipis antar sub-bagian */
+.moderation-divider {
+    height: 1px;
+    background: var(--color-border);
+    margin: 20px 0;
+}
+
+/* Baris laporan pelanggaran */
+.violation-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    margin-bottom: 10px;
+}
+
+.violation-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Avatar/ikon akun */
+.violation-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Info akun (kiri): username, badge, deskripsi */
+.violation-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.violation-user-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+}
+
+.violation-username {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+/* Badge merah jenis pelanggaran */
+.badge-violation {
+    background: #fee2e2;
+    color: var(--color-danger);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 2px 7px;
+    border-radius: 99px;
+    text-transform: uppercase;
+}
+
+.violation-desc {
+    font-size: 11.5px;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+/* Tombol aksi pelanggaran */
+.violation-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+/* =============================================
+   KARTU KANAN: SIARAN NOTIFIKASI
+   ============================================= */
+.notif-card {
+    padding: 18px;
+}
+
+/* Header kartu */
+.notif-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.notif-section-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 4px;
+}
+
+.notif-card-title {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    font-weight: 400;
+    font-variant-numeric: lining-nums;
+    color: var(--color-text-primary);
+}
+
+/* Badge LIVE */
+.badge-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 99px;
+    padding: 3px 9px;
+    font-size: 9.5px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    letter-spacing: 0.05em;
+}
+
+.live-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-black);
+    flex-shrink: 0;
+}
+
+/* Kotak konten siaran */
+.notif-content-box {
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    margin-bottom: 14px;
+}
+
+.notif-type-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 8px;
+}
+
+.notif-title {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    font-weight: 400;
+    font-variant-numeric: lining-nums;
+    color: var(--color-text-primary);
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.notif-quote {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+/* Statistik siaran */
+.notif-stats {
+    display: flex;
+    gap: 14px;
+}
+
+.notif-stat {
+    font-size: 11px;
+    color: var(--color-text-muted);
+}
+
+.notif-stat strong {
+    color: var(--color-text-primary);
+    font-weight: 700;
+    font-size: 12px;
+}
+
+/* =============================================
+   KARTU KANAN: DISTRIBUSI GENRE
+   ============================================= */
+.genre-card {
+    padding: 18px;
+}
+
+.genre-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.genre-section-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 4px;
+}
+
+.genre-card-title {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    font-weight: 400;
+    font-variant-numeric: lining-nums;
+    color: var(--color-text-primary);
+}
+
+.genre-period {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    align-self: flex-start;
+}
+
+/* Bar horizontal bersegmen */
+.genre-bar {
+    height: 8px;
+    border-radius: 99px;
+    overflow: hidden;
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.genre-bar-segment {
+    height: 100%;
+    transition: width 0.3s;
+}
+
+/* Daftar genre */
+.genre-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.genre-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.genre-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 3px;
+}
+
+.genre-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.genre-item-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    line-height: 1.3;
+    margin-bottom: 1px;
+}
+
+.genre-item-meta {
+    font-size: 10.5px;
+    color: var(--color-text-muted);
+}
+
+.genre-item-pct {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    flex-shrink: 0;
+}
+
+/* =============================================
+   KARTU KANAN: SISTEM & KEAMANAN
+   ============================================= */
+.system-card {
+    padding: 18px;
+}
+
+.system-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.system-section-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 4px;
+}
+
+.system-card-title {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    font-weight: 400;
+    font-variant-numeric: lining-nums;
+    color: var(--color-text-primary);
+}
+
+/* Baris status sistem */
+.system-status-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.system-status-item {
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.system-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-black);
+    flex-shrink: 0;
+}
+
+.system-status-dot.green,
+.system-status-dot.gray,
+.system-status-dot.yellow {
+    background: var(--color-black);
+}
+
+.system-status-text {
+    font-size: 11.5px;
+    color: var(--color-text-secondary);
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    line-height: 1.3;
+}
+
+.system-status-text strong {
+    color: var(--color-text-primary);
+    font-weight: 600;
+}
+
+.system-status-text span {
+    color: var(--color-text-secondary);
+    font-size: 11px;
+}
+
+/* Footer kartu sistem */
+.system-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--color-border);
+}
+
+.system-node-label {
+    font-size: 10.5px;
+    color: var(--color-text-muted);
+}
+
+.system-log-link {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--color-text-secondary);
+    transition: color 0.15s;
+}
+
+.system-log-link:hover {
+    color: var(--color-text-primary);
+}
+
+/* =============================================
+   RESPONSIF DASHBOARD
+   ============================================= */
+
+/* Di bawah 1200px: baris tengah jadi satu kolom, kartu statistik 2 kolom */
+@media (max-width: 1200px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .mid-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mid-right {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Di bawah 992px (sidebar tersembunyi) */
+@media (max-width: 992px) {
+    .mid-right {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Di bawah 768px: semua satu kolom */
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mid-right {
+        grid-template-columns: 1fr;
+    }
+
+    .page-header-actions {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .book-cards-grid {
+        grid-template-columns: 1fr;
+    }
+}
