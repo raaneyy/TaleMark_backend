@@ -273,11 +273,9 @@
                     {{-- Buku 1 --}}
                     <div class="book-item">
                         <div class="book-item-top">
-                            {{-- Placeholder sampul buku --}}
+                            {{-- Sampul buku asli --}}
                             <div class="book-cover">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5">
-                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                                </svg>
+                                <img src="{{ asset('images/books/ziarah.png') }}" alt="Sampul Ziarah Karya Iwan Simatupang">
                             </div>
                             <div class="book-info">
                                 <p class="book-isbn">ISBN 978-602-03-8821</p>
@@ -294,10 +292,9 @@
                     {{-- Buku 2 --}}
                     <div class="book-item">
                         <div class="book-item-top">
+                            {{-- Sampul buku asli --}}
                             <div class="book-cover">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5">
-                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                                </svg>
+                                <img src="{{ asset('images/books/hujan-bulan-juni.png') }}" alt="Sampul Hujan Bulan Juni">
                             </div>
                             <div class="book-info">
                                 <p class="book-isbn">ISBN 978-623-71-3310</p>
