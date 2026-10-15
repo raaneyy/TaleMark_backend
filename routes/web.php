@@ -18,3 +18,9 @@ Route::get('/admin/login', fn () => view('admin.login'));
  * Contoh: Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->middleware('auth');
  */
 Route::get('/admin/dashboard', fn () => view('admin.dashboard'))->name('admin.dashboard');
+
+/*
+ * Route sementara untuk melihat tampilan Validasi & Kurasi Buku Manual (tampilan saja).
+ * Nanti akan diganti oleh tim backend dengan middleware auth dan controller yang sesuai.
+ */
+Route::get('/admin/validasi-buku', fn () => view('admin.validasi-buku'))->name('admin.validasi-buku');

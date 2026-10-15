@@ -64,8 +64,8 @@
                 </li>
 
                 {{-- Menu Validasi Buku --}}
-                <li class="sidebar-menu-item {{ request()->routeIs('admin.validasi*') ? 'active' : '' }}">
-                    <a href="#" id="menu-validasi">
+                <li class="sidebar-menu-item {{ request()->routeIs('admin.validasi-buku') ? 'active' : '' }}">
+                    <a href="{{ route('admin.validasi-buku') }}" id="menu-validasi">
                         <span class="menu-icon">
                             {{-- Ikon daftar centang --}}
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -157,6 +157,9 @@
 
             {{-- Info pengguna di kanan --}}
             <div class="topbar-right">
+                {{-- Kolom pencarian opsional untuk halaman tertentu --}}
+                @yield('topbar_search')
+
                 <span class="topbar-username">AGUS</span>
                 <button class="topbar-user-btn" aria-label="Profil pengguna">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

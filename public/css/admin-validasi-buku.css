@@ -1,0 +1,727 @@
+/* ==========================================================================
+   admin-validasi-buku.css
+   Gaya khusus untuk halaman "Validasi & Kurasi Buku Manual" TaleMark
+   Mengikuti variabel dan fondasi dari admin-layout.css
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Kolom Pencarian di Topbar (diisi lewat @section('topbar_search'))
+   -------------------------------------------------------------------------- */
+.topbar-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 6px 12px;
+    margin-right: 4px;
+    transition: border-color 0.15s, background-color 0.15s;
+}
+
+.topbar-search:focus-within {
+    border-color: #b5b5b0;
+    background: var(--color-white);
+}
+
+.topbar-search svg {
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+}
+
+.topbar-search-input {
+    border: none;
+    background: transparent;
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    color: var(--color-text-primary);
+    width: 220px;
+    outline: none;
+}
+
+.topbar-search-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   2. Header Halaman
+   -------------------------------------------------------------------------- */
+.curation-header {
+    margin-bottom: 34px; /* Jarak wajar antara judul dan tab bar (32-40px) */
+}
+
+/* Label kecil kapital dengan titik hitam */
+.curation-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 8px;
+}
+
+/* Titik hitam solid di depan teks label */
+.curation-bullet {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-black);
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+/* Judul besar serif */
+.curation-title {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 400;
+    font-variant-numeric: lining-nums;
+    color: var(--color-text-primary);
+    line-height: 1.2;
+    letter-spacing: -0.3px;
+    margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   3. Bar Tab dan Pencarian (Kartu abu muda sudut membulat)
+   -------------------------------------------------------------------------- */
+.filter-bar {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+/* Grup tab di kiri */
+.tab-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Tombol tab individual */
+.tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.tab-btn:hover:not(.active) {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+/* Tab aktif: latar hitam, teks putih */
+.tab-btn.active {
+    background: var(--color-black);
+    color: var(--color-white);
+}
+
+/* Pill badge angka di dalam tab */
+.tab-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    background: #dedcd7;
+    color: #4a4a4a;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+/* Badge saat tab aktif */
+.tab-btn.active .tab-badge {
+    background: #333333;
+    color: #ffffff;
+}
+
+/* Kolom pencarian judul di kanan */
+.filter-search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    padding: 7px 14px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.filter-search-box svg {
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+}
+
+.filter-search-input {
+    border: none;
+    background: transparent;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--color-text-primary);
+    width: 190px;
+    outline: none;
+}
+
+.filter-search-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   4. Baris Pilih Semua (Kartu putih tipis)
+   -------------------------------------------------------------------------- */
+.select-all-bar {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 12px 20px;
+    margin-top: 14px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.select-all-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.select-all-text {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #262626;
+}
+
+.select-all-right {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+/* Checkbox umum */
+.card-checkbox {
+    width: 17px;
+    height: 17px;
+    border-radius: 4px;
+    border: 1.5px solid #b8b8b3;
+    accent-color: var(--color-black);
+    cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   5. Daftar Kartu Pengajuan Buku
+   -------------------------------------------------------------------------- */
+.book-cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Kartu buku putih sudut membulat besar dengan bayangan halus */
+.book-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 22px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.book-card:hover {
+    border-color: #d8d8d3;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+/* Checkbox di kiri atas kartu */
+.card-select-wrapper {
+    padding-top: 2px;
+    flex-shrink: 0;
+}
+
+/* Kotak placeholder sampul buku (120x165px) */
+.book-cover {
+    width: 120px;
+    height: 165px;
+    border-radius: var(--radius-sm);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+    background: #e8e6e1;
+}
+
+/* Gambar sampul asli */
+.book-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Variasi warna kertas buku placeholder */
+.book-cover-1 {
+    background: linear-gradient(140deg, #ece9e2 0%, #e0dcd5 100%);
+}
+
+.book-cover-2 {
+    background: linear-gradient(140deg, #e7ded0 0%, #d8cdbe 100%);
+}
+
+.book-cover-3 {
+    background: linear-gradient(140deg, #e3e0db 0%, #d3cfc8 100%);
+}
+
+/* Elemen estetika buku placeholder */
+.cover-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 12px 10px 28px;
+}
+
+.cover-mock-title {
+    font-family: var(--font-serif);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: rgba(30, 30, 30, 0.65);
+    line-height: 1.25;
+    max-height: 75px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+
+.cover-mock-deco {
+    width: 24px;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.2);
+    margin: 2px 0;
+}
+
+/* Chip info format di pojok kiri bawah sampul */
+.cover-chip {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a1a;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2.5px 7px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+    z-index: 2;
+    line-height: 1.2;
+}
+
+/* Kolom konten kartu di kanan */
+.book-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Baris atas: Kategori • Penerbit & Badge Status */
+.book-meta-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 4px;
+}
+
+.book-category {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+/* Pill status abu-abu */
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: #dedcd7;
+    color: #444444;
+}
+
+/* Judul buku serif ukuran besar */
+.book-title {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    font-weight: 400;
+    font-variant-numeric: lining-nums;
+    color: var(--color-text-primary);
+    line-height: 1.3;
+    margin-bottom: 2px;
+}
+
+/* Nama penulis buku (abu-abu) */
+.book-author {
+    font-size: 13.5px;
+    color: var(--color-text-secondary);
+    margin-bottom: 14px;
+}
+
+/* Kotak info abu muda 3 kolom sudut membulat */
+.book-info-box {
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    padding: 12px 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.info-col {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.info-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+.info-value {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Khusus ISBN-13 memakai font monospace */
+.info-isbn {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 12px;
+    letter-spacing: -0.2px;
+}
+
+/* Baris Aksi */
+.book-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+/* Tombol teks tanpa latar: Bandingkan Duplikat */
+.btn-compare {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: none;
+    border: none;
+    padding: 6px 0;
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #333333;
+    cursor: pointer;
+    transition: color 0.15s;
+    text-decoration: none;
+}
+
+.btn-compare svg {
+    color: #555555;
+    flex-shrink: 0;
+}
+
+.btn-compare:hover {
+    color: var(--color-black);
+    text-decoration: underline;
+}
+
+/* Grup tombol di sebelah kanan */
+.action-right {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Tombol Tolak: latar abu, teks merah */
+.btn-reject {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 20px;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    border: 1px solid transparent;
+    color: var(--color-danger);
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.15s, opacity 0.15s;
+}
+
+.btn-reject:hover {
+    background: #e6e4df;
+    opacity: 0.9;
+}
+
+/* Tombol Setujui & Tambah ke Katalog: latar hitam, teks putih */
+.btn-approve {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border-radius: var(--radius-sm);
+    background: var(--color-black);
+    border: 1px solid var(--color-black);
+    color: var(--color-white);
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.15s;
+}
+
+.btn-approve svg {
+    flex-shrink: 0;
+}
+
+.btn-approve:hover {
+    opacity: 0.85;
+}
+
+/* Keterangan buku yang sudah disetujui */
+.text-approved {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+}
+
+.text-approved svg {
+    color: var(--color-success);
+}
+
+/* Pesan saat tidak ada buku yang cocok dengan pencarian / tab filter */
+.empty-state {
+    display: none;
+    text-align: center;
+    padding: 48px 24px;
+    background: var(--color-white);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    color: var(--color-text-secondary);
+}
+
+.empty-state-title {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    color: var(--color-text-primary);
+    margin-bottom: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   6. Paginasi
+   -------------------------------------------------------------------------- */
+.curation-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 26px;
+    margin-bottom: 20px;
+    padding: 0 4px;
+}
+
+.pagination-text {
+    font-size: 12.5px;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+.pagination-buttons {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Tombol angka atau navigasi panah */
+.page-btn {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    font-weight: 600;
+    border: 1px solid var(--color-border);
+    background: var(--color-white);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.page-btn:hover:not(.active):not(:disabled) {
+    background: var(--color-surface);
+}
+
+/* Tombol aktif warna hitam */
+.page-btn.active {
+    background: var(--color-black);
+    color: var(--color-white);
+    border-color: var(--color-black);
+}
+
+.page-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   7. Responsif
+   -------------------------------------------------------------------------- */
+
+/* Di bawah 992px: kartu menjadi susunan vertikal, info 3 kolom jadi 1 kolom */
+@media (max-width: 992px) {
+    .book-card {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .card-select-wrapper {
+        align-self: flex-start;
+    }
+
+    .book-cover {
+        width: 100px;
+        height: 140px;
+    }
+
+    .book-info-box {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
+/* Di bawah 768px: tombol aksi ditumpuk penuh lebar, tab bar scrollable */
+@media (max-width: 768px) {
+    .curation-title {
+        font-size: 26px;
+    }
+
+    .topbar-search {
+        display: none; /* Sembunyikan pencarian topbar di mobile agar tidak sempit */
+    }
+
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .tab-group {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .filter-search-box {
+        width: 100%;
+    }
+
+    .filter-search-input {
+        width: 100%;
+    }
+
+    .select-all-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .book-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .action-right {
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+    }
+
+    .btn-reject,
+    .btn-approve {
+        width: 100%;
+    }
+
+    .curation-pagination {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
