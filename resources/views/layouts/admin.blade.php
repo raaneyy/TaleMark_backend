@@ -81,8 +81,8 @@
                 </li>
 
                 {{-- Menu Laporan Akun --}}
-                <li class="sidebar-menu-item {{ request()->routeIs('admin.laporan*') ? 'active' : '' }}">
-                    <a href="#" id="menu-laporan">
+                <li class="sidebar-menu-item {{ request()->routeIs('admin.laporan-akun') ? 'active' : '' }}">
+                    <a href="{{ route('admin.laporan-akun') }}" id="menu-laporan">
                         <span class="menu-icon">
                             {{-- Ikon perisai akun --}}
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
