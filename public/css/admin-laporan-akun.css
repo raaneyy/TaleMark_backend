@@ -81,14 +81,29 @@
     flex-shrink: 0;
 }
 
+.stat-card-icon svg {
+    display: block;
+    overflow: visible;
+}
+
 .stat-card-icon.icon-danger {
     background: #fedcdb;
     color: #9B1C1C;
 }
 
+.stat-card-icon.icon-danger svg {
+    height: 22px;
+    width: auto;
+}
+
 .stat-card-icon.icon-neutral {
     background: #e6e4dc;
-    color: #4A4A4A;
+    color: #6B665C;
+}
+
+.stat-card-icon.icon-neutral svg {
+    height: 24px;
+    width: auto;
 }
 
 .stat-card-icon.icon-dark {

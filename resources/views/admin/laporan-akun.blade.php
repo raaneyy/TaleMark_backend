@@ -78,12 +78,7 @@
             <span class="stat-card-label">PERLU DITINJAU SEGERA</span>
             <div class="stat-card-icon icon-danger">
                 {{-- Ikon lonceng (peringatan) --}}
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-                    <path d="M12 7v4"/>
-                    <path d="M12 14h.01"/>
-                </svg>
+                <svg viewBox="0 0 24 30" fill="none" stroke="currentColor"><path d="M4.5 22.5V13a7.5 7.5 0 0 1 15 0v9.5" stroke-width="3"/><path d="M0 23.5H24" stroke-width="3"/><path d="M9.6 4.4L10.5 1.2H13.5L14.4 4.4Z" fill="currentColor" stroke="currentColor" stroke-width="0.8" stroke-linejoin="round"/><path d="M9 27.4H15L13.8 29.2H10.2Z" fill="currentColor" stroke="currentColor" stroke-width="0.8" stroke-linejoin="round"/><rect x="10.5" y="9.5" width="3" height="7.5" rx="1" fill="currentColor" stroke="none"/><rect x="10.5" y="18.6" width="3" height="2.6" rx="1" fill="currentColor" stroke="none"/></svg>
             </div>
         </div>
         <div class="stat-card-number-row">
@@ -99,12 +94,7 @@
             <span class="stat-card-label">AKUN BANNED</span>
             <div class="stat-card-icon icon-neutral">
                 {{-- Ikon gembok dengan jam --}}
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M7.5 10V7a3.5 3.5 0 0 1 7 0v3"/>
-                    <path d="M15 21H6a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1"/>
-                    <circle cx="18" cy="18" r="4"/>
-                    <path d="M18 16.5V18l1 1"/>
-                </svg>
+                <svg viewBox="0 0 29 33" fill="none" stroke="currentColor"><path d="M5.5 12V8a6.5 6.5 0 0 1 13 0V12" stroke-width="3"/><path d="M0 12H22a1.5 1.5 0 0 1 1.5 1.5V16" stroke-width="3"/><path d="M1.5 12V30.5H12.5" stroke-width="3"/><path fill="currentColor" stroke="none" fill-rule="evenodd" d="M14.5 25.5a7 7 0 1 0 14 0a7 7 0 1 0-14 0ZM20.55 21.8H22.45V25.09L25.05 27.5L23.75 28.9L20.55 25.92Z"/></svg>
             </div>
         </div>
         <div class="stat-card-number-row">
