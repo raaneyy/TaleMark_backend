@@ -30,3 +30,9 @@ Route::get('/admin/validasi-buku', fn () => view('admin.validasi-buku'))->name('
  * Nanti akan diganti oleh tim backend dengan middleware auth dan controller yang sesuai.
  */
 Route::get('/admin/laporan-akun', fn () => view('admin.laporan-akun'))->name('admin.laporan-akun');
+
+/*
+ * Route sementara untuk melihat tampilan Siaran Notifikasi (tampilan saja).
+ * Nanti akan diganti oleh tim backend dengan middleware auth dan controller yang sesuai.
+ */
+Route::get('/admin/siaran-notifikasi', fn () => view('admin.siaran-notifikasi'))->name('admin.siaran-notifikasi');

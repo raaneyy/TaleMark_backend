@@ -4,7 +4,7 @@
 --}}
 @extends('layouts.admin')
 
-@section('title', 'Validasi & Kurasi Buku Manual')
+@section('title', 'Validasi & Tambah Buku Manual')
 
 {{-- CSS khusus halaman validasi buku --}}
 @section('styles')
@@ -15,9 +15,9 @@
 @section('topbar_search')
     <div class="topbar-search">
         {{-- Ikon kaca pembesar --}}
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7.5"></circle>
+            <line x1="16.5" y1="16.5" x2="21.5" y2="21.5"></line>
         </svg>
         {{-- TODO: sambungkan ke fitur pencarian global backend --}}
         <input type="text" placeholder="Cari ISBN, judul, kurator..." class="topbar-search-input" aria-label="Cari ISBN, judul, kurator">
@@ -83,14 +83,8 @@
      HEADER HALAMAN
      ============================================= --}}
 <div class="curation-header">
-    {{-- Label kecil kapital dengan titik hitam --}}
-    <p class="curation-label">
-        <span class="curation-bullet"></span>
-        KATALOG KURATORIAL &bull; KONSOL VERIFIKASI
-    </p>
-
     {{-- Judul besar serif --}}
-    <h1 class="curation-title">Validasi &amp; Kurasi Buku Manual</h1>
+    <h1 class="curation-title">Validasi &amp; Tambah Buku Manual</h1>
 </div>
 
 {{-- =============================================
@@ -117,9 +111,9 @@
 
     {{-- Kolom pencarian judul --}}
     <div class="filter-search-box">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7.5"></circle>
+            <line x1="16.5" y1="16.5" x2="21.5" y2="21.5"></line>
         </svg>
         <input type="text" id="searchBookTitle" class="filter-search-input" placeholder="Cari berdasarkan judul" aria-label="Cari berdasarkan judul">
     </div>
@@ -133,7 +127,6 @@
         <input type="checkbox" id="selectAllCheckbox" class="card-checkbox" aria-label="Pilih semua entri dalam antrean">
         <span class="select-all-text">PILIH SEMUA ENTRI DALAM ANTREAN</span>
     </label>
-    <span class="select-all-right">Menampilkan 3 entri prioritas</span>
 </div>
 
 {{-- =============================================
@@ -226,12 +219,13 @@
 
                             {{-- TODO: sambungkan ke route backend untuk setujui & tambah ke katalog --}}
                             <button type="button" class="btn-approve">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                    <line x1="12" y1="8" x2="12" y2="16"></line>
-                                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M8 7H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"></path>
+                                    <rect x="8" y="2" width="13" height="15" rx="2"></rect>
+                                    <line x1="14.5" y1="6.5" x2="14.5" y2="12.5"></line>
+                                    <line x1="11.5" y1="9.5" x2="17.5" y2="9.5"></line>
                                 </svg>
-                                <span>+ Setujui &amp; Tambah ke Katalog</span>
+                                <span class="btn-approve-text">+ Setujui &amp; Tambah ke<br>Katalog</span>
                             </button>
                         @endif
                     </div>

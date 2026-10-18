@@ -336,7 +336,12 @@ a {
    ============================================= */
 .page-content {
     flex: 1;
-    padding: 28px 28px 0;
+    padding: 28px 28px 32px;
+}
+
+/* Jika footer halaman ada, nolkan padding bawah konten agar jarak sama persis */
+.page-content:has(+ .page-footer) {
+    padding-bottom: 0;
 }
 
 /* =============================================
@@ -423,7 +428,11 @@ a {
 
 @media (max-width: 768px) {
     .page-content {
-        padding: 20px 16px 0;
+        padding: 20px 16px 24px;
+    }
+
+    .page-content:has(+ .page-footer) {
+        padding-bottom: 0;
     }
 
     .page-footer {

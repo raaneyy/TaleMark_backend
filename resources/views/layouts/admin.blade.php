@@ -96,8 +96,8 @@
                 </li>
 
                 {{-- Menu Siaran Notifikasi --}}
-                <li class="sidebar-menu-item {{ request()->routeIs('admin.siaran*') ? 'active' : '' }}">
-                    <a href="#" id="menu-siaran">
+                <li class="sidebar-menu-item {{ request()->routeIs('admin.siaran-notifikasi') ? 'active' : '' }}">
+                    <a href="{{ route('admin.siaran-notifikasi') }}" id="menu-siaran">
                         <span class="menu-icon">
                             {{-- Ikon megafon siaran --}}
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -114,7 +114,8 @@
             </ul>
         </nav>
 
-        {{-- Badge versi di footer sidebar --}}
+        {{-- Badge versi di footer sidebar (hanya tampil di dashboard) --}}
+        @if (request()->routeIs('admin.dashboard'))
         <div class="sidebar-footer">
             <div class="sidebar-version-badge">
                 <div class="sidebar-version-info">
@@ -128,6 +129,7 @@
                 </svg>
             </div>
         </div>
+        @endif
 
     </aside>
     {{-- /sidebar --}}
@@ -176,7 +178,8 @@
             @yield('content')
         </main>
 
-        {{-- FOOTER --}}
+        {{-- FOOTER (hanya tampil di dashboard) --}}
+        @if (request()->routeIs('admin.dashboard'))
         <footer class="page-footer" role="contentinfo">
             <div class="footer-brand">
                 <strong>TaleMark</strong>
@@ -188,6 +191,7 @@
                 <a href="#">Bantuan Meja Redaksi</a>
             </nav>
         </footer>
+        @endif
 
     </div>
     {{-- /main-area --}}
