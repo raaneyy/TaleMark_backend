@@ -181,6 +181,16 @@ body {
     box-shadow: none;
 }
 
+/* Sembunyikan ikon reveal bawaan browser (seperti di Microsoft Edge) agar tidak dobel dengan tombol custom */
+.form-input::-ms-reveal,
+.form-input::-ms-clear,
+input::-ms-reveal,
+input::-ms-clear {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
 /* ----- Wrapper input password (agar ikon bisa di-overlay) ----- */
 .input-password-wrapper {
     position: relative;
@@ -196,20 +206,28 @@ body {
 .btn-toggle-password {
     position: absolute;
     right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
     background: none;
     border: none;
     cursor: pointer;
     color: var(--clr-label);
-    padding: 4px;
+    padding: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, opacity 0.2s ease;
     line-height: 0;
+    border-radius: 6px;
 }
 
 .btn-toggle-password:hover {
     color: var(--clr-text);
+}
+
+.btn-toggle-password:focus-visible {
+    outline: 2px solid var(--clr-accent);
+    outline-offset: 2px;
 }
 
 /* ----- Pesan error validasi (browser & server) ----- */
