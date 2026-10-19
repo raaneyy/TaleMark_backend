@@ -150,11 +150,7 @@
     <div class="report-filter-controls">
         {{-- TODO: sambungkan pengurutan ke route backend --}}
         <div class="select-btn-wrapper">
-            <svg class="select-btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="21" y1="6" x2="3" y2="6"></line>
-                <line x1="17" y1="12" x2="7" y2="12"></line>
-                <line x1="13" y1="18" x2="11" y2="18"></line>
-            </svg>
+            <svg class="select-btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h13M3 18h6"/></svg>
             <select class="select-btn" id="selectUrutan" aria-label="Urutan laporan">
                 <option value="prioritas">Urutan: Prioritas Risiko</option>
                 <option value="terbaru">Terbaru</option>
@@ -164,9 +160,7 @@
 
         {{-- TODO: sambungkan kanal forum ke route backend --}}
         <div class="select-btn-wrapper">
-            <svg class="select-btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-            </svg>
+            <svg class="select-btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M6 12h12M10 18h4"/></svg>
             <select class="select-btn" id="selectKanal" aria-label="Semua Kanal Forum">
                 <option value="semua">Semua Kanal Forum</option>
                 <option value="feed">Feed Sastra</option>

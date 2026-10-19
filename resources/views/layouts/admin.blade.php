@@ -54,7 +54,7 @@
                     <a href="{{ route('admin.dashboard') }}" id="menu-statistik">
                         <span class="menu-icon">
                             {{-- Ikon buku terbuka --}}
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
                                 <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
                             </svg>
@@ -67,13 +67,12 @@
                 <li class="sidebar-menu-item {{ request()->routeIs('admin.validasi-buku') ? 'active' : '' }}">
                     <a href="{{ route('admin.validasi-buku') }}" id="menu-validasi">
                         <span class="menu-icon">
-                            {{-- Ikon daftar centang --}}
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="3" y="3" width="18" height="18" rx="2.5"/>
-                                <line x1="7" y1="8" x2="11" y2="8"/>
-                                <line x1="7" y1="12" x2="11" y2="12"/>
-                                <line x1="7" y1="16" x2="11" y2="16"/>
-                                <path d="M14 12.5l2 2.5 4-4.5"/>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2.5" y="2.5" width="19" height="19" rx="2.5"/>
+                                <line x1="6" y1="7.5" x2="9.5" y2="7.5"/>
+                                <line x1="6" y1="12" x2="9.5" y2="12"/>
+                                <line x1="6" y1="16.5" x2="9.5" y2="16.5"/>
+                                <path d="M13 12.5L15.5 15L19 9.5"/>
                             </svg>
                         </span>
                         Validasi Buku
@@ -84,11 +83,10 @@
                 <li class="sidebar-menu-item {{ request()->routeIs('admin.laporan-akun') ? 'active' : '' }}">
                     <a href="{{ route('admin.laporan-akun') }}" id="menu-laporan">
                         <span class="menu-icon">
-                            {{-- Ikon perisai akun --}}
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 3a12 12 0 0 0 7 2.5V11c0 4.8-3.2 9.2-7 10.5A12 12 0 0 1 5 11V5.5A12 12 0 0 0 12 3z"/>
-                                <circle cx="12" cy="10" r="2.8"/>
-                                <path d="M7 16.5c1.2 2 3 3 5 3s3.8-1 5-3"/>
+                            <svg width="20" height="20" viewBox="2.5 1 19 23" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 3L5 5.5V11.5C5 16.2 8.5 19.8 12 21.5C15.5 19.8 19 16.2 19 11.5V5.5L12 3Z"/>
+                                <circle cx="12" cy="9.5" r="2.4"/>
+                                <path d="M6.5 16.5C8.5 14.8 10.2 14.5 12 14.5C13.8 14.5 15.5 14.8 17.5 16.5"/>
                             </svg>
                         </span>
                         Laporan Akun
@@ -99,13 +97,13 @@
                 <li class="sidebar-menu-item {{ request()->routeIs('admin.siaran-notifikasi') ? 'active' : '' }}">
                     <a href="{{ route('admin.siaran-notifikasi') }}" id="menu-siaran">
                         <span class="menu-icon">
-                            {{-- Ikon megafon siaran --}}
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M3 11v2a1 1 0 0 0 1 1h2l6 3.5v-11L6 10H4a1 1 0 0 0-1 1z"/>
-                                <path d="M8 14.5v3.5a1 1 0 0 0 1 1h.5"/>
-                                <line x1="17" y1="7.5" x2="20" y2="4.5"/>
-                                <line x1="18" y1="12" x2="22" y2="12"/>
-                                <line x1="17" y1="16.5" x2="20" y2="19.5"/>
+                            <svg width="20" height="20" viewBox="0.5 1.5 23 21" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2.5 11C2.5 10 3.2 9.5 4 9.5H6L13.5 6V18L6 14.5H4C3.2 14.5 2.5 14 2.5 13V11Z"/>
+                                <path d="M13.5 8C15 9.5 15.5 11 15.5 12C15.5 13 15 14.5 13.5 16"/>
+                                <line x1="7" y1="14.5" x2="7" y2="20"/>
+                                <line x1="17" y1="6.5" x2="20.5" y2="4"/>
+                                <line x1="18" y1="12" x2="22.5" y2="12"/>
+                                <line x1="17" y1="17.5" x2="20.5" y2="20"/>
                             </svg>
                         </span>
                         Siaran Notifikasi

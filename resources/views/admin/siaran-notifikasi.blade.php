@@ -29,13 +29,7 @@
     {{-- Header kartu: Kotak ikon + Judul --}}
     <div class="notif-card-header">
         <div class="notif-card-icon" aria-hidden="true">
-            {{-- Ikon daftar dengan pensil --}}
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="4" y1="6" x2="14" y2="6"></line>
-                <line x1="4" y1="12" x2="10" y2="12"></line>
-                <line x1="4" y1="18" x2="14" y2="18"></line>
-                <path d="M15 4l4 4-7 7H8v-4l7-7z"></path>
-            </svg>
+            <svg viewBox="0 0 27 24" fill="currentColor"><rect x="0" y="0" width="17" height="3" rx="0.5"/><rect x="0" y="6" width="17" height="3" rx="0.5"/><rect x="0" y="12" width="11" height="3" rx="0.5"/><path d="M13.5 24V20.75L23.15 11.1Q23.75 10.5 24.35 11.1L26.4 13.15Q27 13.75 26.4 14.35L16.75 24Z"/><path d="M16.4 21.2L20.4 17.2" stroke="#fff" stroke-width="1.9" stroke-linecap="round" fill="none"/></svg>
         </div>
         <h2 class="notif-card-title">Form Pembuatan Notifikasi</h2>
     </div>
@@ -120,11 +114,7 @@
         {{-- Tombol Aksi di Kanan Bawah --}}
         <div class="form-actions">
             <button type="submit" id="btnSubmit" class="btn-send">
-                {{-- Ikon pesawat kertas --}}
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                </svg>
+                <svg viewBox="0 0 24 20.3" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M0 0L24 10L0 20.3ZM2.8 4L17.5 10L2.8 16ZM2.8 8.3L10.5 10L2.8 12Z"/></svg>
                 <span id="btnSubmitText">Kirim Siaran Notifikasi Sekarang</span>
             </button>
         </div>

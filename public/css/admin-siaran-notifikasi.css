@@ -56,8 +56,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-text-primary);
+    color: #1B1B1B;
     flex-shrink: 0;
+}
+
+.notif-card-icon svg {
+    width: 22px;
+    height: auto;
+    display: block;
 }
 
 .notif-card-title {
@@ -262,25 +268,25 @@
 .btn-send {
     height: 72px;
     padding: 0 36px;
-    background-color: var(--color-black);
-    color: var(--color-white);
+    background-color: #000;
+    color: #fff;
     border: none;
     border-radius: var(--radius-lg);
     font-family: var(--font-sans);
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 500;
     display: inline-flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     cursor: pointer;
     white-space: nowrap;
     transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 .btn-send:hover {
-    background-color: #262626;
+    background-color: #1a1a1a;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .btn-send:active {
@@ -289,7 +295,11 @@
 }
 
 .btn-send svg {
+    width: 22px;
+    height: auto;
+    display: block;
     flex-shrink: 0;
+    color: #fff;
 }
 
 /* --------------------------------------------------------------------------
