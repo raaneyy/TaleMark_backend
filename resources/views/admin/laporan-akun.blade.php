@@ -23,7 +23,6 @@
             'username'       => '@bot_promobuku_99',
             'inisial'        => 'B',
             'terdaftar'      => '2 hari lalu',
-            'tingkat_risiko' => 'TINGGI',
             'pelapor_count'  => 14,
             'alasan'         => 'Spam tautan affiliate ilegal di kolom komentar feed sastra',
             'bukti'          => '45 komentar serupa terdeteksi dalam 1 jam secara paralel.',
@@ -35,7 +34,6 @@
             'username'       => '@pembaca_kasar',
             'inisial'        => 'P',
             'terdaftar'      => '3 bulan lalu',
-            'tingkat_risiko' => 'SEDANG',
             'pelapor_count'  => 6,
             'alasan'         => 'Komentar bernada pelecehan terhadap penulis di kolom ulasan buku',
             'bukti'          => '8 komentar dengan ujaran kebencian ditandai oleh pembaca lain.',
@@ -47,12 +45,47 @@
             'username'       => '@kutipan_ulang',
             'inisial'        => 'K',
             'terdaftar'      => '1 bulan lalu',
-            'tingkat_risiko' => 'RENDAH',
             'pelapor_count'  => 2,
             'alasan'         => 'Kutipan dibagikan berulang tanpa atribusi penulis asli',
             'bukti'          => '3 kutipan duplikat diunggah dalam kurun waktu 15 menit.',
             'kategori'       => 'spam',
             'status'         => 'selesai',
+        ],
+        [
+            'id'             => 'USR-5519',
+            'username'       => '@toko_buku_bajakan',
+            'inisial'        => 'T',
+            'terdaftar'      => '2 minggu lalu',
+            'pelapor_count'  => 23,
+            'alasan'         => 'Penyebaran tautan download PDF bajakan berbayar secara masif di forum sastra',
+            'bukti'          => '18 tautan unduhan ilegal disematkan berulang di berbagai ulasan buku best seller.',
+            'kategori'       => 'spam',
+            'status'         => 'banned',
+            'banned_until'   => '15 November 2026, 23:59 WIB',
+        ],
+        [
+            'id'             => 'USR-8204',
+            'username'       => '@ujaran_kebencian_99',
+            'inisial'        => 'U',
+            'terdaftar'      => '4 bulan lalu',
+            'pelapor_count'  => 31,
+            'alasan'         => 'Serangan personal, ujaran diskriminasi SARA terhadap penulis fiksi sejarah',
+            'bukti'          => '14 tangkapan layar komentar provokatif telah diverifikasi oleh tim kurator.',
+            'kategori'       => 'sara',
+            'status'         => 'banned',
+            'banned_until'   => '31 Desember 2026, 18:00 WIB',
+        ],
+        [
+            'id'             => 'USR-6731',
+            'username'       => '@kloning_resensi',
+            'inisial'        => 'K',
+            'terdaftar'      => '1 bulan lalu',
+            'pelapor_count'  => 11,
+            'alasan'         => 'Scraping dan plagiasi ulasan pembaca lain secara otomatis untuk manipulasi rating',
+            'bukti'          => '35 ulasan identik kata demi kata disalin dari kurator resmi TaleMark.',
+            'kategori'       => 'spam',
+            'status'         => 'banned',
+            'banned_until'   => '28 Oktober 2026, 12:00 WIB',
         ],
     ];
 @endphp
@@ -73,7 +106,7 @@
 <div class="report-stats-grid">
 
     {{-- Kartu 1: Perlu Ditinjau Segera --}}
-    <div class="stat-card">
+    <div class="stat-card" data-stat-target="perlu-ditinjau" role="button" tabindex="0" title="Klik untuk memfilter: Laporan Baru Membutuhkan Review">
         <div class="stat-card-top">
             <span class="stat-card-label">PERLU DITINJAU SEGERA</span>
             <div class="stat-card-icon icon-danger">
@@ -89,7 +122,7 @@
     </div>
 
     {{-- Kartu 2: Akun Banned --}}
-    <div class="stat-card">
+    <div class="stat-card" data-stat-target="banned" role="button" tabindex="0" title="Klik untuk memfilter: Akun Dalam Penangguhan Sementara">
         <div class="stat-card-top">
             <span class="stat-card-label">AKUN BANNED</span>
             <div class="stat-card-icon icon-neutral">
@@ -105,7 +138,7 @@
     </div>
 
     {{-- Kartu 3: Data --}}
-    <div class="stat-card">
+    <div class="stat-card" data-stat-target="selesai" role="button" tabindex="0" title="Klik untuk memfilter: Kasus Diselesaikan Bulan Ini">
         <div class="stat-card-top">
             <span class="stat-card-label">DATA</span>
             <div class="stat-card-icon icon-dark">
@@ -118,7 +151,6 @@
         </div>
         <div class="stat-card-number-row">
             <span class="stat-card-number">142</span>
-            <span class="stat-card-badge text-muted">98.4% akurat</span>
         </div>
         <h3 class="stat-card-title">Kasus Diselesaikan Bulan Ini</h3>
     </div>
@@ -133,13 +165,19 @@
     {{-- Tab pill di sisi kiri --}}
     <div class="report-tab-group" role="tablist" aria-label="Kategori laporan">
         <button type="button" class="report-tab-btn active" data-filter="semua">
-            Semua Laporan (12)
+            Semua Laporan
+        </button>
+        <button type="button" class="report-tab-btn" data-filter="perlu-ditinjau">
+            Perlu Ditinjau (12)
         </button>
         <button type="button" class="report-tab-btn" data-filter="spam">
             Spam &amp; Bot (6)
         </button>
         <button type="button" class="report-tab-btn" data-filter="sara">
             Kutipan SARA / Pelecehan (4)
+        </button>
+        <button type="button" class="report-tab-btn" data-filter="banned">
+            Akun Banned (5)
         </button>
         <button type="button" class="report-tab-btn" data-filter="selesai">
             Selesai
@@ -178,7 +216,7 @@
 <div class="report-cards-list" id="reportCardsList">
 
     @foreach ($laporanAkun as $item)
-        <div class="report-card"
+        <div class="report-card {{ $item['status'] === 'banned' ? 'report-card--banned' : '' }}"
              data-id="{{ $item['id'] }}"
              data-kategori="{{ $item['kategori'] }}"
              data-status="{{ $item['status'] }}"
@@ -188,22 +226,13 @@
             <div class="report-card-top">
                 <div class="report-user-info">
                     {{-- Avatar inisial huruf --}}
-                    <div class="report-avatar {{ $item['tingkat_risiko'] === 'TINGGI' ? 'avatar-danger' : 'avatar-neutral' }}">
+                    <div class="report-avatar {{ $item['status'] === 'banned' ? 'avatar-banned' : (($item['tingkat_risiko'] ?? '') === 'TINGGI' ? 'avatar-danger' : 'avatar-neutral') }}">
                         {{ $item['inisial'] }}
                     </div>
 
                     <div class="report-user-meta">
                         <div class="report-user-row">
                             <span class="report-username">{{ $item['username'] }}</span>
-
-                            {{-- Badge tingkat risiko --}}
-                            @if ($item['tingkat_risiko'] === 'TINGGI')
-                                <span class="risk-badge risk-high">TINGKAT RISIKO: TINGGI</span>
-                            @elseif ($item['tingkat_risiko'] === 'SEDANG')
-                                <span class="risk-badge risk-medium">TINGKAT RISIKO: SEDANG</span>
-                            @else
-                                <span class="risk-badge risk-low">TINGKAT RISIKO: RENDAH</span>
-                            @endif
                         </div>
 
                         <p class="report-user-sub">
@@ -248,6 +277,23 @@
                     <p class="report-completed-text">
                         Laporan selesai: akun sudah diberi warning.
                     </p>
+                @elseif ($item['status'] === 'banned')
+                    {{-- Keterangan jika akun sedang dalam penangguhan / banned --}}
+                    <div class="report-banned-container">
+                        <div class="report-banned-text">
+                            <span class="report-banned-badge">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                                BANNED SEMENTARA
+                            </span>
+                            <span>Akses dibekukan hingga: <strong>{{ $item['banned_until'] ?? '30 November 2026, 23:59 WIB' }}</strong></span>
+                        </div>
+                        <button type="button" class="btn-action btn-ignore btn-unban" data-id="{{ $item['id'] }}" data-username="{{ $item['username'] }}" title="Buka penangguhan akun ini">
+                            Buka Blokir
+                        </button>
+                    </div>
                 @else
                     {{-- Tiga tombol aksi jika masih baru --}}
                     <div class="report-btn-group">
@@ -256,8 +302,8 @@
                             Abaikan Laporan
                         </button>
 
-                        {{-- TODO: sambungkan ke route backend untuk berikan peringatan --}}
-                        <button type="button" class="btn-action btn-warn" data-id="{{ $item['id'] }}">
+                        {{-- Tombol buka modal dialog Kirim Peringatan (Kasih warning) --}}
+                        <button type="button" class="btn-action btn-warn" data-id="{{ $item['id'] }}" data-username="{{ $item['username'] }}">
                             Kasih warning
                         </button>
 
@@ -349,6 +395,65 @@
             <button type="submit" class="btn-save-ban" id="btnSaveBan">
                 Simpan
             </button>
+        </form>
+    </div>
+</div>
+
+{{-- =============================================
+     POP-UP KONFIRMASI BUKA BLOKIR (MODAL)
+     ============================================= --}}
+<div class="unban-overlay" id="unbanOverlay" role="dialog" aria-modal="true" aria-labelledby="unbanModalTitle" aria-hidden="true">
+    <div class="unban-modal" id="unbanModal" data-id="" data-username="">
+        <h2 class="unban-modal-title" id="unbanModalTitle">Buka Blokir Akun</h2>
+        <p class="unban-modal-desc" id="unbanModalDesc">
+            Akun <strong id="unbanTargetUsername">@username</strong> akan bisa masuk kembali ke TaleMark.
+        </p>
+        <div class="unban-modal-actions">
+            <button type="button" class="btn-unban-cancel" id="btnCancelUnban">
+                Batal
+            </button>
+            <button type="button" class="btn-unban-confirm" id="btnConfirmUnban">
+                Ya, Buka Blokir
+            </button>
+        </div>
+    </div>
+</div>
+
+{{-- =============================================
+     POP-UP KIRIM PERINGATAN (KASIH WARNING)
+     ============================================= --}}
+<div class="warn-overlay" id="warnOverlay" role="dialog" aria-modal="true" aria-labelledby="warnModalTitle" aria-hidden="true">
+    <div class="warn-modal" id="warnModal" data-id="" data-username="">
+        {{-- Tombol panah kembali di pojok kiri atas --}}
+        <button type="button" class="warn-modal-back" id="btnWarnBack" aria-label="Tutup pop-up peringatan">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+
+        {{-- Judul serif di tengah atas --}}
+        <h2 class="warn-modal-title" id="warnModalTitle">Kirim Peringatan</h2>
+        <p class="warn-modal-desc" id="warnModalDesc">
+            Peringatan akan dicatat di akun <strong id="warnTargetUsername">@username</strong> dan dikirim sebagai notifikasi.
+        </p>
+
+        {{-- Form input pesan peringatan --}}
+        <form class="warn-form" id="warnForm" novalidate>
+            <div class="warn-field">
+                <label for="warnMessage" class="warn-field-label">Pesan Peringatan</label>
+                <textarea class="warn-field-textarea" id="warnMessage" name="warn_message" rows="4" placeholder="Jelaskan pelanggaran yang dilakukan..."></textarea>
+                <p class="field-error" id="warnMessageError" role="alert"></p>
+            </div>
+
+            <div class="warn-modal-actions">
+                <button type="button" class="btn-warn-cancel" id="btnCancelWarn">
+                    Batal
+                </button>
+                <button type="submit" class="btn-warn-confirm" id="btnConfirmWarn">
+                    Kirim Peringatan
+                </button>
+            </div>
         </form>
     </div>
 </div>

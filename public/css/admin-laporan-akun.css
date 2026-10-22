@@ -4,6 +4,12 @@
    Mengikuti variabel dan fondasi dari admin-layout.css
    ========================================================================== */
 
+/* Variabel khusus halaman laporan akun */
+:root {
+    --color-warning: #F2C94C;
+    --color-warning-hover: #E6BB3A;
+}
+
 /* --------------------------------------------------------------------------
    1. Header Halaman
    -------------------------------------------------------------------------- */
@@ -48,12 +54,27 @@
     flex-direction: column;
     justify-content: space-between;
     min-height: 180px;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+    cursor: pointer;
+    user-select: none;
+    border: 2px solid transparent;
 }
 
 .stat-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+    border-color: #dedcd5;
+}
+
+.stat-card.is-active {
+    border-color: var(--color-accent);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+}
+
+.stat-card:focus-visible {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.15);
 }
 
 .stat-card-top {
@@ -309,6 +330,14 @@
     color: var(--color-text-primary);
 }
 
+/* Avatar khusus kartu akun berstatus banned: latar abu muda (#EFEEEA), inisial hitam/gelap sesuai desain (#1a1a1a) */
+.report-card--banned .report-avatar,
+.report-card--banned .avatar,
+.report-avatar.avatar-banned {
+    background: #efeeea;
+    color: var(--color-text-primary);
+}
+
 .report-user-meta {
     display: flex;
     flex-direction: column;
@@ -458,15 +487,22 @@
     transform: scale(0.98);
 }
 
-.btn-ignore,
-.btn-warn {
+.btn-ignore {
     background: #f0efec;
     color: var(--color-text-primary);
 }
 
-.btn-ignore:hover,
-.btn-warn:hover {
+.btn-ignore:hover {
     background: #e5e4df;
+}
+
+.btn-warn {
+    background: var(--color-warning);
+    color: #1B1B1B;
+}
+
+.btn-warn:hover {
+    background: var(--color-warning-hover);
 }
 
 .btn-ban {
@@ -482,6 +518,49 @@
     font-size: 13px;
     color: var(--color-text-secondary);
     font-weight: 500;
+}
+
+.report-banned-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: #991b1b;
+    font-weight: 500;
+}
+
+.report-banned-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    background: #fedcdb;
+    color: #991b1b;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.report-banned-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.btn-unban {
+    font-size: 12.5px;
+    padding: 7px 16px;
+    border: 1px solid #dcdad4;
+}
+
+.btn-unban:hover {
+    background: #e4e2dc;
+    border-color: #cac7be;
 }
 
 /* Pesan Kosong Filter */
@@ -726,7 +805,7 @@
     max-width: 320px;
     height: 56px;
     margin: 0 auto;
-    background: var(--color-black);
+    background: #b91c1c;
     color: var(--color-white);
     border: none;
     border-radius: 14px;
@@ -738,7 +817,7 @@
 }
 
 .btn-save-ban:hover {
-    background: #2a2a2a;
+    background: #991b1b;
 }
 
 .btn-save-ban:active {
@@ -746,8 +825,354 @@
 }
 
 .btn-save-ban:focus-visible {
-    outline: 2px solid var(--color-black);
+    outline: 2px solid #b91c1c;
     outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   7. Pop-up Konfirmasi Buka Blokir (Overlay Blur + Modal Tengah)
+   -------------------------------------------------------------------------- */
+.unban-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+
+    /* Efek latar: buram 8px dengan lapisan putih kekuningan transparan */
+    background: rgba(250, 249, 247, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+@supports not (backdrop-filter: blur(8px)) {
+    .unban-overlay {
+        background: rgba(240, 239, 235, 0.88);
+    }
+}
+
+.unban-overlay.is-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Kotak Modal Putih di Tengah */
+.unban-modal {
+    position: relative;
+    background: var(--color-white);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 480px;
+    padding: 38px 42px 36px;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03);
+    box-sizing: border-box;
+    text-align: center;
+
+    /* Animasi pop-up naik sedikit sambil fade-in */
+    transform: translateY(14px) scale(0.98);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+}
+
+.unban-overlay.is-active .unban-modal {
+    transform: translateY(0) scale(1);
+}
+
+.unban-modal-title {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--color-text-primary);
+    text-align: center;
+    margin: 0 0 12px;
+    line-height: 1.25;
+}
+
+.unban-modal-desc {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    color: var(--color-text-secondary);
+    line-height: 1.55;
+    margin: 0 0 28px;
+}
+
+.unban-modal-desc strong {
+    color: var(--color-text-primary);
+    font-weight: 600;
+}
+
+.unban-modal-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* Tombol Batal (abu) */
+.btn-unban-cancel {
+    flex: 1;
+    height: 48px;
+    background: #f0efec;
+    color: var(--color-text-primary);
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-unban-cancel:hover {
+    background: #e4e3de;
+}
+
+.btn-unban-cancel:active {
+    transform: scale(0.98);
+}
+
+/* Tombol Ya, Buka Blokir (hitam) */
+.btn-unban-confirm {
+    flex: 1;
+    height: 48px;
+    background: var(--color-black);
+    color: var(--color-white);
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-unban-confirm:hover {
+    background: #2a2a2a;
+}
+
+.btn-unban-confirm:active {
+    transform: scale(0.98);
+}
+
+.btn-unban-cancel:focus-visible,
+.btn-unban-confirm:focus-visible {
+    outline: 2px solid var(--color-black);
+    outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   8. Pop-up Kirim Peringatan (Overlay Blur + Modal Tengah)
+   -------------------------------------------------------------------------- */
+.warn-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+
+    /* Efek latar: buram 8px dengan lapisan putih transparan */
+    background: rgba(250, 249, 247, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+@supports not (backdrop-filter: blur(8px)) {
+    .warn-overlay {
+        background: rgba(240, 239, 235, 0.88);
+    }
+}
+
+.warn-overlay.is-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Kotak Modal Putih di Tengah */
+.warn-modal {
+    position: relative;
+    background: var(--color-white);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 520px;
+    padding: 38px 42px 36px;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03);
+    box-sizing: border-box;
+
+    /* Animasi pop-up naik sedikit sambil fade-in */
+    transform: translateY(14px) scale(0.98);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+}
+
+.warn-overlay.is-active .warn-modal {
+    transform: translateY(0) scale(1);
+}
+
+/* Tombol Panah Kembali di Pojok Kiri Atas */
+.warn-modal-back {
+    position: absolute;
+    top: 36px;
+    left: 36px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.warn-modal-back:hover {
+    opacity: 0.7;
+    transform: translateX(-2px);
+}
+
+.warn-modal-back:focus-visible {
+    outline: 2px solid var(--color-black);
+    outline-offset: 2px;
+}
+
+.warn-modal-title {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--color-text-primary);
+    text-align: center;
+    margin: 0 0 10px;
+    line-height: 1.25;
+}
+
+.warn-modal-desc {
+    font-family: var(--font-sans);
+    font-size: 14.5px;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin: 0 0 24px;
+    text-align: center;
+}
+
+.warn-modal-desc strong {
+    color: var(--color-text-primary);
+    font-weight: 600;
+}
+
+.warn-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.warn-field-label {
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 8px;
+}
+
+.warn-field-textarea {
+    width: 100%;
+    background: #f2f1ed;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--color-text-primary);
+    outline: none;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 104px;
+    line-height: 1.5;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.warn-field-textarea:focus {
+    background: #eae9e3;
+    box-shadow: 0 0 0 2px #b5b3ab;
+}
+
+.warn-field-textarea::placeholder {
+    color: #999999;
+}
+
+.warn-modal-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.btn-warn-cancel {
+    flex: 1;
+    height: 48px;
+    background: #f0efec;
+    color: var(--color-text-primary);
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-warn-cancel:hover {
+    background: #e4e3de;
+}
+
+.btn-warn-cancel:active {
+    transform: scale(0.98);
+}
+
+.btn-warn-confirm {
+    flex: 1;
+    height: 48px;
+    background: var(--color-warning);
+    color: #1B1B1B;
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-warn-confirm:hover {
+    background: var(--color-warning-hover);
+}
+
+.btn-warn-confirm:active {
+    transform: scale(0.98);
+}
+
+.btn-warn-cancel:focus-visible,
+.btn-warn-confirm:focus-visible {
+    outline: 2px solid var(--color-black);
+    outline-offset: 2px;
 }
 
 /* Hormati Preferensi Kurangi Animasi */
@@ -755,7 +1180,16 @@
     .ban-overlay,
     .ban-modal,
     .ban-modal-back,
-    .btn-save-ban {
+    .btn-save-ban,
+    .unban-overlay,
+    .unban-modal,
+    .btn-unban-cancel,
+    .btn-unban-confirm,
+    .warn-overlay,
+    .warn-modal,
+    .warn-modal-back,
+    .btn-warn-cancel,
+    .btn-warn-confirm {
         transition: none !important;
         transform: none !important;
     }

@@ -135,7 +135,14 @@
 <div class="book-cards-list" id="bookCardsContainer">
 
     @foreach ($bukuPengajuan as $buku)
-        <article class="book-card" data-id="{{ $buku['id'] }}" data-status="{{ $buku['status'] }}">
+        <article class="book-card"
+                 data-id="{{ $buku['id'] }}"
+                 data-status="{{ $buku['status'] }}"
+                 data-judul="{{ $buku['judul'] }}"
+                 data-penulis="{{ $buku['penulis'] }}"
+                 data-isbn="{{ $buku['isbn'] }}"
+                 data-pengaju="{{ $buku['pengaju'] }}"
+                 data-sampul="{{ !empty($buku['sampul']) ? asset($buku['sampul']) : '' }}">
 
             {{-- Checkbox seleksi kartu di kiri atas --}}
             <div class="card-select-wrapper">
@@ -225,7 +232,7 @@
                                     <line x1="14.5" y1="6.5" x2="14.5" y2="12.5"></line>
                                     <line x1="11.5" y1="9.5" x2="17.5" y2="9.5"></line>
                                 </svg>
-                                <span class="btn-approve-text">+ Setujui &amp; Tambah ke<br>Katalog</span>
+                                <span class="btn-approve-text">Setujui &amp; Tambah ke Katalog</span>
                             </button>
                         @endif
                     </div>
@@ -270,6 +277,119 @@
             </svg>
         </button>
     </div>
+</div>
+
+{{-- =============================================
+     POP-UP SETUJUI & TAMBAH KE KATALOG
+     ============================================= --}}
+<div class="book-modal-overlay" id="approveModalOverlay" role="dialog" aria-modal="true" aria-labelledby="approveModalTitle" aria-hidden="true">
+    <div class="book-modal" id="approveModal" data-id="">
+        {{-- Tombol panah kembali di pojok kiri atas --}}
+        <button type="button" class="book-modal-back" id="btnApproveBack" aria-label="Tutup pop-up persetujuan">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+
+        {{-- Judul serif di tengah atas --}}
+        <h2 class="book-modal-title" id="approveModalTitle">Tambah ke Katalog</h2>
+
+        {{-- Ringkasan buku (sampul abu kecil, judul, penulis, ISBN, pengaju) --}}
+        <div class="book-summary-box">
+            <div class="book-summary-cover" id="approveSummaryCover">
+                {{-- Diisi secara dinamis oleh JS --}}
+            </div>
+            <div class="book-summary-details">
+                <h3 class="book-summary-title" id="approveSummaryTitle">-</h3>
+                <p class="book-summary-author" id="approveSummaryAuthor">-</p>
+                <div class="book-summary-meta">
+                    <span>ISBN: <strong id="approveSummaryIsbn">-</strong></span>
+                    <span>&bull;</span>
+                    <span>Pengaju: <strong id="approveSummaryPengaju">-</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <p class="book-modal-desc">
+            Buku akan masuk ke katalog resmi dan bisa dicari oleh semua pembaca.
+        </p>
+
+        <div class="book-modal-actions">
+            <button type="button" class="btn-modal-cancel" id="btnApproveCancel">
+                Batal
+            </button>
+            <button type="button" class="btn-modal-confirm" id="btnApproveConfirm">
+                Ya, Tambahkan
+            </button>
+        </div>
+    </div>
+</div>
+
+{{-- =============================================
+     POP-UP TOLAK PENGAJUAN
+     ============================================= --}}
+<div class="book-modal-overlay" id="rejectModalOverlay" role="dialog" aria-modal="true" aria-labelledby="rejectModalTitle" aria-hidden="true">
+    <div class="book-modal" id="rejectModal" data-id="">
+        {{-- Tombol panah kembali di pojok kiri atas --}}
+        <button type="button" class="book-modal-back" id="btnRejectBack" aria-label="Tutup pop-up penolakan">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+
+        {{-- Judul serif di tengah atas --}}
+        <h2 class="book-modal-title" id="rejectModalTitle">Tolak Pengajuan</h2>
+
+        {{-- Ringkasan singkat buku (judul dan pengaju) --}}
+        <div class="book-summary-box book-summary-box--compact">
+            <div class="book-summary-details">
+                <h3 class="book-summary-title" id="rejectSummaryTitle">-</h3>
+                <p class="book-summary-meta">
+                    Pengaju: <strong id="rejectSummaryPengaju">-</strong>
+                </p>
+            </div>
+        </div>
+
+        <form class="book-modal-form" id="rejectForm" novalidate>
+            <div class="book-modal-field">
+                <label for="rejectReason" class="book-modal-label">Alasan Penolakan</label>
+                <select id="rejectReason" class="book-modal-select" required>
+                    <option value="" disabled selected>Pilih alasan...</option>
+                    <option value="Buku sudah ada di katalog (duplikat)">Buku sudah ada di katalog (duplikat)</option>
+                    <option value="Data buku tidak lengkap">Data buku tidak lengkap</option>
+                    <option value="ISBN tidak valid">ISBN tidak valid</option>
+                    <option value="Lainnya">Lainnya</option>
+                </select>
+                <p class="field-error" id="rejectReasonError" role="alert"></p>
+            </div>
+
+            <div class="book-modal-field">
+                <label for="rejectNotes" class="book-modal-label">Catatan untuk Pengaju (opsional)</label>
+                <textarea id="rejectNotes" class="book-modal-textarea" rows="3" placeholder="Tambahkan penjelasan singkat..."></textarea>
+            </div>
+
+            <div class="book-modal-actions">
+                <button type="button" class="btn-modal-cancel" id="btnRejectCancel">
+                    Batal
+                </button>
+                <button type="submit" class="btn-modal-danger" id="btnRejectConfirm">
+                    Tolak Pengajuan
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{-- Toast Notifikasi Pojok Kanan Atas --}}
+<div id="toastNotification" class="toast-notification" role="status" aria-live="polite">
+    <span class="toast-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+    </span>
+    <span class="toast-text" id="toastMessage"></span>
 </div>
 
 @endsection

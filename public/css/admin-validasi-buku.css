@@ -4,6 +4,16 @@
    Mengikuti variabel dan fondasi dari admin-layout.css
    ========================================================================== */
 
+/* Variabel Status & Pop-up */
+:root {
+    --status-approved-bg: #E3F1E6;
+    --status-approved-text: #1F6B3A;
+    --status-rejected-bg: #FBE3E1;
+    --status-rejected-text: #9B1C1C;
+    --status-neutral-bg: #dedcd7;
+    --status-neutral-text: #444444;
+}
+
 /* --------------------------------------------------------------------------
    1. Kolom Pencarian di Topbar (diisi lewat @section('topbar_search'))
    -------------------------------------------------------------------------- */
@@ -352,7 +362,7 @@
     color: var(--color-text-muted);
 }
 
-/* Pill status abu-abu */
+/* Pill status */
 .status-pill {
     display: inline-flex;
     align-items: center;
@@ -362,8 +372,25 @@
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    background: #dedcd7;
-    color: #444444;
+    background: var(--status-neutral-bg);
+    color: var(--status-neutral-text);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Status Disetujui: latar #E3F1E6, teks #1F6B3A */
+.status-pill.status-approved,
+.status-pill--approved,
+.book-card[data-status="disetujui"] .status-pill {
+    background: var(--status-approved-bg);
+    color: var(--status-approved-text);
+}
+
+/* Status Ditolak: latar #FBE3E1, teks #9B1C1C */
+.status-pill.status-rejected,
+.status-pill--rejected,
+.book-card[data-status="ditolak"] .status-pill {
+    background: var(--status-rejected-bg);
+    color: var(--status-rejected-text);
 }
 
 /* Judul buku serif ukuran besar */
@@ -468,13 +495,14 @@
     gap: 10px;
 }
 
-/* Tombol Tolak: latar abu, teks merah */
+/* Tombol Tolak: latar abu, teks merah, tinggi selaras dengan tombol Setujui */
 .btn-reject {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 9px 20px;
-    border-radius: var(--radius-sm);
+    height: 40px;
+    padding: 0 20px;
+    border-radius: var(--radius-md);
     background: var(--color-surface);
     border: 1px solid transparent;
     color: var(--color-danger);
@@ -483,6 +511,7 @@
     font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
+    box-sizing: border-box;
     transition: background-color 0.15s, opacity 0.15s;
 }
 
@@ -491,22 +520,24 @@
     opacity: 0.9;
 }
 
-/* Tombol Setujui & Tambah ke Katalog: latar hitam, teks putih */
+/* Tombol Setujui & Tambah ke Katalog: latar hitam, teks putih, tinggi selaras */
 .btn-approve {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    padding: 8px 18px;
+    gap: 8px;
+    height: 40px;
+    padding: 0 20px;
     border-radius: var(--radius-md);
     background: var(--color-black);
     border: 1px solid var(--color-black);
     color: var(--color-white);
     font-family: var(--font-sans);
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 600;
-    line-height: 1.3;
     cursor: pointer;
+    white-space: nowrap;
+    box-sizing: border-box;
     transition: opacity 0.15s;
 }
 
@@ -515,8 +546,7 @@
 }
 
 .btn-approve-text {
-    text-align: center;
-    display: inline-block;
+    white-space: nowrap;
 }
 
 .btn-approve:hover {
@@ -535,6 +565,21 @@
 
 .text-approved svg {
     color: var(--color-success);
+}
+
+/* Keterangan pengajuan yang ditolak */
+.text-rejected {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+}
+
+.text-rejected svg {
+    color: var(--status-rejected-text);
+    flex-shrink: 0;
 }
 
 /* Pesan saat tidak ada buku yang cocok dengan pencarian / tab filter */
@@ -701,3 +746,401 @@
         gap: 12px;
     }
 }
+
+/* --------------------------------------------------------------------------
+   8. Pop-up Modal Validasi Buku (Overlay Blur + Modal Tengah)
+   -------------------------------------------------------------------------- */
+.book-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+
+    /* Latar buram 8px dengan lapisan putih transparan */
+    background: rgba(250, 249, 247, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+@supports not (backdrop-filter: blur(8px)) {
+    .book-modal-overlay {
+        background: rgba(240, 239, 235, 0.88);
+    }
+}
+
+.book-modal-overlay.is-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Kotak Modal Putih di Tengah */
+.book-modal {
+    position: relative;
+    background: var(--color-white);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 520px;
+    padding: 38px 42px 36px;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03);
+    box-sizing: border-box;
+
+    /* Animasi pop-up naik sedikit sambil fade-in */
+    transform: translateY(14px) scale(0.98);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+}
+
+.book-modal-overlay.is-active .book-modal {
+    transform: translateY(0) scale(1);
+}
+
+/* Tombol Panah Kembali di Pojok Kiri Atas */
+.book-modal-back {
+    position: absolute;
+    top: 36px;
+    left: 36px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.book-modal-back:hover {
+    opacity: 0.7;
+    transform: translateX(-2px);
+}
+
+.book-modal-back:focus-visible {
+    outline: 2px solid var(--color-black);
+    outline-offset: 2px;
+}
+
+.book-modal-title {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--color-text-primary);
+    text-align: center;
+    margin: 0 0 16px;
+    line-height: 1.25;
+}
+
+.book-modal-desc {
+    font-family: var(--font-sans);
+    font-size: 14.5px;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin: 0 0 24px;
+    text-align: center;
+}
+
+/* Kotak Ringkasan Buku di Modal */
+.book-summary-box {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #f4f3f0;
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.book-summary-box--compact {
+    justify-content: center;
+    text-align: center;
+    padding: 16px 20px;
+}
+
+.book-summary-cover {
+    width: 48px;
+    height: 66px;
+    border-radius: 6px;
+    background: #dedcd7;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-summary-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.book-summary-cover-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #e2e0da;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.book-summary-cover-placeholder span {
+    font-family: var(--font-serif);
+    font-size: 9px;
+    line-height: 1.2;
+    color: #666;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.book-summary-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.book-summary-title {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0 0 3px;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.book-summary-author {
+    font-size: 12.5px;
+    color: var(--color-text-secondary);
+    margin: 0 0 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.book-summary-meta {
+    font-size: 11.5px;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.book-summary-box--compact .book-summary-meta {
+    justify-content: center;
+    margin-top: 4px;
+}
+
+.book-summary-meta strong {
+    color: var(--color-text-primary);
+    font-weight: 500;
+}
+
+/* Form Fields */
+.book-modal-form {
+    text-align: left;
+}
+
+.book-modal-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.book-modal-label {
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 8px;
+}
+
+.book-modal-select,
+.book-modal-textarea {
+    width: 100%;
+    background: #f2f1ed;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--color-text-primary);
+    outline: none;
+    box-sizing: border-box;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.book-modal-select {
+    height: 48px;
+    cursor: pointer;
+}
+
+.book-modal-textarea {
+    resize: vertical;
+    min-height: 84px;
+    line-height: 1.5;
+}
+
+.book-modal-select:focus,
+.book-modal-textarea:focus {
+    background: #eae9e3;
+    box-shadow: 0 0 0 2px #b5b3ab;
+}
+
+.field-error {
+    font-size: 12px;
+    color: var(--color-danger);
+    margin-top: 6px;
+    min-height: 16px;
+    line-height: 1.3;
+}
+
+/* Modal Action Buttons */
+.book-modal-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.btn-modal-cancel {
+    flex: 1;
+    height: 48px;
+    background: #f0efec;
+    color: var(--color-text-primary);
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-modal-cancel:hover {
+    background: #e4e3de;
+}
+
+.btn-modal-cancel:active {
+    transform: scale(0.98);
+}
+
+.btn-modal-confirm {
+    flex: 1;
+    height: 48px;
+    background: var(--color-black);
+    color: var(--color-white);
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-modal-confirm:hover {
+    background: #2a2a2a;
+}
+
+.btn-modal-confirm:active {
+    transform: scale(0.98);
+}
+
+.btn-modal-danger {
+    flex: 1;
+    height: 48px;
+    background: #B91C1C;
+    color: var(--color-white);
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-modal-danger:hover {
+    background: #991b1b;
+}
+
+.btn-modal-danger:active {
+    transform: scale(0.98);
+}
+
+.btn-modal-cancel:focus-visible,
+.btn-modal-confirm:focus-visible,
+.btn-modal-danger:focus-visible {
+    outline: 2px solid var(--color-black);
+    outline-offset: 2px;
+}
+
+/* Toast Notification */
+.toast-notification {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 2000;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #111111;
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    font-weight: 500;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.08);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    pointer-events: none;
+}
+
+.toast-notification.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.toast-icon {
+    display: inline-flex;
+    color: #4ade80;
+}
+
+/* Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .book-modal-overlay,
+    .book-modal,
+    .book-modal-back,
+    .btn-modal-cancel,
+    .btn-modal-confirm,
+    .btn-modal-danger,
+    .toast-notification {
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
