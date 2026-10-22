@@ -16,7 +16,23 @@
 {{-- =============================================
      DATA DUMMY — nanti diganti dari controller
      ============================================= --}}
+{{-- TODO: Variabel $data dan $labels di bawah ini adalah data fallback dummy.
+     Hubungkan dengan controller backend (AdminDashboardController) saat siap:
+     $data: data aktivitas pembaca & buku terindeks
+     $labels: label hari atau periode --}}
 @php
+    $labels = $labels ?? ['Sen (18)', 'Sel (19)', 'Rab (20)', 'Kam (21)', 'Jum (22)', 'Sab (23)', 'Min (24)'];
+    $data = $data ?? [
+        [
+            'name' => 'Jam Membaca (K-hrs)',
+            'data' => [32, 48, 42, 68, 62, 85, 94],
+        ],
+        [
+            'name' => 'Buku Terindeks',
+            'data' => [15, 22, 28, 35, 44, 52, 60],
+        ],
+    ];
+
     /* Empat kartu statistik */
     $statsCards = [
         [
@@ -190,46 +206,8 @@
                 </div>
             </div>
 
-            {{-- Grafik SVG inline statis --}}
-            {{-- Garis hitam = jam membaca, area abu = buku terindeks --}}
-            <div class="chart-svg-wrapper">
-                <svg viewBox="0 0 560 160" xmlns="http://www.w3.org/2000/svg">
-
-                    {{-- Area buku terindeks (kurva halus abu muda) --}}
-                    <defs>
-                        <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#cccccc" stop-opacity="0.35"/>
-                            <stop offset="100%" stop-color="#ffffff" stop-opacity="0.02"/>
-                        </linearGradient>
-                    </defs>
-                    <path d="M 16 142 C 160 138, 360 114, 544 92 L 544 158 L 16 158 Z"
-                          fill="url(#areaGrad)" />
-                    <path d="M 16 142 C 160 138, 360 114, 544 92"
-                          fill="none" stroke="#cfcfcb" stroke-width="1.8"/>
-
-                    {{-- Garis jam membaca: kurva bezier halus dengan 4 titik --}}
-                    <path d="M 16 125 C 70 120, 110 98, 155 98 C 200 98, 230 116, 275 116 C 325 116, 365 82, 410 82 C 455 82, 495 62, 544 62"
-                          fill="none" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/>
-
-                    {{-- 4 titik sesuai desain --}}
-                    <circle cx="155" cy="98"  r="4" fill="#111111"/>
-                    <circle cx="275" cy="116" r="4" fill="#111111"/>
-                    <circle cx="410" cy="82"  r="4" fill="#111111"/>
-                    <circle cx="544" cy="62"  r="4" fill="#111111"/>
-
-                </svg>
-            </div>
-
-            {{-- Label sumbu X --}}
-            <div class="chart-x-labels">
-                <span class="chart-x-label">Sen (18)</span>
-                <span class="chart-x-label">Sel (19)</span>
-                <span class="chart-x-label">Rab (20)</span>
-                <span class="chart-x-label">Kam (21)</span>
-                <span class="chart-x-label">Jum (22)</span>
-                <span class="chart-x-label">Sab (23)</span>
-                <span class="chart-x-label">Min (24)</span>
-            </div>
+            {{-- Grafik Dinamis ApexCharts --}}
+            <div id="statsChart" class="chart-apex-wrapper"></div>
 
             {{-- Kotak info analitik di bawah grafik --}}
             <div class="chart-info-box">
@@ -503,3 +481,128 @@
 {{-- /mid-grid --}}
 
 @endsection
+
+@push('scripts')
+{{-- Library ApexCharts via CDN jsdelivr --}}
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const rawData = @json($data);
+        const rawLabels = @json($labels);
+
+        // Standarisasi format series baik format array objek series maupun array flat numerik
+        let seriesData = [];
+        if (Array.isArray(rawData) && rawData.length > 0) {
+            if (typeof rawData[0] === 'object' && rawData[0] !== null && 'data' in rawData[0]) {
+                seriesData = rawData;
+            } else {
+                seriesData = [
+                    {
+                        name: 'Jam Membaca (K-hrs)',
+                        data: rawData
+                    }
+                ];
+            }
+        }
+
+        const options = {
+            chart: {
+                type: 'area',
+                height: 260,
+                fontFamily: 'Inter, system-ui, sans-serif',
+                toolbar: {
+                    show: false
+                },
+                animations: {
+                    enabled: true,
+                    easing: 'easeinout',
+                    speed: 900,
+                    animateGradually: {
+                        enabled: true,
+                        delay: 150
+                    },
+                    dynamicAnimation: {
+                        enabled: true,
+                        speed: 350
+                    }
+                },
+                zoom: {
+                    enabled: false
+                }
+            },
+            series: seriesData,
+            xaxis: {
+                categories: rawLabels,
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false
+                },
+                labels: {
+                    style: {
+                        colors: '#9CA3AF',
+                        fontSize: '11px',
+                        fontFamily: 'Inter, system-ui, sans-serif'
+                    }
+                }
+            },
+            yaxis: {
+                labels: {
+                    style: {
+                        colors: '#9CA3AF',
+                        fontSize: '11px',
+                        fontFamily: 'Inter, system-ui, sans-serif'
+                    }
+                }
+            },
+            colors: ['#111827', '#9CA3AF'],
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shadeIntensity: 1,
+                    opacityFrom: 0.35,
+                    opacityTo: 0.04,
+                    stops: [0, 90, 100]
+                }
+            },
+            stroke: {
+                curve: 'smooth',
+                width: [2.5, 2]
+            },
+            dataLabels: {
+                enabled: false
+            },
+            grid: {
+                borderColor: '#E5E7EB',
+                strokeDashArray: 4,
+                padding: {
+                    top: 0,
+                    right: 8,
+                    bottom: 0,
+                    left: 8
+                }
+            },
+            legend: {
+                show: false
+            },
+            tooltip: {
+                theme: 'light',
+                x: {
+                    show: true
+                },
+                style: {
+                    fontSize: '12px',
+                    fontFamily: 'Inter, system-ui, sans-serif'
+                }
+            }
+        };
+
+        const chartElement = document.querySelector("#statsChart");
+        if (chartElement) {
+            const chart = new ApexCharts(chartElement, options);
+            chart.render();
+        }
+    });
+</script>
+@endpush

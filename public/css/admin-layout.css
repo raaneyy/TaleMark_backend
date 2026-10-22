@@ -10,37 +10,40 @@
 /* --- CSS Variables / Design Tokens --- */
 :root {
     /* Warna utama */
-    --color-bg:           #f5f5f3;      /* latar halaman abu sangat muda */
+    --color-bg:           #F9FAFB;      /* latar halaman abu sangat bersih */
     --color-white:        #ffffff;
-    --color-black:        #111111;
-    --color-accent:       #111111;      /* aksen utama hitam */
+    --color-black:        #111827;      /* aksen utama hitam modern */
+    --color-accent:       #111827;
 
     /* Teks */
-    --color-text-primary: #1a1a1a;
-    --color-text-secondary: #666666;
-    --color-text-muted:   #999999;
+    --color-text-primary: #111827;      /* teks utama pekat dan tajam */
+    --color-text-secondary: #4B5563;
+    --color-text-muted:   #9CA3AF;
 
     /* Kartu & border */
     --color-card:         #ffffff;
-    --color-border:       #e8e8e5;
-    --color-surface:      #f0efec;      /* kotak abu muda di dalam kartu */
+    --color-border:       #E5E7EB;      /* border halus dan konsisten */
+    --color-surface:      #F3F4F6;      /* kotak abu muda di dalam kartu */
 
     /* Status */
-    --color-danger:       #dc2626;
-    --color-success:      #16a34a;
+    --color-danger:       #DC2626;
+    --color-success:      #16A34A;
 
     /* Tipografi */
     --font-serif:   'Newsreader', Georgia, serif;
     --font-sans:    'Inter', system-ui, sans-serif;
 
-    /* Spacing & radius */
+    /* Spacing & radius konsisten 16px */
     --radius-sm:    8px;
     --radius-md:    12px;
     --radius-lg:    16px;
-    --radius-xl:    20px;
+    --radius-xl:    16px;
+    --radius-card:  16px;
 
-    /* Shadow */
-    --shadow-card:  0 1px 4px rgba(0,0,0,0.07), 0 2px 12px rgba(0,0,0,0.04);
+    /* Shadow modern & halus */
+    --shadow-card:       0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+    --shadow-card-hover: 0 12px 28px -4px rgba(0, 0, 0, 0.08), 0 6px 12px -2px rgba(0, 0, 0, 0.04);
+    --shadow-btn-hover:  0 6px 16px -2px rgba(17, 24, 39, 0.16);
 
     /* Sidebar */
     --sidebar-width: 232px;
@@ -334,14 +337,107 @@ a {
 /* =============================================
    AREA KONTEN HALAMAN (@yield)
    ============================================= */
+.main-area > main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
 .page-content {
     flex: 1;
-    padding: 28px 28px 32px;
+    padding: 32px 32px 40px;
+    animation: pageFadeUp 0.4s ease forwards;
+}
+
+/* Animasi Fade Up saat halaman dibuka: opacity 0 ke 1, translateY 12px ke 0, durasi 0.4s */
+@keyframes pageFadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
 }
 
 /* Jika footer halaman ada, nolkan padding bawah konten agar jarak sama persis */
 .page-content:has(+ .page-footer) {
     padding-bottom: 0;
+}
+
+/* =============================================
+   EFEK HOVER & TRANSISI KARTU DAN TOMBOL
+   ============================================= */
+
+/* Kartu: naik 3px, shadow lebih tebal, transisi 0.2s ease, border-radius 16px */
+.card,
+.stat-card,
+.book-card,
+.notif-card,
+.report-card,
+.book-item,
+.system-card,
+.moderation-card,
+.chart-card,
+.genre-card {
+    border-radius: var(--radius-card, 16px) !important;
+    border-color: var(--color-border);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover,
+.stat-card:hover,
+.book-card:hover,
+.notif-card:hover,
+.report-card:hover,
+.book-item:hover,
+.system-card:hover,
+.moderation-card:hover,
+.chart-card:hover,
+.genre-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover) !important;
+    border-color: #D1D5DB;
+}
+
+/* Tombol: naik 3px, shadow lebih tebal, transisi 0.2s ease */
+.btn,
+.btn-primary,
+.btn-secondary,
+.btn-danger,
+.btn-send,
+.btn-approve,
+.btn-reject,
+.btn-compare,
+.btn-action,
+.tab-btn {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease !important;
+}
+
+.btn:hover,
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-danger:hover,
+.btn-send:hover,
+.btn-approve:hover,
+.btn-reject:hover,
+.btn-compare:hover,
+.btn-action:hover,
+.tab-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-btn-hover) !important;
+}
+
+.btn:active,
+.btn-primary:active,
+.btn-secondary:active,
+.btn-send:active,
+.btn-approve:active,
+.btn-reject:active,
+.tab-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px -1px rgba(17, 24, 39, 0.12) !important;
 }
 
 /* =============================================
@@ -441,3 +537,127 @@ a {
         align-items: flex-start;
     }
 }
+
+/* =============================================
+   SISTEM POP-UP / MODAL UNIVERSAL ADMIN TALEMARK
+   Memastikan semua pop-up muncul benar-benar tepat
+   di tengah layar (dead-center) pada semua halaman
+   ============================================= */
+
+.ban-overlay,
+.unban-overlay,
+.warn-overlay,
+.book-modal-overlay,
+.modal-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 99999 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 24px !important;
+    box-sizing: border-box !important;
+    background: rgba(17, 24, 39, 0.45) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease !important;
+}
+
+.ban-overlay.is-active,
+.unban-overlay.is-active,
+.warn-overlay.is-active,
+.book-modal-overlay.is-active,
+.modal-overlay.is-active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+/* Kotak Modal Putih di Tengah (Dead-Center) */
+.ban-modal,
+.unban-modal,
+.warn-modal,
+.book-modal,
+.modal-box {
+    position: relative !important;
+    background: #ffffff !important;
+    border-radius: 24px !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.22), 0 12px 28px -6px rgba(0, 0, 0, 0.10) !important;
+    box-sizing: border-box !important;
+    margin: auto !important;
+    transform: scale(0.96) translateY(12px) !important;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease !important;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.ban-overlay.is-active .ban-modal,
+.unban-overlay.is-active .unban-modal,
+.warn-overlay.is-active .warn-modal,
+.book-modal-overlay.is-active .book-modal,
+.modal-overlay.is-active .modal-box {
+    transform: scale(1) translateY(0) !important;
+}
+
+/* Tombol Kembali / Panah Kiri di Pojok Kiri Atas Modal */
+.ban-modal-back,
+.warn-modal-back,
+.book-modal-back,
+.modal-back {
+    position: absolute !important;
+    top: 32px !important;
+    left: 32px !important;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 6px !important;
+    border-radius: var(--radius-sm, 8px) !important;
+    color: var(--color-text-primary, #111827) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: opacity 0.15s ease, transform 0.15s ease, background-color 0.15s ease !important;
+}
+
+.ban-modal-back:hover,
+.warn-modal-back:hover,
+.book-modal-back:hover,
+.modal-back:hover {
+    background-color: var(--color-surface, #F3F4F6) !important;
+    transform: translateX(-2px) !important;
+}
+
+.ban-modal-back:focus-visible,
+.warn-modal-back:focus-visible,
+.book-modal-back:focus-visible,
+.modal-back:focus-visible {
+    outline: 2px solid var(--color-black, #111827) !important;
+    outline-offset: 2px !important;
+}
+
+/* Judul Modal Serif Tengah */
+.ban-modal-title,
+.unban-modal-title,
+.warn-modal-title,
+.book-modal-title,
+.modal-title {
+    font-family: var(--font-serif, 'Newsreader', Georgia, serif) !important;
+    font-size: 28px !important;
+    font-weight: 400 !important;
+    color: var(--color-text-primary, #111827) !important;
+    text-align: center !important;
+    margin: 0 !important;
+    line-height: 1.25 !important;
+}
+

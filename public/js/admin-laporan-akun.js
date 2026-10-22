@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const unbanOverlay = document.getElementById('unbanOverlay');
     const unbanModal = document.getElementById('unbanModal');
     const unbanTargetUsername = document.getElementById('unbanTargetUsername');
+    const btnUnbanBack = document.getElementById('btnUnbanBack');
     const btnCancelUnban = document.getElementById('btnCancelUnban');
     const btnConfirmUnban = document.getElementById('btnConfirmUnban');
 
@@ -570,7 +571,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.btn-unban').forEach(attachUnbanListener);
 
-    // Tutup pop-up lewat tombol Batal
+    // Tutup pop-up lewat tombol Kembali atau Batal
+    if (btnUnbanBack) {
+        btnUnbanBack.addEventListener('click', closeUnbanModal);
+    }
+
     if (btnCancelUnban) {
         btnCancelUnban.addEventListener('click', closeUnbanModal);
     }

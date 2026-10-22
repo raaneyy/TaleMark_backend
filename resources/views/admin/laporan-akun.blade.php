@@ -8,7 +8,7 @@
 
 {{-- CSS khusus halaman laporan akun --}}
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('css/admin-laporan-akun.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin-laporan-akun.css') }}?v={{ file_exists(public_path('css/admin-laporan-akun.css')) ? filemtime(public_path('css/admin-laporan-akun.css')) : time() }}">
 @endsection
 
 @section('content')
@@ -357,6 +357,15 @@
     </div>
 </div>
 
+@endsection
+
+{{-- =============================================
+     POP-UP & MODAL DIALOGS
+     Ditempatkan di section('modals') di luar admin-wrapper
+     agar selalu muncul 100% tepat di tengah layar penuh
+     ============================================= --}}
+@section('modals')
+
 {{-- =============================================
      POP-UP BANNED DURATION (MODAL BARU)
      ============================================= --}}
@@ -404,6 +413,14 @@
      ============================================= --}}
 <div class="unban-overlay" id="unbanOverlay" role="dialog" aria-modal="true" aria-labelledby="unbanModalTitle" aria-hidden="true">
     <div class="unban-modal" id="unbanModal" data-id="" data-username="">
+        {{-- Tombol panah kembali di pojok kiri atas --}}
+        <button type="button" class="unban-modal-back ban-modal-back" id="btnUnbanBack" aria-label="Tutup pop-up buka blokir">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+
         <h2 class="unban-modal-title" id="unbanModalTitle">Buka Blokir Akun</h2>
         <p class="unban-modal-desc" id="unbanModalDesc">
             Akun <strong id="unbanTargetUsername">@username</strong> akan bisa masuk kembali ke TaleMark.
@@ -462,5 +479,5 @@
 
 {{-- Script JS khusus halaman laporan akun --}}
 @section('scripts')
-    <script src="{{ asset('js/admin-laporan-akun.js') }}"></script>
+    <script src="{{ asset('js/admin-laporan-akun.js') }}?v={{ file_exists(public_path('js/admin-laporan-akun.js')) ? filemtime(public_path('js/admin-laporan-akun.js')) : time() }}"></script>
 @endsection

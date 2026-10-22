@@ -8,7 +8,7 @@
 
 {{-- CSS khusus halaman validasi buku --}}
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('css/admin-validasi-buku.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin-validasi-buku.css') }}?v={{ file_exists(public_path('css/admin-validasi-buku.css')) ? filemtime(public_path('css/admin-validasi-buku.css')) : time() }}">
 @endsection
 
 {{-- Kolom pencarian di Topbar (sebelah kiri badge pengguna AGUS) --}}
@@ -279,6 +279,15 @@
     </div>
 </div>
 
+@endsection
+
+{{-- =============================================
+     POP-UP & MODAL DIALOGS
+     Ditempatkan di section('modals') di luar admin-wrapper
+     agar selalu muncul 100% tepat di tengah layar penuh
+     ============================================= --}}
+@section('modals')
+
 {{-- =============================================
      POP-UP SETUJUI & TAMBAH KE KATALOG
      ============================================= --}}
@@ -396,5 +405,5 @@
 
 {{-- Script JS khusus validasi buku --}}
 @section('scripts')
-    <script src="{{ asset('js/admin-validasi-buku.js') }}"></script>
+    <script src="{{ asset('js/admin-validasi-buku.js') }}?v={{ file_exists(public_path('js/admin-validasi-buku.js')) ? filemtime(public_path('js/admin-validasi-buku.js')) : time() }}"></script>
 @endsection
