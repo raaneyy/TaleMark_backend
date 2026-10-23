@@ -4,11 +4,35 @@
    Mengikuti variabel dan fondasi dari admin-layout.css
    ========================================================================== */
 
+/* Penguncian scroll horizontal khusus halaman Siaran Notifikasi */
+html, body {
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
+    max-width: 100%;
+}
+
+.admin-wrapper,
+.main-area,
+.main-area > main,
+.page-content {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 /* --------------------------------------------------------------------------
    1. Header Halaman
    -------------------------------------------------------------------------- */
+.notification-header,
+.notification-layout-grid,
+.notif-card,
+.broadcast-history-panel {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 .notification-header {
-    margin-bottom: 32px;
+    margin-bottom: 28px;
 }
 
 .notification-title {
@@ -29,21 +53,31 @@
 }
 
 /* --------------------------------------------------------------------------
-   2. Kartu Form Notifikasi
+   2. Grid Tata Letak Dua Kolom (Form Kiri + Panel Riwayat Kanan)
+   -------------------------------------------------------------------------- */
+.notification-layout-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 380px;
+    gap: 24px;
+    align-items: start;
+    width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   3. Kartu Form Notifikasi (Kolom Kiri)
    -------------------------------------------------------------------------- */
 .notif-card {
     background-color: var(--color-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg, 16px);
     box-shadow: var(--shadow-card);
-    padding: 40px 44px;
-    max-width: 1120px;
+    padding: 38px 40px;
     width: 100%;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .notif-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-card-hover);
     border-color: #D1D5DB;
 }
@@ -53,7 +87,7 @@
     display: flex;
     align-items: center;
     gap: 14px;
-    margin-bottom: 34px;
+    margin-bottom: 32px;
 }
 
 .notif-card-icon {
@@ -83,11 +117,9 @@
     margin: 0;
 }
 
-/* --------------------------------------------------------------------------
-   3. Field Form & Label
-   -------------------------------------------------------------------------- */
+/* Field Form & Label */
 .form-field {
-    margin-bottom: 28px;
+    margin-bottom: 26px;
 }
 
 .field-label-row {
@@ -113,11 +145,11 @@
 /* Input Teks */
 .form-input {
     width: 100%;
-    height: 72px;
+    height: 68px;
     background-color: var(--color-surface);
     border: 1.5px solid transparent;
     border-radius: var(--radius-lg);
-    padding: 0 24px;
+    padding: 0 22px;
     font-family: var(--font-sans);
     font-size: 15px;
     color: var(--color-text-primary);
@@ -143,16 +175,16 @@
 /* Textarea Pesan Editorial */
 .form-textarea {
     width: 100%;
-    min-height: 156px;
+    min-height: 150px;
     background-color: var(--color-surface);
     border: 1.5px solid transparent;
     border-radius: var(--radius-lg);
-    padding: 22px 24px;
+    padding: 20px 22px;
     font-family: var(--font-sans);
     font-size: 15px;
     line-height: 1.6;
     color: var(--color-text-primary);
-    resize: none;
+    resize: vertical;
     outline: none;
     transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -180,11 +212,11 @@
 
 .form-select {
     width: 100%;
-    height: 72px;
+    height: 68px;
     background-color: var(--color-surface);
     border: 1.5px solid transparent;
     border-radius: var(--radius-lg);
-    padding: 0 56px 0 24px;
+    padding: 0 54px 0 22px;
     font-family: var(--font-sans);
     font-size: 15px;
     color: var(--color-text-primary);
@@ -209,7 +241,7 @@
 
 .select-icon {
     position: absolute;
-    right: 24px;
+    right: 22px;
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
@@ -219,12 +251,10 @@
     justify-content: center;
 }
 
-/* --------------------------------------------------------------------------
-   4. Field Tambahan Penjadwalan (Tanggal & Waktu)
-   -------------------------------------------------------------------------- */
+/* Field Tambahan Penjadwalan (Tanggal & Waktu) */
 .schedule-fields {
-    margin-top: -6px;
-    margin-bottom: 28px;
+    margin-top: -4px;
+    margin-bottom: 26px;
     animation: fadeInSchedule 0.25s ease-out;
 }
 
@@ -242,7 +272,7 @@
 .schedule-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 18px;
 }
 
 .schedule-grid .form-field {
@@ -264,28 +294,26 @@
     margin-top: 0;
 }
 
-/* --------------------------------------------------------------------------
-   5. Tombol Aksi di Kanan Bawah
-   -------------------------------------------------------------------------- */
+/* Tombol Aksi di Kanan Bawah */
 .form-actions {
     display: flex;
     justify-content: flex-end;
-    margin-top: 36px;
+    margin-top: 32px;
 }
 
 .btn-send {
-    height: 72px;
-    padding: 0 36px;
+    height: 68px;
+    padding: 0 34px;
     background-color: #000;
     color: #fff;
     border: none;
     border-radius: var(--radius-lg, 16px);
     font-family: var(--font-sans);
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 500;
     display: inline-flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
     cursor: pointer;
     white-space: nowrap;
     transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
@@ -293,7 +321,7 @@
 
 .btn-send:hover {
     background-color: #1a1a1a;
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-btn-hover);
 }
 
@@ -303,7 +331,7 @@
 }
 
 .btn-send svg {
-    width: 22px;
+    width: 20px;
     height: auto;
     display: block;
     flex-shrink: 0;
@@ -311,7 +339,324 @@
 }
 
 /* --------------------------------------------------------------------------
-   6. Notifikasi Toast (Pojok Kanan Atas)
+   4. Panel Riwayat Siaran (Kolom Kanan)
+   -------------------------------------------------------------------------- */
+.broadcast-history-panel {
+    background-color: var(--color-card, #ffffff);
+    border: 1px solid var(--color-border, #E5E7EB);
+    border-radius: var(--radius-lg, 16px);
+    box-shadow: var(--shadow-card);
+    padding: 24px;
+    position: sticky;
+    top: 24px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.broadcast-history-panel:hover {
+    border-color: #D1D5DB;
+}
+
+/* Header Panel */
+.broadcast-history-header {
+    margin-bottom: 2px;
+}
+
+.history-panel-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted, #9CA3AF);
+    margin: 0 0 4px;
+}
+
+.history-panel-title {
+    font-family: var(--font-serif);
+    font-size: 19px;
+    font-weight: 400;
+    font-variant-numeric: lining-nums;
+    color: var(--color-text-primary, #111827);
+    line-height: 1.3;
+    margin: 0;
+}
+
+/* Tab Filter Pill */
+.history-tab-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 16px 0 14px;
+    flex-wrap: wrap;
+}
+
+.history-tab-btn {
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--color-surface, #F3F4F6);
+    color: var(--color-text-secondary, #4B5563);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+    user-select: none;
+}
+
+.history-tab-btn:hover:not(.active) {
+    background: #e5e7eb;
+    color: var(--color-text-primary, #111827);
+}
+
+.history-tab-btn.active {
+    background: var(--color-black, #111827);
+    color: var(--color-white, #ffffff);
+}
+
+/* Daftar Item Riwayat */
+.history-list {
+    max-height: 640px;
+    overflow-y: auto;
+    padding-right: 4px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.history-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+    background: #dcdad4;
+    border-radius: 4px;
+}
+
+.history-list::-webkit-scrollbar-thumb:hover {
+    background: #c7c5bd;
+}
+
+/* Kotak Item Riwayat */
+.history-item {
+    background: #F3F3F1;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.history-item:hover {
+    background: #ecebe8;
+}
+
+.history-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Baris Atas Item: Pill Status + Waktu */
+.history-item-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.history-status-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.pill-terkirim {
+    background: #E3F1E6;
+    color: #1F6B3A;
+}
+
+.pill-terjadwal {
+    background: #FBF0C7;
+    color: #7A5B00;
+}
+
+.pill-dibatalkan {
+    background: #ECEBE6;
+    color: #666666;
+}
+
+.history-item-time {
+    font-size: 11px;
+    color: var(--color-text-muted, #9CA3AF);
+    white-space: nowrap;
+}
+
+/* Judul Serif Item (Maks. 2 baris) */
+.history-item-title {
+    font-family: var(--font-serif);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text-primary, #111827);
+    line-height: 1.35;
+    margin: 0 0 6px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Cuplikan Isi Abu (Maks. 2 baris) */
+.history-item-snippet {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: var(--color-text-secondary, #4B5563);
+    line-height: 1.5;
+    margin: 0 0 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Baris Statistik Khusus Terkirim */
+.history-item-stats {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    padding-top: 2px;
+}
+
+.history-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.history-stat strong {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-text-primary, #111827);
+    line-height: 1.2;
+}
+
+.history-stat span {
+    font-size: 10.5px;
+    color: var(--color-text-muted, #6B7280);
+    line-height: 1.2;
+}
+
+/* Info Khusus Terjadwal / Dibatalkan / Baru Dikirim */
+.history-scheduled-info,
+.history-cancelled-info,
+.history-recent-info {
+    font-size: 11.5px;
+    color: var(--color-text-secondary, #4B5563);
+    margin: 0 0 10px;
+    line-height: 1.4;
+}
+
+.history-cancelled-info {
+    color: #666666;
+    font-style: italic;
+}
+
+.history-recent-info {
+    color: #1F6B3A;
+    font-weight: 500;
+}
+
+/* Baris Aksi Kecil */
+.history-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.btn-history-action {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.btn-reuse {
+    color: var(--color-text-secondary, #4B5563);
+}
+
+.btn-reuse:hover {
+    color: var(--color-text-primary, #111827);
+    text-decoration: underline;
+}
+
+.btn-cancel-broadcast {
+    color: #9B1C1C;
+}
+
+.btn-cancel-broadcast:hover {
+    color: #7A1414;
+    text-decoration: underline;
+}
+
+/* Pesan Kosong Filter */
+.history-empty-state {
+    font-size: 12.5px;
+    color: var(--color-text-muted, #9CA3AF);
+    text-align: center;
+    padding: 30px 16px;
+    background: #F9F9F8;
+    border-radius: 12px;
+    border: 1px dashed var(--color-border, #E5E7EB);
+    margin: 8px 0;
+}
+
+/* Tombol Footer Panel: Lihat Semua Riwayat */
+.btn-all-history {
+    width: 100%;
+    height: 42px;
+    margin-top: 14px;
+    background: #ECEBE6;
+    color: var(--color-text-primary, #111827);
+    border: none;
+    border-radius: var(--radius-md, 12px);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-all-history:hover {
+    background: #dedcd5;
+}
+
+.btn-all-history:active {
+    transform: scale(0.99);
+}
+
+/* --------------------------------------------------------------------------
+   5. Notifikasi Toast (Pojok Kanan Atas)
    -------------------------------------------------------------------------- */
 .toast-container {
     position: fixed;
@@ -348,19 +693,45 @@
 }
 
 /* --------------------------------------------------------------------------
-   7. Responsif Layar
+   6. Responsif Layar
    -------------------------------------------------------------------------- */
+/* Di bawah 1200px: satu kolom, panel riwayat di bawah kartu form dengan lebar penuh */
+@media (max-width: 1200px) {
+    .notification-layout-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .broadcast-history-panel {
+        position: static;
+        width: 100%;
+    }
+
+    .history-list {
+        max-height: 480px;
+    }
+}
+
 /* Tablet & Layar Menengah (< 992px) */
 @media (max-width: 991px) {
     .notif-card {
-        padding: 34px 30px;
+        padding: 34px 28px;
+    }
+
+    .broadcast-history-panel {
+        padding: 22px 20px;
     }
 }
 
 /* Smartphone & Layar Kecil (< 768px) */
 @media (max-width: 767px) {
     .notif-card {
-        padding: 28px 20px;
+        padding: 26px 18px;
+        border-radius: var(--radius-xl);
+    }
+
+    .broadcast-history-panel {
+        padding: 20px 16px;
         border-radius: var(--radius-xl);
     }
 

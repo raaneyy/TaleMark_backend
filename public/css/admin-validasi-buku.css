@@ -14,6 +14,28 @@
     --status-neutral-text: #444444;
 }
 
+/* Penguncian scroll horizontal khusus halaman Validasi Buku */
+html, body {
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
+    max-width: 100%;
+}
+
+.admin-wrapper,
+.main-area,
+.main-area > main,
+.page-content {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.book-modal-overlay {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+}
+
 /* --------------------------------------------------------------------------
    1. Kolom Pencarian di Topbar (diisi lewat @section('topbar_search'))
    -------------------------------------------------------------------------- */
@@ -56,6 +78,14 @@
 /* --------------------------------------------------------------------------
    2. Header Halaman
    -------------------------------------------------------------------------- */
+.curation-header,
+.filter-bar,
+.book-cards-list,
+.curation-pagination {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 .curation-header {
     margin-bottom: 40px; /* Jarak wajar antara judul dan tab bar (sekitar 40px) */
 }

@@ -10,9 +10,43 @@
     --color-warning-hover: #E6BB3A;
 }
 
+/* Penguncian scroll horizontal khusus halaman Laporan Akun */
+html, body {
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
+    max-width: 100%;
+}
+
+.admin-wrapper,
+.main-area,
+.main-area > main,
+.page-content {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.ban-overlay,
+.unban-overlay,
+.warn-overlay {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+}
+
 /* --------------------------------------------------------------------------
    1. Header Halaman
    -------------------------------------------------------------------------- */
+.report-header,
+.report-stats-grid,
+.report-filter-bar,
+.report-cards-list,
+.report-card,
+.report-footer {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 .report-header {
     margin-bottom: 28px;
 }
@@ -522,6 +556,70 @@
 
 .btn-ban:hover {
     background: #991b1b;
+}
+
+/* Baris status laporan yang telah diselesaikan */
+.report-completed-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.report-completed-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: normal;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.report-completed-badge svg {
+    flex-shrink: 0;
+}
+
+/* Pill SELESAI */
+.report-badge--selesai {
+    background: #E3F1E6;
+    color: #1F6B3A;
+}
+
+/* Pill Jenis Tindakan: WARNING */
+.report-badge--warning {
+    background: #FBF0C7;
+    color: #7A5B00;
+}
+
+/* Pill Jenis Tindakan: DIABAIKAN (abu) */
+.report-badge--diabaikan {
+    background: #ECEBE6;
+    color: #555555;
+}
+
+/* Pill Jenis Tindakan: BANNED */
+.report-badge--banned {
+    background: #FBE3E1;
+    color: #9B1C1C;
+}
+
+/* Teks Metadata Penyelesaian Kasus */
+.report-completed-meta {
+    font-size: 13px;
+    color: #555555;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.report-completed-meta b,
+.report-completed-meta strong {
+    color: var(--color-text-primary);
+    font-weight: 600;
 }
 
 .report-completed-text {
@@ -1289,6 +1387,17 @@
     }
 
     .btn-action {
+        width: 100%;
+    }
+
+    /* Baris kartu selesai membungkus ke dua baris: pill di atas, teks di bawah */
+    .report-completed-row {
+        flex-wrap: wrap;
+        gap: 8px 12px;
+    }
+
+    .report-completed-meta {
+        flex-basis: 100%;
         width: 100%;
     }
 
