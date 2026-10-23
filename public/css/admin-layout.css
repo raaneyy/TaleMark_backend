@@ -104,8 +104,8 @@ a {
 
 /* Gambar icon logo TaleMark */
 .sidebar-logo-img {
-    width: 36px;
-    height: 36px;
+    width: 55px;
+    height: 55px;
     border-radius: var(--radius-sm);
     object-fit: cover;
     flex-shrink: 0;

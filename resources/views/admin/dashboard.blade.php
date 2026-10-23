@@ -35,22 +35,6 @@
             'progress' => 94,
             'icon'     => 'book',
         ],
-        [
-            'label'    => 'Halaman Terbaca',
-            'value'    => '18.420.100',
-            'desc'     => '+340,2 rb sejak kemarin',
-            'badge'    => 'up',
-            'progress' => 58,
-            'icon'     => 'pages',
-        ],
-        [
-            'label'    => 'Sesi Hening Hari Ini',
-            'value'    => '8.940',
-            'desc'     => '1.218 sedang aktif &bull; fokus saat ini',
-            'badge'    => null,
-            'progress' => 45,
-            'icon'     => 'hourglass',
-        ],
     ];
 
     /* Data genre untuk kartu distribusi */
@@ -67,7 +51,6 @@
      ============================================= --}}
 <div class="page-header">
     <div class="page-header-left">
-        <p class="page-label">IKHTISAR KURATORIAL &bull; Folio Warta Redaksi No. 89</p>
         <h1 class="page-title">Ringkasan Pustaka &amp; Statistik Platform</h1>
         <p class="page-subtitle">Arsip data aktivitas pembaca dan pertumbuhan katalog buku per November 2024</p>
     </div>
@@ -245,178 +228,6 @@
         </div>
         {{-- /kartu grafik --}}
 
-        {{-- ----- KARTU MODERASI ----- --}}
-        <div class="card moderation-card">
-
-            {{-- Header moderasi --}}
-            <div class="moderation-card-header">
-                <div>
-                    <div class="moderation-alert-label">
-                        <span class="alert-dot"></span>
-                        PERHATIAN REDAKSI
-                    </div>
-                    <h2 class="moderation-card-title">Antrean Moderasi Butuh Tindakan Segera</h2>
-                </div>
-                <span class="badge-pending">4 TERTUNDA</span>
-            </div>
-
-            {{-- ---- Sub-bagian 1: Usulan Katalog Manual ---- --}}
-            <div class="moderation-section">
-                <div class="moderation-section-header">
-                    <span class="moderation-section-title">Usulan Katalog Manual (2 Permohonan)</span>
-                    <a href="#" class="moderation-link">Lihat semua (18)</a>
-                </div>
-
-                {{-- Grid dua kartu buku --}}
-                <div class="book-cards-grid">
-
-                    {{-- Buku 1 --}}
-                    <div class="book-item">
-                        <div class="book-item-top">
-                            {{-- Sampul buku asli --}}
-                            <div class="book-cover">
-                                <img src="{{ asset('images/books/ziarah.png') }}" alt="Sampul Ziarah Karya Iwan Simatupang">
-                            </div>
-                            <div class="book-info">
-                                <p class="book-isbn">ISBN 978-602-03-8821</p>
-                                <p class="book-title">Ziarah Karya Iwan Simatupang</p>
-                                <p class="book-proposer">Folio Restorasi</p>
-                            </div>
-                        </div>
-                        <div class="book-item-actions">
-                            <button class="btn btn-primary btn-sm">Setujui</button>
-                            <button class="btn btn-secondary btn-sm">Periksa</button>
-                        </div>
-                    </div>
-
-                    {{-- Buku 2 --}}
-                    <div class="book-item">
-                        <div class="book-item-top">
-                            {{-- Sampul buku asli --}}
-                            <div class="book-cover">
-                                <img src="{{ asset('images/books/hujan-bulan-juni.png') }}" alt="Sampul Hujan Bulan Juni">
-                            </div>
-                            <div class="book-info">
-                                <p class="book-isbn">ISBN 978-623-71-3310</p>
-                                <p class="book-title">Hujan Bulan Juni: Antologi Lengkap</p>
-                                <p class="book-proposer">@SastraSenja</p>
-                            </div>
-                        </div>
-                        <div class="book-item-actions">
-                            <button class="btn btn-primary btn-sm">Setujui</button>
-                            <button class="btn btn-secondary btn-sm">Periksa</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            {{-- /sub-bagian 1 --}}
-
-            <div class="moderation-divider"></div>
-
-            {{-- ---- Sub-bagian 2: Laporan Pelanggaran ---- --}}
-            <div class="moderation-section">
-                <div class="moderation-section-header">
-                    <span class="moderation-section-title">Laporan Pelanggaran Komunitas (2 Akun)</span>
-                    <a href="#" class="moderation-link">Lihat investigasi (5)</a>
-                </div>
-
-                {{-- Akun 1: spam ulasan --}}
-                <div class="violation-item">
-                    <div class="violation-avatar">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-                        </svg>
-                    </div>
-                    <div class="violation-info">
-                        <div class="violation-user-row">
-                            <span class="violation-username">@raden_kolektor</span>
-                            <span class="badge-violation">SPAM ULASAN</span>
-                        </div>
-                        <p class="violation-desc">Membuat 14 ulasan generik AI identik dalam rentang 3 menit</p>
-                        <div class="violation-actions">
-                            <button class="btn btn-secondary btn-sm">Bekukan</button>
-                            <button class="btn btn-secondary btn-sm">Abaikan</button>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Akun 2: hak cipta --}}
-                <div class="violation-item">
-                    <div class="violation-avatar">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-                        </svg>
-                    </div>
-                    <div class="violation-info">
-                        <div class="violation-user-row">
-                            <span class="violation-username">@buku_bajakan_id</span>
-                            <span class="badge-violation">HAK CIPTA</span>
-                        </div>
-                        <p class="violation-desc">Mencantumkan domain eksternal penjualan PDF tidak berizin</p>
-                        <div class="violation-actions">
-                            <button class="btn btn-danger btn-sm">Blokir Permanen</button>
-                            <button class="btn btn-secondary btn-sm">Audit</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            {{-- /sub-bagian 2 --}}
-
-        </div>
-        {{-- /kartu moderasi --}}
-
-    </div>
-    {{-- /mid-left --}}
-
-    {{-- =========================================
-         KOLOM KANAN: notifikasi + genre + sistem
-         ========================================= --}}
-    <div class="mid-right">
-
-        {{-- ----- KARTU SIARAN NOTIFIKASI ----- --}}
-        <div class="card notif-card">
-            <div class="notif-card-header">
-                <div>
-                    <p class="notif-section-label">Warta Publik</p>
-                    <h2 class="notif-card-title">Siaran Notifikasi Aktif</h2>
-                </div>
-                {{-- Badge LIVE --}}
-                <div class="badge-live">
-                    <span class="live-dot"></span>
-                    LIVE
-                </div>
-            </div>
-
-            {{-- Konten siaran --}}
-            <div class="notif-content-box">
-                <div class="notif-type-label">
-                    {{-- Ikon sinyal --}}
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M1 6c0 0 4-4 11-4s11 4 11 4"/><path d="M5 10c0 0 3-3 7-3s7 3 7 3"/>
-                        <path d="M9 14c0 0 1-1 3-1s3 1 3 1"/><circle cx="12" cy="18" r="1"/>
-                    </svg>
-                    SIARAN NASIONAL
-                </div>
-                <p class="notif-title">Selamat Hari Buku Nasional 2024</p>
-                <p class="notif-quote">
-                    "Buku adalah jembatan sunyi yang menghubungkan dua jiwa yang tak pernah bersua."
-                    Nikmati kurasi esai eksklusif selama pekan literasi.
-                </p>
-                <div class="notif-stats">
-                    <div class="notif-stat"><strong>94.200</strong><br>pembaca terjangkau</div>
-                    <div class="notif-stat"><strong>88,4%</strong><br>CTR</div>
-                </div>
-            </div>
-
-            {{-- Tombol kelola --}}
-            <button class="btn btn-secondary" style="width:100%; justify-content:center;" id="btn-kelola-siaran">
-                Kelola Distribusi Siaran
-            </button>
-        </div>
-        {{-- /kartu siaran --}}
-
         {{-- ----- KARTU DISTRIBUSI GENRE ----- --}}
         <div class="card genre-card">
             <div class="genre-card-header">
@@ -450,53 +261,7 @@
         </div>
         {{-- /kartu genre --}}
 
-        {{-- ----- KARTU SISTEM & KEAMANAN ----- --}}
-        <div class="card system-card">
-            <div class="system-card-header">
-                <div>
-                    <p class="system-section-label">Infrastruktur</p>
-                    <h2 class="system-card-title">Sistem &amp; Keamanan</h2>
-                </div>
-                {{-- Ikon perisai --}}
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                </svg>
-            </div>
-
-            {{-- Baris status --}}
-            <div class="system-status-list">
-                <div class="system-status-item">
-                    <span class="system-status-dot"></span>
-                    <div class="system-status-text">
-                        <strong>Status Server Repositori</strong>
-                        <span>Optimal (99.98%)</span>
-                    </div>
-                </div>
-                <div class="system-status-item">
-                    <span class="system-status-dot"></span>
-                    <div class="system-status-text">
-                        <strong>Insiden Dilaporkan</strong>
-                        <span>0 Kasus Hari Ini</span>
-                    </div>
-                </div>
-                <div class="system-status-item">
-                    <span class="system-status-dot"></span>
-                    <div class="system-status-text">
-                        <strong>Sinkronisasi Metadata ISBN</strong>
-                        <span>12 mnt lalu</span>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Footer kartu sistem --}}
-            <div class="system-card-footer">
-                <span class="system-node-label">Versi Node Kurasi: ID-JKT-04</span>
-                <a href="#" class="system-log-link">LOG SISTEM &rarr;</a>
-            </div>
-        </div>
-        {{-- /kartu sistem --}}
-
-    </div>
+       </div>
     {{-- /mid-right --}}
 
 </div>

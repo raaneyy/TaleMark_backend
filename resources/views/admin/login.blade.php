@@ -47,7 +47,7 @@
                 --}}
                 <form
                     id="login-form"
-                    action="#"
+                    action="{{ route('admin.login.post') }}"
                     method="POST"
                     novalidate
                 >

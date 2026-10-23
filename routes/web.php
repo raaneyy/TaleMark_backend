@@ -1,38 +1,30 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminAuthController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-/*
- * TODO: Route sementara untuk melihat tampilan login admin.
- * Ganti route ini dengan controller dan middleware autentikasi dari backend.
- */
-Route::get('/admin/login', fn () => view('admin.login'));
+// Halaman login admin
+Route::get('/admin/login', fn () => view('admin.login'))
+    ->name('admin.login');
 
-/*
- * Route sementara untuk halaman admin dashboard (tampilan saja).
- * Nanti akan diganti oleh backend dengan middleware auth dan controller yang sesuai.
- * Contoh: Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->middleware('auth');
- */
-Route::get('/admin/dashboard', fn () => view('admin.dashboard'))->name('admin.dashboard');
+// Proses login admin
+Route::post('/admin/login', [AdminAuthController::class, 'login'])
+    ->name('admin.login.post');
 
-/*
- * Route sementara untuk melihat tampilan Validasi & Kurasi Buku Manual (tampilan saja).
- * Nanti akan diganti oleh tim backend dengan middleware auth dan controller yang sesuai.
- */
-Route::get('/admin/validasi-buku', fn () => view('admin.validasi-buku'))->name('admin.validasi-buku');
+// Halaman admin
+Route::get('/admin/dashboard', fn () => view('admin.dashboard'))
+    ->name('admin.dashboard');
 
-/*
- * Route sementara untuk melihat tampilan Laporan Akun & Tinjau Komunitas (tampilan saja).
- * Nanti akan diganti oleh tim backend dengan middleware auth dan controller yang sesuai.
- */
-Route::get('/admin/laporan-akun', fn () => view('admin.laporan-akun'))->name('admin.laporan-akun');
+Route::get('/admin/validasi-buku', fn () => view('admin.validasi-buku'))
+    ->name('admin.validasi-buku');
 
-/*
- * Route sementara untuk melihat tampilan Siaran Notifikasi (tampilan saja).
- * Nanti akan diganti oleh tim backend dengan middleware auth dan controller yang sesuai.
- */
-Route::get('/admin/siaran-notifikasi', fn () => view('admin.siaran-notifikasi'))->name('admin.siaran-notifikasi');
+Route::get('/admin/laporan-akun', fn () => view('admin.laporan-akun'))
+    ->name('admin.laporan-akun');
+
+Route::get('/admin/siaran-notifikasi', fn () => view('admin.siaran-notifikasi'))
+    ->name('admin.siaran-notifikasi');

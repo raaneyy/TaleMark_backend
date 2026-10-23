@@ -37,10 +37,10 @@
 
         {{-- Logo --}}
         <div class="sidebar-logo">
-            <img src="{{ asset('images/logo-talemark-icon.png') }}" alt="TaleMark" class="sidebar-logo-img">
+            <img src="{{ asset('images/talemark.jpeg') }}" alt="TaleMark" class="sidebar-logo-img">
             <div class="sidebar-logo-text">
                 <span class="brand-name">TaleMark</span>
-                <span class="brand-sub">Curatorial Desk</span>
+                <span class="brand-sub">Dashboard </span>
             </div>
         </div>
 
@@ -112,22 +112,6 @@
             </ul>
         </nav>
 
-        {{-- Badge versi di footer sidebar (hanya tampil di dashboard) --}}
-        @if (request()->routeIs('admin.dashboard'))
-        <div class="sidebar-footer">
-            <div class="sidebar-version-badge">
-                <div class="sidebar-version-info">
-                    <span class="sidebar-version-label">EDISI INDEKS</span>
-                    <span class="sidebar-version-val">v2.4.0 &bull; Folio Stable</span>
-                </div>
-                {{-- Ikon centang/status --}}
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
-                    <path d="m9 12 2 2 4-4"/>
-                </svg>
-            </div>
-        </div>
-        @endif
 
     </aside>
     {{-- /sidebar --}}
@@ -175,21 +159,6 @@
         <main class="page-content" role="main">
             @yield('content')
         </main>
-
-        {{-- FOOTER (hanya tampil di dashboard) --}}
-        @if (request()->routeIs('admin.dashboard'))
-        <footer class="page-footer" role="contentinfo">
-            <div class="footer-brand">
-                <strong>TaleMark</strong>
-                <span> — Arsip Indeks Kurasi Sastra &amp; Preservasi Teks Digital.</span>
-            </div>
-            <nav class="footer-links" aria-label="Tautan footer">
-                <a href="#">Protokol Kurasi</a>
-                <a href="#">Daftar Istilah ISBN</a>
-                <a href="#">Bantuan Meja Redaksi</a>
-            </nav>
-        </footer>
-        @endif
 
     </div>
     {{-- /main-area --}}
