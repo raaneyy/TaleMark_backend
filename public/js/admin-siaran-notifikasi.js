@@ -435,7 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p class="history-scheduled-info">Dikirim pada ${escapeHtml(formattedDate)}</p>
                         <div class="history-item-actions">
                             <button type="button" class="btn-history-action btn-reuse" data-id="${newBroadcastId}">
-                                Gunakan Lagi
+                                Edit
                             </button>
                             <button type="button" class="btn-history-action btn-cancel-broadcast" data-id="${newBroadcastId}">
                                 Batalkan
@@ -455,7 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p class="history-recent-info">Baru saja dikirim</p>
                         <div class="history-item-actions">
                             <button type="button" class="btn-history-action btn-reuse" data-id="${newBroadcastId}">
-                                Gunakan Lagi
+                                Edit
                             </button>
                         </div>
                     `;

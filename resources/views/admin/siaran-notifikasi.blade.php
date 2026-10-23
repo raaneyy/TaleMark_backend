@@ -230,7 +230,7 @@
 
                     <div class="history-item-actions">
                         <button type="button" class="btn-history-action btn-reuse" data-id="{{ $item['id'] }}">
-                            Gunakan Lagi
+                            Edit
                         </button>
                         @if ($item['status'] === 'terjadwal')
                             <button type="button" class="btn-history-action btn-cancel-broadcast" data-id="{{ $item['id'] }}">
