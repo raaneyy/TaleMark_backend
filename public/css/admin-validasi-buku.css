@@ -490,7 +490,7 @@ html, body {
 .book-actions {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 16px;
 }
 
@@ -526,6 +526,7 @@ html, body {
     display: inline-flex;
     align-items: center;
     gap: 10px;
+    margin-left: auto;
 }
 
 /* Tombol Tolak: latar abu, teks merah, tinggi selaras dengan tombol Setujui */
