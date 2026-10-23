@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
 
     {{-- CSS Layout (sidebar, topbar, footer, variabel) --}}
-    <link rel="stylesheet" href="{{ asset('css/admin-layout.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin-layout.css') }}?v={{ file_exists(public_path('css/admin-layout.css')) ? filemtime(public_path('css/admin-layout.css')) : time() }}">
 
     {{-- CSS tambahan dari halaman anak --}}
     @yield('styles')
@@ -156,8 +156,10 @@
         {{-- /topbar --}}
 
         {{-- KONTEN HALAMAN (diisi oleh halaman anak) --}}
-        <main class="page-content" role="main">
-            @yield('content')
+        <main role="main">
+            <div class="page-content">
+                @yield('content')
+            </div>
         </main>
 
     </div>
@@ -166,11 +168,19 @@
 </div>
 {{-- /admin-wrapper --}}
 
-{{-- JavaScript toggle sidebar --}}
-<script src="{{ asset('js/admin-layout.js') }}"></script>
+{{-- =============================================
+     POP-UP & MODAL DIALOGS (Langsung di bawah body)
+     Menjamin posisi fixed 100% dead-center dan menutup penuh layar
+     ============================================= --}}
+@yield('modals')
+@stack('modals')
+
+{{-- JavaScript toggle sidebar & modal teleport --}}
+<script src="{{ asset('js/admin-layout.js') }}?v={{ file_exists(public_path('js/admin-layout.js')) ? filemtime(public_path('js/admin-layout.js')) : time() }}"></script>
 
 {{-- Script tambahan dari halaman anak --}}
 @yield('scripts')
+@stack('scripts')
 
 </body>
 </html>

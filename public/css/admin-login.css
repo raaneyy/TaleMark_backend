@@ -2,27 +2,29 @@
    admin-login.css — Halaman Login Admin TaleMark
    ================================================ */
 
-/* ----- CSS Variables (mudah diubah tema) ----- */
+/* ----- CSS Variables (Design Tokens Konsisten) ----- */
 :root {
-    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-serif: 'Newsreader', 'Playfair Display', Georgia, serif;
     --font-sans:  'Inter', system-ui, sans-serif;
 
-    --clr-bg:         #f5f5f5;   /* latar halaman */
-    --clr-card:       #ffffff;   /* latar kartu */
-    --clr-input-bg:   #f2f2f2;   /* latar input */
-    --clr-border:     #e5e5e5;   /* garis pemisah */
-    --clr-text:       #1a1a1a;   /* teks utama */
-    --clr-label:      #555555;   /* teks label */
-    --clr-placeholder:#999999;   /* teks placeholder */
-    --clr-accent:     #1a1a1a;   /* warna tombol & aksen */
-    --clr-accent-hover: #333333; /* warna tombol saat hover */
-    --clr-error:      #d32f2f;   /* teks error merah */
-    --clr-forgot:     #555555;   /* warna link lupa */
+    --clr-bg:          #F9FAFB;   /* latar halaman abu sangat bersih */
+    --clr-card:        #ffffff;   /* latar kartu */
+    --clr-input-bg:    #F3F4F6;   /* latar input */
+    --clr-border:      #E5E7EB;   /* garis pemisah halus */
+    --clr-text:        #111827;   /* teks utama tajam */
+    --clr-label:       #4B5563;   /* teks label */
+    --clr-placeholder: #9CA3AF;   /* teks placeholder */
+    --clr-accent:      #111827;   /* warna tombol & aksen */
+    --clr-accent-hover: #1f2937;  /* warna tombol saat hover */
+    --clr-error:       #DC2626;   /* teks error merah */
+    --clr-forgot:      #4B5563;   /* warna link lupa */
 
-    --radius-card:  20px;
+    --radius-card:  16px;
     --radius-input: 10px;
     --radius-btn:   10px;
-    --shadow-card:  0 8px 32px rgba(0, 0, 0, 0.08);
+    --shadow-card:       0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+    --shadow-card-hover: 0 12px 28px -4px rgba(0, 0, 0, 0.08), 0 6px 12px -2px rgba(0, 0, 0, 0.04);
+    --shadow-btn-hover:  0 8px 20px -2px rgba(17, 24, 39, 0.2);
 }
 
 /* ----- Reset & base ----- */
@@ -55,6 +57,7 @@ body {
 
 .login-card {
     background: var(--clr-card);
+    border: 1px solid var(--clr-border);
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-card);
     display: flex;
@@ -63,6 +66,26 @@ body {
     max-width: 920px;
     min-height: 480px;
     overflow: hidden;
+    animation: loginFadeUp 0.4s ease forwards;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.login-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: #D1D5DB;
+}
+
+/* Animasi Fade Up saat halaman dibuka: opacity 0 ke 1, translateY 12px ke 0, durasi 0.4s */
+@keyframes loginFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ----- Kolom Kiri: Brand / Logo ----- */
@@ -82,8 +105,6 @@ body {
     object-fit: contain;
 }
 
-/* Divider dihapus sesuai desain */
-
 /* ----- Kolom Kanan: Form ----- */
 .login-form-section {
     flex: 1.1;
@@ -101,7 +122,7 @@ body {
     color: var(--clr-text);
     margin-bottom: 36px;
     line-height: 1.2;
-    white-space: nowrap; /* judul tetap satu baris */
+    white-space: nowrap;
     text-align: center;
 }
 
@@ -132,13 +153,12 @@ body {
 .form-label {
     display: block;
     font-size: 0.7rem;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.08em;
     color: var(--clr-label);
     margin-bottom: 6px;
 }
 
-/* Ketika label berada di .label-row, margin bawah tidak perlu dobel */
 .label-row .form-label {
     margin-bottom: 0;
 }
@@ -161,27 +181,33 @@ body {
     width: 100%;
     padding: 13px 16px;
     background-color: var(--clr-input-bg);
-    border: none;
+    border: 1px solid var(--clr-border);
     border-radius: var(--radius-input);
     font-family: var(--font-sans);
     font-size: 0.95rem;
     color: var(--clr-text);
     outline: none;
-    transition: box-shadow 0.2s ease, background-color 0.2s ease;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-input::placeholder {
     color: var(--clr-placeholder);
 }
 
-/* Efek fokus halus — hanya ganti warna latar, tanpa outline tebal */
-.form-input:focus {
-    background-color: #e8e8e8;
-    outline: none;
-    box-shadow: none;
+.form-input:hover {
+    background-color: #ffffff;
+    border-color: #D1D5DB;
 }
 
-/* Sembunyikan ikon reveal bawaan browser (seperti di Microsoft Edge) agar tidak dobel dengan tombol custom */
+/* Efek fokus modern — border aksen hitam dengan ring halus */
+.form-input:focus {
+    background-color: #ffffff;
+    border-color: var(--clr-accent);
+    box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.08);
+    outline: none;
+}
+
+/* Sembunyikan ikon reveal bawaan browser */
 .form-input::-ms-reveal,
 .form-input::-ms-clear,
 input::-ms-reveal,
@@ -191,7 +217,7 @@ input::-ms-clear {
     height: 0 !important;
 }
 
-/* ----- Wrapper input password (agar ikon bisa di-overlay) ----- */
+/* ----- Wrapper input password ----- */
 .input-password-wrapper {
     position: relative;
     display: flex;
@@ -199,7 +225,7 @@ input::-ms-clear {
 }
 
 .input-password-wrapper .form-input {
-    padding-right: 48px; /* ruang untuk tombol ikon */
+    padding-right: 48px;
 }
 
 /* Tombol toggle show/hide password */
@@ -216,13 +242,14 @@ input::-ms-clear {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.2s ease, opacity 0.2s ease;
+    transition: color 0.2s ease, transform 0.2s ease;
     line-height: 0;
     border-radius: 6px;
 }
 
 .btn-toggle-password:hover {
     color: var(--clr-text);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .btn-toggle-password:focus-visible {
@@ -230,13 +257,13 @@ input::-ms-clear {
     outline-offset: 2px;
 }
 
-/* ----- Pesan error validasi (browser & server) ----- */
+/* ----- Pesan error validasi ----- */
 .field-error {
     display: block;
     font-size: 0.8rem;
     color: var(--clr-error);
     margin-top: 5px;
-    min-height: 1rem; /* jaga agar layout tidak melompat */
+    min-height: 1rem;
 }
 
 /* ----- Tombol Submit ----- */
@@ -250,19 +277,27 @@ input::-ms-clear {
     border-radius: var(--radius-btn);
     font-family: var(--font-sans);
     font-size: 0.95rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     letter-spacing: 0.02em;
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .btn-submit:hover {
     background-color: var(--clr-accent-hover);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-btn-hover);
 }
 
-/* Animasi kecil saat diklik */
+.btn-submit:focus-visible {
+    outline: 2px solid var(--clr-accent);
+    outline-offset: 2px;
+}
+
+/* Animasi saat diklik */
 .btn-submit:active {
-    transform: scale(0.99);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(17, 24, 39, 0.12);
 }
 
 /* ================================================
@@ -278,7 +313,6 @@ input::-ms-clear {
         padding: 36px 40px 28px;
     }
 
-    /* Logo diperkecil di mobile */
     .brand-logo {
         max-width: 150px;
     }

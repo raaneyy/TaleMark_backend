@@ -8,7 +8,7 @@
 
 {{-- CSS khusus halaman laporan akun --}}
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('css/admin-laporan-akun.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin-laporan-akun.css') }}?v={{ file_exists(public_path('css/admin-laporan-akun.css')) ? filemtime(public_path('css/admin-laporan-akun.css')) : time() }}">
 @endsection
 
 @section('content')
@@ -50,6 +50,37 @@
             'bukti'          => '3 kutipan duplikat diunggah dalam kurun waktu 15 menit.',
             'kategori'       => 'spam',
             'status'         => 'selesai',
+            'tindakan'       => 'WARNING',
+            'tanggal_ditutup'=> '21 Okt 2024, 14:05',
+            'ditangani_oleh' => 'Agus',
+        ],
+        [
+            'id'             => 'USR-3190',
+            'username'       => '@debat_resensi',
+            'inisial'        => 'D',
+            'terdaftar'      => '2 bulan lalu',
+            'pelapor_count'  => 1,
+            'alasan'         => 'Perdebatan tajam terkait analisis karakter tokoh novel di kolom ulasan buku',
+            'bukti'          => 'Komentar berupa adu argumen sastra biasa dan tidak memuat kata kasar atau SARA.',
+            'kategori'       => 'sara',
+            'status'         => 'selesai',
+            'tindakan'       => 'DIABAIKAN',
+            'tanggal_ditutup'=> '20 Okt 2024, 09:30',
+            'ditangani_oleh' => 'Dewi',
+        ],
+        [
+            'id'             => 'USR-6211',
+            'username'       => '@link_judi_slot',
+            'inisial'        => 'L',
+            'terdaftar'      => '5 hari lalu',
+            'pelapor_count'  => 42,
+            'alasan'         => 'Penyebaran tautan promosi judi online secara terorganisir di seluruh feed kutipan',
+            'bukti'          => 'Ditemukan lebih dari 60 komentar berantai dengan tautan domain terlarang.',
+            'kategori'       => 'spam',
+            'status'         => 'selesai',
+            'tindakan'       => 'BANNED',
+            'tanggal_ditutup'=> '19 Okt 2024, 16:15',
+            'ditangani_oleh' => 'Rian',
         ],
         [
             'id'             => 'USR-5519',
@@ -274,9 +305,28 @@
             <div class="report-actions-row">
                 @if ($item['status'] === 'selesai')
                     {{-- Keterangan jika laporan sudah selesai ditangani --}}
-                    <p class="report-completed-text">
-                        Laporan selesai: akun sudah diberi warning.
-                    </p>
+                    @php
+                        $tindakan = strtoupper($item['tindakan'] ?? 'WARNING');
+                        $tglDitutup = $item['tanggal_ditutup'] ?? '21 Okt 2024, 14:05';
+                        $petugas = $item['ditangani_oleh'] ?? 'Agus';
+                    @endphp
+                    <div class="report-completed-row">
+                        <span class="report-completed-badge report-badge--selesai">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            SELESAI
+                        </span>
+                        <span class="report-completed-meta">
+                            @if ($tindakan === 'DIABAIKAN')
+                                Laporan diabaikan pada <b>{{ $tglDitutup }}</b> oleh <b>{{ $petugas }}</b>
+                            @elseif ($tindakan === 'BANNED')
+                                Akun di-banned pada <b>{{ $tglDitutup }}</b> oleh <b>{{ $petugas }}</b>
+                            @else
+                                Akun sudah diberi warning pada <b>{{ $tglDitutup }}</b> oleh <b>{{ $petugas }}</b>
+                            @endif
+                        </span>
+                    </div>
                 @elseif ($item['status'] === 'banned')
                     {{-- Keterangan jika akun sedang dalam penangguhan / banned --}}
                     <div class="report-banned-container">
@@ -357,6 +407,15 @@
     </div>
 </div>
 
+@endsection
+
+{{-- =============================================
+     POP-UP & MODAL DIALOGS
+     Ditempatkan di section('modals') di luar admin-wrapper
+     agar selalu muncul 100% tepat di tengah layar penuh
+     ============================================= --}}
+@section('modals')
+
 {{-- =============================================
      POP-UP BANNED DURATION (MODAL BARU)
      ============================================= --}}
@@ -404,6 +463,14 @@
      ============================================= --}}
 <div class="unban-overlay" id="unbanOverlay" role="dialog" aria-modal="true" aria-labelledby="unbanModalTitle" aria-hidden="true">
     <div class="unban-modal" id="unbanModal" data-id="" data-username="">
+        {{-- Tombol panah kembali di pojok kiri atas --}}
+        <button type="button" class="unban-modal-back ban-modal-back" id="btnUnbanBack" aria-label="Tutup pop-up buka blokir">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+
         <h2 class="unban-modal-title" id="unbanModalTitle">Buka Blokir Akun</h2>
         <p class="unban-modal-desc" id="unbanModalDesc">
             Akun <strong id="unbanTargetUsername">@username</strong> akan bisa masuk kembali ke TaleMark.
@@ -462,5 +529,5 @@
 
 {{-- Script JS khusus halaman laporan akun --}}
 @section('scripts')
-    <script src="{{ asset('js/admin-laporan-akun.js') }}"></script>
+    <script src="{{ asset('js/admin-laporan-akun.js') }}?v={{ file_exists(public_path('js/admin-laporan-akun.js')) ? filemtime(public_path('js/admin-laporan-akun.js')) : time() }}"></script>
 @endsection

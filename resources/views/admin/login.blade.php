@@ -6,10 +6,10 @@
     <meta name="description" content="Halaman login admin TaleMark - aplikasi pelacak bacaan">
     <title>Login Admin — TaleMark</title>
 
-    {{-- Google Fonts: Playfair Display untuk judul, Inter untuk isi --}}
+    {{-- Google Fonts: Newsreader + Inter --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
 
     {{-- CSS halaman login --}}
     <link rel="stylesheet" href="{{ asset('css/admin-login.css') }}">

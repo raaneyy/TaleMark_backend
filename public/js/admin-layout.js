@@ -1,6 +1,6 @@
 /**
  * admin-layout.js
- * Toggle sidebar di layar kecil (hamburguer menu)
+ * Toggle sidebar di layar kecil (hamburger menu) & Modal Teleport
  */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -32,5 +32,26 @@ document.addEventListener('DOMContentLoaded', function () {
         sidebar.classList.remove('open');
         overlay.classList.remove('active');
     }
+
+    // Pindahkan semua elemen overlay/modal ke <body> agar posisinya mutlak relatif terhadap viewport layar penuh dan muncul tepat di tengah layar
+    function teleportModalsToBody() {
+        const modalSelectors = [
+            '.ban-overlay',
+            '.unban-overlay',
+            '.warn-overlay',
+            '.book-modal-overlay',
+            '.modal-overlay',
+            '.curation-modal'
+        ];
+        modalSelectors.forEach(function (selector) {
+            document.querySelectorAll(selector).forEach(function (el) {
+                if (el && el.parentElement !== document.body) {
+                    document.body.appendChild(el);
+                }
+            });
+        });
+    }
+
+    teleportModalsToBody();
 
 });
