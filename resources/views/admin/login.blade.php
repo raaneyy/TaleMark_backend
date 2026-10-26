@@ -53,25 +53,28 @@
                 >
                     @csrf
 
-                    {{-- Field username --}}
-                    <div class="form-group">
-                        <label class="form-label" for="username">USERNAME</label>
-                        <input
-                            class="form-input"
-                            type="text"
-                            id="username"
-                            name="username"
-                            placeholder="Username"
-                            autocomplete="username"
-                            value="{{ old('username') }}"
-                        >
-                        {{-- Pesan error validasi browser (diisi oleh JS) --}}
-                        <span class="field-error" id="error-username" role="alert"></span>
-                        {{-- Pesan error validasi server (diisi oleh backend) --}}
-                        @error('username')
-                            <span class="field-error">{{ $message }}</span>
-                        @enderror
-                    </div>
+            {{-- Field email --}}
+            <div class="form-group">
+                <label class="form-label" for="email">EMAIL</label>
+                <input
+                    class="form-input"
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Masukkan email"
+                    autocomplete="email"
+                    value="{{ old('email') }}"
+                    required
+                >
+
+                {{-- Pesan error validasi browser (diisi oleh JS) --}}
+                <span class="field-error" id="error-email" role="alert"></span>
+
+                {{-- Pesan error validasi server (diisi oleh backend) --}}
+                @error('email')
+                    <span class="field-error">{{ $message }}</span>
+                @enderror
+            </div>
 
                     {{-- Field kata sandi --}}
                     <div class="form-group">

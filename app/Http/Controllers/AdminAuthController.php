@@ -11,12 +11,12 @@ class AdminAuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'username' => ['required', 'string'],
+            'email' => ['required', 'email'],
             'password' => ['required', 'string'],
         ]);
 
         $admin = DB::table('admin')
-            ->where('username', $credentials['username'])
+            ->where('email', $credentials['email'])
             ->first();
 
         if (
@@ -24,8 +24,8 @@ class AdminAuthController extends Controller
             !Hash::check($credentials['password'], $admin->password)
         ) {
             return back()
-                ->withInput($request->only('username'))
-                ->with('error', 'Username atau kata sandi salah.');
+                ->withInput($request->only('email'))
+                ->with('error', 'Email atau kata sandi salah.');
         }
 
         $request->session()->regenerate();
