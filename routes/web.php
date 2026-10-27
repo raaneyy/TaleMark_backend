@@ -8,7 +8,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Halaman login admin
+// Halaman login admin (boleh dibuka tanpa login)
 Route::get('/admin/login', fn () => view('admin.login'))
     ->name('admin.login');
 
@@ -16,22 +16,25 @@ Route::get('/admin/login', fn () => view('admin.login'))
 Route::post('/admin/login', [AdminAuthController::class, 'login'])
     ->name('admin.login.post');
 
-// Halaman admin
-Route::get('/admin/dashboard', fn () => view('admin.dashboard'))
-    ->name('admin.dashboard');
-
-Route::get('/admin/validasi-buku', fn () => view('admin.validasi-buku'))
-    ->name('admin.validasi-buku');
-
-Route::get('/admin/laporan-akun', fn () => view('admin.laporan-akun'))
-    ->name('admin.laporan-akun');
-
-Route::get('/admin/siaran-notifikasi', fn () => view('admin.siaran-notifikasi'))
-    ->name('admin.siaran-notifikasi');
-
-// Halaman yang wajib login admin
+// =============================================
+// Semua halaman admin: WAJIB LOGIN
+// (nama & foto admin otomatis tampil di topbar)
+// =============================================
 Route::middleware(\App\Http\Middleware\CekAdmin::class)->prefix('admin')->group(function () {
-    // Halaman Setting Akun
+
+    Route::get('/dashboard', fn () => view('admin.dashboard'))
+        ->name('admin.dashboard');
+
+    Route::get('/validasi-buku', fn () => view('admin.validasi-buku'))
+        ->name('admin.validasi-buku');
+
+    Route::get('/laporan-akun', fn () => view('admin.laporan-akun'))
+        ->name('admin.laporan-akun');
+
+    Route::get('/siaran-notifikasi', fn () => view('admin.siaran-notifikasi'))
+        ->name('admin.siaran-notifikasi');
+
+    // Setting Akun
     Route::get('/profil', [AdminProfilController::class, 'show'])->name('admin.profil');
     Route::put('/profil', [AdminProfilController::class, 'update'])->name('admin.profil.update');
 

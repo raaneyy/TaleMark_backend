@@ -12,7 +12,7 @@
            SETTING AKUN
            ============================================= */
         .profil-wrap {
-            max-width: 720px;
+            max-width: 640px;
             margin: 0 auto;
         }
         .profil-card {
@@ -20,16 +20,19 @@
             background: #FFFFFF;
             border: 1px solid #E5E7EB;
             border-radius: 18px;
-            padding: 28px 32px 32px;
+            padding: 22px 28px 24px;
         }
 
         /* Header kartu: judul kiri, EDIT kanan */
+        /* Baris atas: judul (kiri) — foto (tengah) — EDIT (kanan) */
         .profil-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
             gap: 16px;
+            margin-bottom: 12px;
         }
+        .profil-head-edit { justify-self: end; }
         .profil-kicker {
             margin: 0;
             font-family: 'Inter', system-ui, sans-serif;
@@ -40,9 +43,9 @@
             color: #9CA3AF;
         }
         .profil-title {
-            margin: 4px 0 0;
+            margin: 2px 0 0;
             font-family: 'Newsreader', Georgia, serif;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 400;
             color: #111827;
         }
@@ -62,8 +65,8 @@
             padding: 0;
         }
         .profil-edit-icon {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -83,12 +86,11 @@
         .profil-avatar-wrap {
             display: flex;
             justify-content: center;
-            margin: 8px 0 28px;
         }
         .profil-avatar {
             position: relative;
-            width: 132px;
-            height: 132px;
+            width: 96px;
+            height: 96px;
         }
         .profil-avatar-img,
         .profil-avatar-kosong {
@@ -107,10 +109,10 @@
         }
         .profil-avatar-kamera {
             position: absolute;
-            right: 2px;
-            bottom: 2px;
-            width: 40px;
-            height: 40px;
+            right: -2px;
+            bottom: -2px;
+            width: 32px;
+            height: 32px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -130,15 +132,15 @@
         }
         .profil-row {
             display: grid;
-            grid-template-columns: 180px 16px minmax(0, 1fr);
+            grid-template-columns: 150px 16px minmax(0, 1fr);
             align-items: start;
             gap: 8px;
-            padding: 14px 0;
+            padding: 6px 0;
             border-bottom: 1px solid #F3F4F6;
         }
         .profil-row dt {
             font-family: 'Inter', system-ui, sans-serif;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             color: #6B7280;
         }
@@ -149,22 +151,20 @@
         }
         /* Label & titik dua sejajar dengan baris pertama isian */
         .profil-row dt,
-        .profil-titik { padding-top: 11px; }
-        .profil-form.sedang-edit .profil-pass-group { padding-top: 11px; }
-        .profil-form.sedang-edit .profil-row:last-child dt,
-        .profil-form.sedang-edit .profil-row:last-child .profil-titik { padding-top: 11px; }
+        .profil-titik { padding-top: 10px; }
+        .profil-form.sedang-edit .profil-pass-group { padding-top: 4px; }
         .profil-row dd { margin: 0; min-width: 0; }
 
         .profil-input {
             width: 100%;
             box-sizing: border-box;
-            height: 42px;
+            height: 36px;
             padding: 0 12px;
             border: 1px solid transparent;
             border-radius: 10px;
             background: transparent;
             font-family: 'Inter', system-ui, sans-serif;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 500;
             color: #111827;
             outline: none;
@@ -195,11 +195,11 @@
         .profil-error:empty { display: none; }
 
         /* Kolom password (muncul di mode edit) */
-        .profil-pass-view { font-size: 18px; letter-spacing: 3px; }
+        .profil-pass-view { font-size: 16px; letter-spacing: 3px; }
         .profil-pass-group {
             display: none;
             flex-direction: column;
-            gap: 10px;
+            gap: 6px;
         }
         .profil-form.sedang-edit .profil-pass-view { display: none; }
         .profil-form.sedang-edit .profil-pass-group { display: flex; }
@@ -233,16 +233,16 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
-            margin-top: 32px;
+            gap: 8px;
+            margin-top: 18px;
         }
         .profil-btn {
             width: 100%;
-            max-width: 360px;
-            height: 48px;
+            max-width: 320px;
+            height: 40px;
             border-radius: 999px;
             font-family: 'Inter', system-ui, sans-serif;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: background .15s, opacity .15s;
@@ -325,9 +325,16 @@
 
         /* HP */
         @media (max-width: 640px) {
-            .profil-card { padding: 22px 18px 24px; }
-            .profil-title { font-size: 24px; }
-            .profil-avatar { width: 112px; height: 112px; }
+            .profil-card { padding: 18px 16px 20px; }
+            .profil-title { font-size: 22px; }
+            .profil-head {
+                grid-template-columns: 1fr auto;
+                grid-template-areas: "judul edit" "foto foto";
+                row-gap: 10px;
+            }
+            .profil-head-judul { grid-area: judul; }
+            .profil-head-edit  { grid-area: edit; }
+            .profil-head .profil-avatar-wrap { grid-area: foto; }
             .profil-row {
                 grid-template-columns: minmax(0, 1fr);
                 gap: 4px;
@@ -375,13 +382,38 @@
         @csrf
         @method('PUT')
 
-        {{-- Header: judul & tombol EDIT --}}
+        {{-- Baris atas: judul — foto profil — tombol EDIT --}}
         <div class="profil-head">
-            <div>
+            <div class="profil-head-judul">
                 <p class="profil-kicker">Profil Admin</p>
                 <h1 class="profil-title">Setting Akun</h1>
             </div>
-            <button type="button" class="profil-edit-btn" id="btnEditProfil" aria-pressed="{{ $modeEdit ? 'true' : 'false' }}">
+
+            {{-- Foto profil + tombol kamera --}}
+            <div class="profil-avatar-wrap">
+                <div class="profil-avatar">
+                    <div id="avatarPreview" style="width:100%;height:100%">
+                        @if ($fotoUrl)
+                            <img src="{{ $fotoUrl }}" alt="Foto profil" class="profil-avatar-img"
+                                 onerror="this.outerHTML=document.getElementById('avatarKosongTpl').innerHTML">
+                        @else
+                            <div class="profil-avatar-kosong" aria-label="Belum ada foto profil">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                                </svg>
+                            </div>
+                        @endif
+                    </div>
+                    <label for="inputFoto" class="profil-avatar-kamera" title="Ganti foto profil" aria-label="Ganti foto profil">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>
+                        </svg>
+                    </label>
+                    <input type="file" id="inputFoto" name="foto" accept="image/png,image/jpeg,image/webp" hidden>
+                </div>
+            </div>
+
+            <button type="button" class="profil-edit-btn profil-head-edit" id="btnEditProfil" aria-pressed="{{ $modeEdit ? 'true' : 'false' }}">
                 <span class="profil-edit-icon">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
@@ -390,30 +422,14 @@
                 <span id="teksEditProfil">{{ $modeEdit ? 'BATAL' : 'EDIT' }}</span>
             </button>
         </div>
-
-        {{-- Foto profil + tombol kamera --}}
-        <div class="profil-avatar-wrap">
-            <div class="profil-avatar">
-                <div id="avatarPreview" style="width:100%;height:100%">
-                    @if ($fotoUrl)
-                        <img src="{{ $fotoUrl }}" alt="Foto profil {{ $admin->nama }}" class="profil-avatar-img">
-                    @else
-                        <div class="profil-avatar-kosong" aria-label="Belum ada foto profil">
-                            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-                            </svg>
-                        </div>
-                    @endif
-                </div>
-                <label for="inputFoto" class="profil-avatar-kamera" title="Ganti foto profil" aria-label="Ganti foto profil">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>
-                    </svg>
-                </label>
-                <input type="file" id="inputFoto" name="foto" accept="image/png,image/jpeg,image/webp" hidden>
+        <template id="avatarKosongTpl">
+            <div class="profil-avatar-kosong" aria-label="Belum ada foto profil">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
             </div>
-        </div>
-        <p class="profil-error" id="errorFoto" style="text-align:center;margin:-16px 0 16px">@error('foto'){{ $message }}@enderror</p>
+        </template>
+        <p class="profil-error" id="errorFoto" style="text-align:center;margin:0 0 8px">@error('foto'){{ $message }}@enderror</p>
 
         {{-- Data akun --}}
         <dl class="profil-list">
@@ -424,7 +440,7 @@
                 <dd>
                     <input type="text" id="inputNama" name="nama" maxlength="100"
                            class="profil-input @error('nama') is-invalid @enderror"
-                           value="{{ old('nama', $admin->nama) }}" {{ $modeEdit ? '' : 'readonly' }} data-edit>
+                           value="{{ old('nama', $admin->nama ?? '') }}" {{ $modeEdit ? '' : 'readonly' }} data-edit>
                     <p class="profil-error" data-error="nama">@error('nama'){{ $message }}@enderror</p>
                 </dd>
             </div>
@@ -435,7 +451,7 @@
                 <dd>
                     <input type="text" id="inputUsername" name="username" maxlength="50" autocomplete="username"
                            class="profil-input @error('username') is-invalid @enderror"
-                           value="{{ old('username', $admin->username) }}" {{ $modeEdit ? '' : 'readonly' }} data-edit>
+                           value="{{ old('username', $admin->username ?? '') }}" {{ $modeEdit ? '' : 'readonly' }} data-edit>
                     <p class="profil-error" data-error="username">@error('username'){{ $message }}@enderror</p>
                 </dd>
             </div>

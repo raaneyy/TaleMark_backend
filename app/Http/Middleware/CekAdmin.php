@@ -1,21 +1,35 @@
 <?php
 
-use Illuminate\Foundation\Application;
-use Illuminate\Foundation\Configuration\Exceptions;
-use Illuminate\Foundation\Configuration\Middleware;
+namespace App\Http\Middleware;
 
-return Application::configure(basePath: dirname(__DIR__))
-    ->withRouting(
-        web: __DIR__.'/../routes/web.php',
-        commands: __DIR__.'/../routes/console.php',
-        health: '/up',
-    )
-    ->withMiddleware(function (Middleware $middleware): void {
-        // Alias "admin" → hanya admin yang sudah login yang boleh masuk
-        $middleware->alias([
-            'admin' => \App\Http\Middleware\CekAdmin::class,
-        ]);
-    })
-    ->withExceptions(function (Exceptions $exceptions): void {
-        //
-    })->create();
+use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Response;
+
+class CekAdmin
+{
+    public function handle(Request $request, Closure $next): Response
+    {
+        $adminId = $request->session()->get('admin_id');
+
+        if (!$adminId) {
+            return redirect()->route('admin.login')
+                ->with('error', 'Silakan masuk terlebih dahulu.');
+        }
+
+        $admin = DB::table('admin')->where('id_admin', $adminId)->first();
+
+        if (!$admin) {
+            $request->session()->forget('admin_id');
+
+            return redirect()->route('admin.login')
+                ->with('error', 'Sesi tidak valid, silakan masuk kembali.');
+        }
+
+        // Data admin bisa dipakai di semua view: $adminLogin
+        view()->share('adminLogin', $admin);
+
+        return $next($request);
+    }
+}
