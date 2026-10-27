@@ -649,26 +649,6 @@
         <p class="page-subtitle">Arsip data aktivitas pembaca dan pertumbuhan katalog buku per November 2024</p>
     </div>
 
-    <div class="page-header-actions">
-        {{-- Tombol abu: Unduh Lembar Statistik --}}
-        <button class="btn btn-secondary" id="btn-unduh-statistik">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            Unduh Lembar Statistik
-        </button>
-
-        {{-- Tombol hitam: Kurasi Judul Baru --}}
-        <button class="btn btn-primary" id="btn-kurasi-baru">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-            </svg>
-            Kurasi Judul Baru
-        </button>
-    </div>
-</div>
-
 {{-- =============================================
      BARIS TENGAH: kolom kiri (lebar) + kolom kanan (sempit)
      ============================================= --}}
@@ -688,6 +668,7 @@
             {{-- Header grafik --}}
             <div class="chart-card-header">
                 <div class="chart-card-header-left">
+                    <p class="chart-section-label">Pertumbuhan Pengguna</p>
                     <h2 class="chart-card-title">Total Pengguna Aktif</h2>
                 </div>
                 <div class="chart-card-header-right">
@@ -728,6 +709,7 @@
             {{-- Header grafik --}}
             <div class="chart-card-header">
                 <div class="chart-card-header-left">
+                    <p class="chart-section-label">Pertumbuhan Katalog</p>
                     <h2 class="chart-card-title">Total Buku</h2>
                 </div>
                 <div class="chart-card-header-right">

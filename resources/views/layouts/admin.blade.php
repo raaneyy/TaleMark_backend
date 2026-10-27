@@ -144,12 +144,17 @@
                 {{-- Kolom pencarian opsional untuk halaman tertentu --}}
                 @yield('topbar_search')
 
-                <span class="topbar-username">AGUS</span>
-                <button class="topbar-user-btn" aria-label="Profil pengguna">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-                    </svg>
-                </button>
+                {{-- Nama & foto admin → buka halaman Setting Akun --}}
+                <a href="{{ route('admin.profil') }}" class="topbar-username" style="text-decoration:none">{{ strtoupper($adminLogin->nama ?? 'Agus') }}</a>
+                <a href="{{ route('admin.profil') }}" class="topbar-user-btn" aria-label="Setting akun" style="text-decoration:none;overflow:hidden">
+                    @if (!empty($adminLogin->foto))
+                        <img src="{{ asset('storage/' . $adminLogin->foto) }}" alt="Foto profil" style="width:100%;height:100%;object-fit:cover;border-radius:50%">
+                    @else
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    @endif
+                </a>
             </div>
 
         </header>
