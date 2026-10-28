@@ -70,196 +70,123 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   2. Tiga Kartu Statistik (Grid 3 Kolom Sama Tinggi)
+   2. Dua Kartu Pemilih (Laporan Akun & Laporan Postingan)
    -------------------------------------------------------------------------- */
 .report-stats-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
     align-items: stretch;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 }
 
-.stat-card {
-    background: var(--color-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl, 16px);
-    padding: 26px 28px;
+.selector-card {
+    appearance: none;
+    -webkit-appearance: none;
+    background: #F3F3F1;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    padding: 26px 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 180px;
-    box-shadow: var(--shadow-card);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    align-items: flex-start;
+    text-align: left;
+    min-height: 165px;
+    width: 100%;
+    box-sizing: border-box;
     cursor: pointer;
     user-select: none;
+    color: var(--color-text-primary);
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.stat-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-card-hover);
-    border-color: #D1D5DB;
+.selector-card:hover:not(.is-active) {
+    background: #eae9e4;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
 }
 
-.stat-card.is-active {
-    border-color: var(--color-accent);
-    box-shadow: var(--shadow-card-hover);
+.selector-card.is-active {
+    background: #000000;
+    color: #ffffff;
+    cursor: default;
 }
 
-.stat-card:focus-visible {
+/* Outline fokus hanya untuk keyboard (:focus-visible), tidak tampil saat diklik mouse */
+.selector-card:focus {
     outline: none;
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.15);
 }
 
-.stat-card-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
+.selector-card:focus-visible {
+    outline: 2px solid #000000;
+    outline-offset: 3px;
 }
 
-.stat-card-label {
-    font-size: 11px;
+.selector-card.is-active:focus-visible {
+    outline: 2px solid #000000;
+    outline-offset: 3px;
+}
+
+.selector-card .stat-card-label {
+    font-size: 11.5px;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-text-secondary);
-}
-
-.stat-card-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.stat-card-icon svg {
-    display: block;
-    overflow: visible;
-}
-
-.stat-card-icon.icon-danger {
-    background: #fedcdb;
-    color: #9B1C1C;
-}
-
-.stat-card-icon.icon-danger svg {
-    height: 22px;
-    width: auto;
-}
-
-.stat-card-icon.icon-neutral {
-    background: #e6e4dc;
-    color: #6B665C;
-}
-
-.stat-card-icon.icon-neutral svg {
-    height: 24px;
-    width: auto;
-}
-
-.stat-card-icon.icon-dark {
-    background: #e6e4dc;
-    color: #1a1a1a;
-}
-
-.stat-card-number-row {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
+    color: #777777;
     margin-bottom: 12px;
+    transition: color 0.25s ease;
 }
 
-.stat-card-number {
+.selector-card.is-active .stat-card-label {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.selector-card .stat-card-number {
     font-family: var(--font-serif);
-    font-size: 44px;
+    font-size: 52px;
     line-height: 1;
     font-weight: 400;
     font-variant-numeric: lining-nums;
-    color: var(--color-text-primary);
+    color: #111111;
+    margin-bottom: 14px;
+    transition: color 0.25s ease;
 }
 
-.stat-card-badge {
-    font-size: 12.5px;
-    font-weight: 600;
+.selector-card.is-active .stat-card-number {
+    color: #ffffff;
 }
 
-.stat-card-badge.text-danger {
-    color: var(--color-danger);
-}
-
-.stat-card-badge.text-muted {
-    color: var(--color-text-secondary);
-    font-weight: 500;
-}
-
-.stat-card-title {
+.selector-card .stat-card-title {
     font-family: var(--font-serif);
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--color-text-primary);
+    font-size: 18px;
+    font-weight: 400;
     line-height: 1.35;
-    margin-top: auto;
+    color: #222222;
+    margin: 0;
+    transition: color 0.25s ease;
+}
+
+.selector-card.is-active .stat-card-title {
+    color: #ffffff;
 }
 
 /* --------------------------------------------------------------------------
-   3. Bar Filter (Tab Pill & Select Dropdown)
+   3. Bar Filter (Rata Kiri Tepat di Bawah Kartu Pemilih)
    -------------------------------------------------------------------------- */
 .report-filter-bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+    justify-content: flex-start;
+    gap: 12px;
     margin-bottom: 24px;
 }
 
-/* Grup Tab Kiri */
-.report-tab-group {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: nowrap;
-}
-
-.report-tab-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 18px;
-    border-radius: 999px;
-    font-family: var(--font-sans);
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    background: #eae9e4;
-    border: none;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
-    user-select: none;
-}
-
-.report-tab-btn:hover:not(.active) {
-    background: #dfded8;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-}
-
-.report-tab-btn.active {
-    background: var(--color-black);
-    color: var(--color-white);
-}
-
-/* Grup Select Kanan */
 .report-filter-controls {
     display: flex;
     align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .select-btn-wrapper {
@@ -298,7 +225,7 @@ html, body {
     font-size: 13px;
     font-weight: 600;
     color: var(--color-text-primary);
-    padding: 0 2px 0 0;
+    padding: 0 4px 0 0;
     cursor: pointer;
     outline: none;
     line-height: normal;
@@ -309,7 +236,7 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   4. Daftar Kartu Laporan
+   4. Daftar Kartu Laporan (Akun & Postingan)
    -------------------------------------------------------------------------- */
 .report-cards-list {
     display: flex;
@@ -346,6 +273,7 @@ html, body {
     gap: 14px;
 }
 
+/* Avatar: latar #FBD9D9 huruf #9B1C1C HANYA untuk baru risiko TINGGI. Semua lainnya #EFEEEA & #555 */
 .report-avatar {
     width: 44px;
     height: 44px;
@@ -357,24 +285,18 @@ html, body {
     font-size: 19px;
     font-weight: 700;
     flex-shrink: 0;
+    background: #EFEEEA;
+    color: #555555;
 }
 
 .report-avatar.avatar-danger {
-    background: #fde8e8;
-    color: var(--color-danger);
+    background: #FBD9D9;
+    color: #9B1C1C;
 }
 
 .report-avatar.avatar-neutral {
-    background: var(--color-surface);
-    color: var(--color-text-primary);
-}
-
-/* Avatar khusus kartu akun berstatus banned: latar abu muda (#EFEEEA), inisial hitam/gelap sesuai desain (#1a1a1a) */
-.report-card--banned .report-avatar,
-.report-card--banned .avatar,
-.report-avatar.avatar-banned {
-    background: #efeeea;
-    color: var(--color-text-primary);
+    background: #EFEEEA;
+    color: #555555;
 }
 
 .report-user-meta {
@@ -397,7 +319,12 @@ html, body {
     color: var(--color-text-primary);
 }
 
-/* Badge Tingkat Risiko */
+/* Pill Tingkat Risiko:
+   - TINGGI: latar #FBE3E1, teks #9B1C1C
+   - SEDANG: latar #E6E4DE, teks #333
+   - RENDAH: latar #EFEEEA, teks #666
+   Huruf kapital kecil tebal, sudut membulat penuh
+*/
 .risk-badge {
     display: inline-flex;
     align-items: center;
@@ -407,20 +334,21 @@ html, body {
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
+    line-height: normal;
 }
 
-.risk-badge.risk-high {
-    background: #fde8e8;
-    color: #b91c1c;
+.risk-badge.risk-tinggi {
+    background: #FBE3E1;
+    color: #9B1C1C;
 }
 
-.risk-badge.risk-medium {
-    background: #e5e5e0;
-    color: #1a1a1a;
+.risk-badge.risk-sedang {
+    background: #E6E4DE;
+    color: #333333;
 }
 
-.risk-badge.risk-low {
-    background: #f0efec;
+.risk-badge.risk-rendah {
+    background: #EFEEEA;
     color: #666666;
 }
 
@@ -448,7 +376,7 @@ html, body {
     flex-shrink: 0;
 }
 
-/* Kotak Abu Muda (Alasan Pokok & Bukti) */
+/* Kotak Abu Muda (Alasan Pokok, Bukti, & Cuplikan Postingan) */
 .report-reason-box {
     background: #f4f3f0;
     border-radius: var(--radius-md);
@@ -491,6 +419,25 @@ html, body {
 .report-evidence-text strong {
     color: var(--color-text-primary);
     font-weight: 600;
+}
+
+/* Cuplikan Postingan */
+.report-post-snippet-row {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+    margin-top: 6px;
+}
+
+.report-post-snippet-row strong {
+    color: var(--color-text-primary);
+    font-weight: 700;
+    margin-right: 4px;
+}
+
+.report-post-snippet-text em {
+    font-style: italic;
+    color: #333333;
 }
 
 /* Baris Aksi */
@@ -558,6 +505,15 @@ html, body {
     background: #991b1b;
 }
 
+.btn-delete-post {
+    background: #b91c1c;
+    color: var(--color-white);
+}
+
+.btn-delete-post:hover {
+    background: #991b1b;
+}
+
 /* Baris status laporan yang telah diselesaikan */
 .report-completed-row {
     display: flex;
@@ -588,24 +544,6 @@ html, body {
 .report-badge--selesai {
     background: #E3F1E6;
     color: #1F6B3A;
-}
-
-/* Pill Jenis Tindakan: WARNING */
-.report-badge--warning {
-    background: #FBF0C7;
-    color: #7A5B00;
-}
-
-/* Pill Jenis Tindakan: DIABAIKAN (abu) */
-.report-badge--diabaikan {
-    background: #ECEBE6;
-    color: #555555;
-}
-
-/* Pill Jenis Tindakan: BANNED */
-.report-badge--banned {
-    background: #FBE3E1;
-    color: #9B1C1C;
 }
 
 /* Teks Metadata Penyelesaian Kasus */
@@ -683,20 +621,14 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   5. Footer Daftar & Paginasi
+   5. Footer Daftar & Paginasi (Hanya Paginasi di Kanan)
    -------------------------------------------------------------------------- */
 .report-footer {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+    justify-content: flex-end;
     margin-top: 32px;
     padding-top: 16px;
-}
-
-.report-footer-info {
-    font-size: 13px;
-    color: var(--color-text-secondary);
 }
 
 .report-pagination {
@@ -765,18 +697,15 @@ html, body {
     padding: 20px;
     box-sizing: border-box;
 
-    /* Efek latar: buram 8px dengan lapisan gelap transparan elegan */
     background: rgba(17, 24, 39, 0.45);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 
-    /* Animasi fade in */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
-/* Fallback jika browser tidak mendukung backdrop-filter */
 @supports not (backdrop-filter: blur(8px)) {
     .ban-overlay {
         background: rgba(17, 24, 39, 0.85);
@@ -788,7 +717,6 @@ html, body {
     visibility: visible;
 }
 
-/* Kotak Pop-up Putih */
 .ban-modal {
     position: relative;
     background: var(--color-white);
@@ -798,8 +726,6 @@ html, body {
     padding: 38px 46px 42px;
     box-shadow: 0 20px 48px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03);
     box-sizing: border-box;
-
-    /* Animasi pop-up naik sedikit sambil fade-in */
     transform: translateY(14px) scale(0.98);
     transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
 }
@@ -808,7 +734,6 @@ html, body {
     transform: translateY(0) scale(1);
 }
 
-/* Tombol Panah Kiri (Pojok Kiri Atas) */
 .ban-modal-back {
     position: absolute;
     top: 36px;
@@ -835,7 +760,6 @@ html, body {
     outline-offset: 2px;
 }
 
-/* Judul Pop-up Serif */
 .ban-modal-title {
     font-family: var(--font-serif);
     font-size: 30px;
@@ -846,7 +770,6 @@ html, body {
     line-height: 1.25;
 }
 
-/* Form & Grid Dua Kolom (Date & Time) */
 .ban-form {
     margin-top: 36px;
 }
@@ -855,7 +778,13 @@ html, body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 28px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    transition: opacity 0.2s ease;
+}
+
+.ban-fields-grid.is-disabled {
+    opacity: 0.35;
+    pointer-events: none;
 }
 
 .ban-field {
@@ -894,7 +823,6 @@ html, body {
     box-shadow: 0 0 0 2px #b5b3ab;
 }
 
-/* Pesan Error Kecil Merah di Bawah Input */
 .field-error {
     font-size: 12px;
     color: var(--color-danger);
@@ -904,7 +832,33 @@ html, body {
     line-height: 1.3;
 }
 
-/* Tombol Simpan Rata Tengah */
+/* Checkbox Banned Permanen */
+.ban-permanent-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 26px;
+}
+
+.ban-checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+}
+
+.ban-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: #b91c1c;
+    cursor: pointer;
+}
+
 .btn-save-ban {
     display: flex;
     align-items: center;
@@ -938,7 +892,7 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   7. Pop-up Konfirmasi Buka Blokir (Overlay Blur + Modal Tengah)
+   7. Pop-up Konfirmasi Buka Blokir
    -------------------------------------------------------------------------- */
 .unban-overlay {
     position: fixed;
@@ -953,7 +907,6 @@ html, body {
     padding: 20px;
     box-sizing: border-box;
 
-    /* Efek latar: buram 8px dengan lapisan gelap transparan elegan */
     background: rgba(17, 24, 39, 0.45);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -974,7 +927,6 @@ html, body {
     visibility: visible;
 }
 
-/* Kotak Modal Putih di Tengah */
 .unban-modal {
     position: relative;
     background: var(--color-white);
@@ -985,8 +937,6 @@ html, body {
     box-shadow: 0 20px 48px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03);
     box-sizing: border-box;
     text-align: center;
-
-    /* Animasi pop-up naik sedikit sambil fade-in */
     transform: translateY(14px) scale(0.98);
     transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
 }
@@ -1025,7 +975,6 @@ html, body {
     gap: 12px;
 }
 
-/* Tombol Batal (abu) */
 .btn-unban-cancel {
     flex: 1;
     height: 48px;
@@ -1048,7 +997,6 @@ html, body {
     transform: scale(0.98);
 }
 
-/* Tombol Ya, Buka Blokir (hitam) */
 .btn-unban-confirm {
     flex: 1;
     height: 48px;
@@ -1071,14 +1019,62 @@ html, body {
     transform: scale(0.98);
 }
 
+/* Tombol Ya, Sembunyikan (kuning peringatan) */
+.btn-warning-confirm {
+    flex: 1;
+    height: 48px;
+    background: var(--color-warning);
+    color: #1B1B1B;
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-warning-confirm:hover {
+    background: var(--color-warning-hover);
+}
+
+.btn-warning-confirm:active {
+    transform: scale(0.98);
+}
+
+/* Tombol Ya, Hapus Postingan (merah bahaya) */
+.btn-danger-confirm {
+    flex: 1;
+    height: 48px;
+    background: #b91c1c;
+    color: var(--color-white);
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-danger-confirm:hover {
+    background: #991b1b;
+}
+
+.btn-danger-confirm:active {
+    transform: scale(0.98);
+}
+
 .btn-unban-cancel:focus-visible,
-.btn-unban-confirm:focus-visible {
+.btn-unban-confirm:focus-visible,
+.btn-warning-confirm:focus-visible,
+.btn-danger-confirm:focus-visible {
     outline: 2px solid var(--color-black);
     outline-offset: 2px;
 }
 
 /* --------------------------------------------------------------------------
-   8. Pop-up Kirim Peringatan (Overlay Blur + Modal Tengah)
+   8. Pop-up Kirim Peringatan (Kasih Warning)
    -------------------------------------------------------------------------- */
 .warn-overlay {
     position: fixed;
@@ -1093,7 +1089,6 @@ html, body {
     padding: 20px;
     box-sizing: border-box;
 
-    /* Efek latar: buram 8px dengan lapisan gelap transparan elegan */
     background: rgba(17, 24, 39, 0.45);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -1114,7 +1109,6 @@ html, body {
     visibility: visible;
 }
 
-/* Kotak Modal Putih di Tengah */
 .warn-modal {
     position: relative;
     background: var(--color-white);
@@ -1124,8 +1118,6 @@ html, body {
     padding: 38px 42px 36px;
     box-shadow: 0 20px 48px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03);
     box-sizing: border-box;
-
-    /* Animasi pop-up naik sedikit sambil fade-in */
     transform: translateY(14px) scale(0.98);
     transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
 }
@@ -1134,7 +1126,6 @@ html, body {
     transform: translateY(0) scale(1);
 }
 
-/* Tombol Panah Kembali di Pojok Kiri Atas */
 .warn-modal-back {
     position: absolute;
     top: 36px;
@@ -1283,8 +1274,52 @@ html, body {
     outline-offset: 2px;
 }
 
+/* --------------------------------------------------------------------------
+   9. Toast Notifikasi (Pojok Kanan Atas)
+   -------------------------------------------------------------------------- */
+.toast-notification {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #111827;
+    color: #ffffff;
+    padding: 14px 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18), 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(-16px);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.toast-notification.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.toast-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #10B981;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
 /* Hormati Preferensi Kurangi Animasi */
 @media (prefers-reduced-motion: reduce) {
+    .selector-card,
     .ban-overlay,
     .ban-modal,
     .ban-modal-back,
@@ -1297,47 +1332,18 @@ html, body {
     .warn-modal,
     .warn-modal-back,
     .btn-warn-cancel,
-    .btn-warn-confirm {
+    .btn-warn-confirm,
+    .toast-notification {
         transition: none !important;
         transform: none !important;
     }
 }
 
 /* --------------------------------------------------------------------------
-   7. Responsif
+   10. Responsif
    -------------------------------------------------------------------------- */
-/* Layar < 1200px: Kartu statistik tetap 3 jika muat, atau turun jika sempit */
-@media (max-width: 1200px) {
-    .report-stats-grid {
-        gap: 16px;
-    }
-
-    .stat-card {
-        padding: 20px;
-    }
-
-    .stat-card-number {
-        font-size: 38px;
-    }
-}
-
-/* Layar < 992px: Filter bar wrap ke dua baris, header kartu ditumpuk */
+/* Layar < 992px */
 @media (max-width: 992px) {
-    .report-stats-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .report-filter-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-    }
-
-    .report-filter-controls {
-        width: 100%;
-        justify-content: flex-start;
-    }
-
     .report-card-top {
         flex-direction: column;
         align-items: flex-start;
@@ -1349,27 +1355,39 @@ html, body {
     }
 }
 
-/* Layar < 768px: Tab scroll horizontal, tombol aksi full-width, footer ditumpuk */
+/* Layar < 768px:
+   - Dua kartu pemilih ditumpuk satu kolom
+   - Baris filter dibungkus ke baris berikutnya
+*/
 @media (max-width: 768px) {
-    .report-tab-group {
-        width: 100%;
-        overflow-x: auto;
-        padding-bottom: 6px;
-        -webkit-overflow-scrolling: touch;
+    .report-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
     }
 
-    .report-tab-group::-webkit-scrollbar {
-        height: 4px;
+    .selector-card {
+        padding: 22px 24px;
+        min-height: 140px;
     }
 
-    .report-tab-group::-webkit-scrollbar-thumb {
-        background: #ccc;
-        border-radius: 4px;
+    .selector-card .stat-card-number {
+        font-size: 42px;
+    }
+
+    .selector-card .stat-card-title {
+        font-size: 16px;
+    }
+
+    .report-filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
     }
 
     .report-filter-controls {
         flex-direction: column;
         width: 100%;
+        gap: 10px;
     }
 
     .select-btn-wrapper {
@@ -1390,7 +1408,6 @@ html, body {
         width: 100%;
     }
 
-    /* Baris kartu selesai membungkus ke dua baris: pill di atas, teks di bawah */
     .report-completed-row {
         flex-wrap: wrap;
         gap: 8px 12px;
@@ -1402,32 +1419,37 @@ html, body {
     }
 
     .report-footer {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 14px;
+        justify-content: center;
     }
 }
 
-/* Layar < 576px: Pop-up responsif hampir selebar layar */
+/* Layar < 576px */
 @media (max-width: 576px) {
-    .ban-overlay {
+    .ban-overlay,
+    .unban-overlay,
+    .warn-overlay {
         padding: 16px;
     }
 
-    .ban-modal {
+    .ban-modal,
+    .unban-modal,
+    .warn-modal {
         width: 100%;
         max-width: none;
         padding: 28px 20px 32px;
         border-radius: 20px;
     }
 
-    .ban-modal-back {
+    .ban-modal-back,
+    .warn-modal-back,
+    .unban-modal-back {
         top: 24px;
         left: 20px;
     }
 
-    .ban-modal-title {
+    .ban-modal-title,
+    .warn-modal-title,
+    .unban-modal-title {
         font-size: 24px;
     }
 
@@ -1438,7 +1460,7 @@ html, body {
     .ban-fields-grid {
         grid-template-columns: 1fr;
         gap: 18px;
-        margin-bottom: 24px;
+        margin-bottom: 20px;
     }
 
     .ban-field-label {
@@ -1456,5 +1478,12 @@ html, body {
         max-width: none;
         height: 52px;
         font-size: 14.5px;
+    }
+
+    .toast-notification {
+        top: 16px;
+        right: 16px;
+        left: 16px;
+        width: auto;
     }
 }

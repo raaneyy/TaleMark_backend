@@ -247,12 +247,6 @@
             </div>
         </div>
 
-        {{-- Footer Panel: Tombol Lihat Semua Riwayat --}}
-        {{-- TODO: hubungkan ke rute backend arsip riwayat siaran lengkap --}}
-        <button type="button" class="btn-all-history" id="btnAllHistory">
-            Lihat Semua Riwayat
-        </button>
-
     </aside>
 
 </div>

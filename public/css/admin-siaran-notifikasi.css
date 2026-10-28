@@ -184,9 +184,13 @@ html, body {
     font-size: 15px;
     line-height: 1.6;
     color: var(--color-text-primary);
-    resize: vertical;
+    resize: none;
     outline: none;
     transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-textarea::-webkit-resizer {
+    display: none;
 }
 
 .form-textarea::placeholder {

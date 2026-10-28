@@ -449,8 +449,8 @@
      ============================================= --}}
 <div class="select-all-bar">
     <label class="select-all-left" for="selectAllCheckbox">
-        <input type="checkbox" id="selectAllCheckbox" class="card-checkbox" aria-label="Pilih semua entri dalam antrean">
-        <span class="select-all-text">PILIH SEMUA ENTRI DALAM ANTREAN</span>
+        <input type="checkbox" id="selectAllCheckbox" class="card-checkbox" aria-label="Pilih semua">
+        <span class="select-all-text">PILIH SEMUA</span>
     </label>
 </div>
 

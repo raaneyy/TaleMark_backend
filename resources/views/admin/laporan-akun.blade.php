@@ -14,7 +14,7 @@
 @section('content')
 
 {{-- =============================================
-     DATA DUMMY — array lokal laporan akun
+     DATA DUMMY — array lokal laporan akun & postingan
      ============================================= --}}
 @php
     $laporanAkun = [
@@ -28,6 +28,7 @@
             'bukti'          => '45 komentar serupa terdeteksi dalam 1 jam secara paralel.',
             'kategori'       => 'spam',
             'status'         => 'baru',
+            'tingkat_risiko' => 'TINGGI',
         ],
         [
             'id'             => 'USR-4412',
@@ -39,6 +40,19 @@
             'bukti'          => '8 komentar dengan ujaran kebencian ditandai oleh pembaca lain.',
             'kategori'       => 'sara',
             'status'         => 'baru',
+            'tingkat_risiko' => 'SEDANG',
+        ],
+        [
+            'id'             => 'USR-5120',
+            'username'       => '@komentar_iseng',
+            'inisial'        => 'K',
+            'terdaftar'      => '1 minggu lalu',
+            'pelapor_count'  => 3,
+            'alasan'         => 'Komentar promosi blog pribadi di ulasan buku non-fiksi',
+            'bukti'          => '4 komentar berulang di buku yang sama dalam waktu singkat.',
+            'kategori'       => 'spam',
+            'status'         => 'baru',
+            'tingkat_risiko' => 'RENDAH',
         ],
         [
             'id'             => 'USR-7830',
@@ -119,6 +133,45 @@
             'banned_until'   => '28 Oktober 2026, 12:00 WIB',
         ],
     ];
+
+    $laporanPostingan = [
+        [
+            'id'             => 'PST-1042',
+            'penulis'        => '@penulis_liar',
+            'inisial'        => 'P',
+            'waktu'          => '3 jam lalu',
+            'pelapor_count'  => 9,
+            'alasan'         => 'Postingan berisi tautan promosi judi online',
+            'cuplikan'       => 'Dapatkan bonus member baru 100% dan putaran gratis dengan mendaftar di situs resmi kami sekarang juga melalui link https://bit.ly/slot-gacor-promo...',
+            'kategori'       => 'spam',
+            'status'         => 'baru',
+            'tingkat_risiko' => 'TINGGI',
+        ],
+        [
+            'id'             => 'PST-1043',
+            'penulis'        => '@kutipan_kontroversial',
+            'inisial'        => 'K',
+            'waktu'          => '5 jam lalu',
+            'pelapor_count'  => 6,
+            'alasan'         => 'Konten SARA di kolom komentar postingan kutipan',
+            'cuplikan'       => 'Buku sastra sejarah ini sebenarnya hanya propaganda kaum tertentu yang berusaha mendiskreditkan kelompok etnis mayoritas di negeri kita...',
+            'kategori'       => 'sara',
+            'status'         => 'baru',
+            'tingkat_risiko' => 'SEDANG',
+        ],
+        [
+            'id'             => 'PST-1044',
+            'penulis'        => '@kutipan_bot_01',
+            'inisial'        => 'B',
+            'waktu'          => '1 hari lalu',
+            'pelapor_count'  => 3,
+            'alasan'         => 'Postingan duplikat berulang',
+            'cuplikan'       => 'Kutipan Pramoedya: “Kalian boleh maju dalam pelajaran, mungkin mencapai derajad tertinggi, tapi tanpa mencintai sastra, kalian hanya hewan yang pandai.”',
+            'kategori'       => 'spam',
+            'status'         => 'selesai',
+            'tingkat_risiko' => 'RENDAH',
+        ],
+    ];
 @endphp
 
 {{-- =============================================
@@ -132,90 +185,30 @@
 </div>
 
 {{-- =============================================
-     TIGA KARTU STATISTIK (SAMA TINGGI)
+     DUA KARTU PEMILIH (LAPORAN AKUN & LAPORAN POSTINGAN)
      ============================================= --}}
-<div class="report-stats-grid">
+<div class="report-stats-grid" role="tablist" aria-label="Pemilih jenis laporan">
 
-    {{-- Kartu 1: Perlu Ditinjau Segera --}}
-    <div class="stat-card" data-stat-target="perlu-ditinjau" role="button" tabindex="0" title="Klik untuk memfilter: Laporan Baru Membutuhkan Review">
-        <div class="stat-card-top">
-            <span class="stat-card-label">PERLU DITINJAU SEGERA</span>
-            <div class="stat-card-icon icon-danger">
-                {{-- Ikon lonceng (peringatan) --}}
-                <svg viewBox="0 0 24 30" fill="none" stroke="currentColor"><path d="M4.5 22.5V13a7.5 7.5 0 0 1 15 0v9.5" stroke-width="3"/><path d="M0 23.5H24" stroke-width="3"/><path d="M9.6 4.4L10.5 1.2H13.5L14.4 4.4Z" fill="currentColor" stroke="currentColor" stroke-width="0.8" stroke-linejoin="round"/><path d="M9 27.4H15L13.8 29.2H10.2Z" fill="currentColor" stroke="currentColor" stroke-width="0.8" stroke-linejoin="round"/><rect x="10.5" y="9.5" width="3" height="7.5" rx="1" fill="currentColor" stroke="none"/><rect x="10.5" y="18.6" width="3" height="2.6" rx="1" fill="currentColor" stroke="none"/></svg>
-            </div>
-        </div>
-        <div class="stat-card-number-row">
-            <span class="stat-card-number">12</span>
-            <span class="stat-card-badge text-danger">+4 hari ini</span>
-        </div>
-        <h3 class="stat-card-title">Laporan Baru Membutuhkan Review</h3>
-    </div>
+    {{-- Kartu Pemilih 1: Laporan Akun --}}
+    <button type="button" class="stat-card selector-card is-active" id="tabLaporanAkun" role="tab" aria-selected="true" aria-controls="sectionLaporanAkun" tabindex="0">
+        <span class="stat-card-label">LAPORAN AKUN</span>
+        <span class="stat-card-number">12</span>
+        <h3 class="stat-card-title">Laporan Akun Membutuhkan Review</h3>
+    </button>
 
-    {{-- Kartu 2: Akun Banned --}}
-    <div class="stat-card" data-stat-target="banned" role="button" tabindex="0" title="Klik untuk memfilter: Akun Dalam Penangguhan Sementara">
-        <div class="stat-card-top">
-            <span class="stat-card-label">AKUN BANNED</span>
-            <div class="stat-card-icon icon-neutral">
-                {{-- Ikon gembok dengan jam --}}
-                <svg viewBox="0 0 29 33" fill="none" stroke="currentColor"><path d="M5.5 12V8a6.5 6.5 0 0 1 13 0V12" stroke-width="3"/><path d="M0 12H22a1.5 1.5 0 0 1 1.5 1.5V16" stroke-width="3"/><path d="M1.5 12V30.5H12.5" stroke-width="3"/><path fill="currentColor" stroke="none" fill-rule="evenodd" d="M14.5 25.5a7 7 0 1 0 14 0a7 7 0 1 0-14 0ZM20.55 21.8H22.45V25.09L25.05 27.5L23.75 28.9L20.55 25.92Z"/></svg>
-            </div>
-        </div>
-        <div class="stat-card-number-row">
-            <span class="stat-card-number">5</span>
-            <span class="stat-card-badge text-muted">Akses Terkunci</span>
-        </div>
-        <h3 class="stat-card-title">Akun Dalam Penangguhan Sementara</h3>
-    </div>
-
-    {{-- Kartu 3: Data --}}
-    <div class="stat-card" data-stat-target="selesai" role="button" tabindex="0" title="Klik untuk memfilter: Kasus Diselesaikan Bulan Ini">
-        <div class="stat-card-top">
-            <span class="stat-card-label">DATA</span>
-            <div class="stat-card-icon icon-dark">
-                {{-- Ikon lencana rosette 12 gerigi dengan centang (sesuai desain referensi) --}}
-                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="12,4.5 14.46,2.82 15.75,5.5 18.72,5.28 18.5,8.25 21.18,9.54 19.5,12 21.18,14.46 18.5,15.75 18.72,18.72 15.75,18.5 14.46,21.18 12,19.5 9.54,21.18 8.25,18.5 5.28,18.72 5.5,15.75 2.82,14.46 4.5,12 2.82,9.54 5.5,8.25 5.28,5.28 8.25,5.5 9.54,2.82" />
-                    <polyline points="9.5 12 11.5 14 15 10" stroke-width="2.4" />
-                </svg>
-            </div>
-        </div>
-        <div class="stat-card-number-row">
-            <span class="stat-card-number">142</span>
-        </div>
-        <h3 class="stat-card-title">Kasus Diselesaikan Bulan Ini</h3>
-    </div>
+    {{-- Kartu Pemilih 2: Laporan Postingan --}}
+    <button type="button" class="stat-card selector-card" id="tabLaporanPostingan" role="tab" aria-selected="false" aria-controls="sectionLaporanPostingan" tabindex="0">
+        <span class="stat-card-label">LAPORAN POSTINGAN</span>
+        <span class="stat-card-number">5</span>
+        <h3 class="stat-card-title">Laporan Postingan Membutuhkan Review</h3>
+    </button>
 
 </div>
 
 {{-- =============================================
-     BAR FILTER
+     BARIS FILTER (RATA KIRI, TEPAT DI BAWAH KARTU PEMILIH)
      ============================================= --}}
 <div class="report-filter-bar">
-
-    {{-- Tab pill di sisi kiri --}}
-    <div class="report-tab-group" role="tablist" aria-label="Kategori laporan">
-        <button type="button" class="report-tab-btn active" data-filter="semua">
-            Semua Laporan
-        </button>
-        <button type="button" class="report-tab-btn" data-filter="perlu-ditinjau">
-            Perlu Ditinjau (12)
-        </button>
-        <button type="button" class="report-tab-btn" data-filter="spam">
-            Spam &amp; Bot (6)
-        </button>
-        <button type="button" class="report-tab-btn" data-filter="sara">
-            Kutipan SARA / Pelecehan (4)
-        </button>
-        <button type="button" class="report-tab-btn" data-filter="banned">
-            Akun Banned (5)
-        </button>
-        <button type="button" class="report-tab-btn" data-filter="selesai">
-            Selesai
-        </button>
-    </div>
-
-    {{-- Kontrol select filter di sisi kanan --}}
     <div class="report-filter-controls">
         {{-- TODO: sambungkan pengurutan ke route backend --}}
         <div class="select-btn-wrapper">
@@ -238,15 +231,19 @@
             </select>
         </div>
     </div>
-
 </div>
 
 {{-- =============================================
-     DAFTAR KARTU LAPORAN
+     DAFTAR KARTU LAPORAN AKUN (TAB 1)
      ============================================= --}}
-<div class="report-cards-list" id="reportCardsList">
+<div class="report-cards-list" id="sectionLaporanAkun">
 
     @foreach ($laporanAkun as $item)
+        @php
+            $isBaru = ($item['status'] === 'baru');
+            $risiko = strtoupper($item['tingkat_risiko'] ?? '');
+            $isHighRiskNew = ($isBaru && $risiko === 'TINGGI');
+        @endphp
         <div class="report-card {{ $item['status'] === 'banned' ? 'report-card--banned' : '' }}"
              data-id="{{ $item['id'] }}"
              data-kategori="{{ $item['kategori'] }}"
@@ -256,14 +253,25 @@
             {{-- Baris atas kartu: avatar, info akun, badge risiko, & pill jumlah pelapor --}}
             <div class="report-card-top">
                 <div class="report-user-info">
-                    {{-- Avatar inisial huruf --}}
-                    <div class="report-avatar {{ $item['status'] === 'banned' ? 'avatar-banned' : (($item['tingkat_risiko'] ?? '') === 'TINGGI' ? 'avatar-danger' : 'avatar-neutral') }}">
+                    {{-- Avatar inisial huruf: Latar #FBD9D9 huruf #9B1C1C hanya untuk baru berisiko TINGGI --}}
+                    <div class="report-avatar {{ $isHighRiskNew ? 'avatar-danger' : 'avatar-neutral' }}">
                         {{ $item['inisial'] }}
                     </div>
 
                     <div class="report-user-meta">
                         <div class="report-user-row">
                             <span class="report-username">{{ $item['username'] }}</span>
+
+                            {{-- Pill tingkat risiko: HANYA untuk kartu berstatus "baru" --}}
+                            @if ($isBaru && !empty($risiko))
+                                @if ($risiko === 'TINGGI')
+                                    <span class="risk-badge risk-tinggi">TINGKAT RISIKO: TINGGI</span>
+                                @elseif ($risiko === 'SEDANG')
+                                    <span class="risk-badge risk-sedang">TINGKAT RISIKO: SEDANG</span>
+                                @else
+                                    <span class="risk-badge risk-rendah">TINGKAT RISIKO: RENDAH</span>
+                                @endif
+                            @endif
                         </div>
 
                         <p class="report-user-sub">
@@ -373,21 +381,117 @@
         </div>
     @endforeach
 
-    {{-- Pesan kosong jika tidak ada kartu dalam kategori yang dipilih --}}
-    <div class="report-empty-state" id="reportEmptyState" style="display: none;">
-        <p>Tidak ada laporan pada kategori ini.</p>
-    </div>
+</div>
+
+<!-- Desain Laporan Postingan belum ada di Figma, ganti setelah desain final -->
+<div class="report-cards-list" id="sectionLaporanPostingan" style="display: none;">
+
+    @foreach ($laporanPostingan as $post)
+        @php
+            $isBaru = ($post['status'] === 'baru');
+            $risiko = strtoupper($post['tingkat_risiko'] ?? '');
+            $isHighRiskNew = ($isBaru && $risiko === 'TINGGI');
+        @endphp
+        <div class="report-card"
+             data-id="{{ $post['id'] }}"
+             data-kategori="{{ $post['kategori'] }}"
+             data-status="{{ $post['status'] }}"
+             data-username="{{ $post['penulis'] }}">
+
+            {{-- Baris atas kartu postingan --}}
+            <div class="report-card-top">
+                <div class="report-user-info">
+                    <div class="report-avatar {{ $isHighRiskNew ? 'avatar-danger' : 'avatar-neutral' }}">
+                        {{ $post['inisial'] }}
+                    </div>
+
+                    <div class="report-user-meta">
+                        <div class="report-user-row">
+                            <span class="report-username">{{ $post['penulis'] }}</span>
+
+                            @if ($isBaru && !empty($risiko))
+                                @if ($risiko === 'TINGGI')
+                                    <span class="risk-badge risk-tinggi">TINGKAT RISIKO: TINGGI</span>
+                                @elseif ($risiko === 'SEDANG')
+                                    <span class="risk-badge risk-sedang">TINGKAT RISIKO: SEDANG</span>
+                                @else
+                                    <span class="risk-badge risk-rendah">TINGKAT RISIKO: RENDAH</span>
+                                @endif
+                            @endif
+                        </div>
+
+                        <p class="report-user-sub">
+                            Postingan &bull; {{ $post['waktu'] }} &bull; ID: #{{ $post['id'] }}
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Pill jumlah pembaca yang melaporkan --}}
+                <div class="report-reporter-pill">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                        <line x1="4" y1="22" x2="4" y2="15"></line>
+                    </svg>
+                    <span>{{ $post['pelapor_count'] }} Pembaca Melaporkan</span>
+                </div>
+            </div>
+
+            {{-- Kotak abu: Alasan pokok & cuplikan postingan --}}
+            <div class="report-reason-box">
+                <p class="report-reason-label">ALASAN PELAPORAN POKOK</p>
+                <blockquote class="report-reason-quote">
+                    &ldquo;{{ $post['alasan'] }}&rdquo;
+                </blockquote>
+                <div class="report-post-snippet-row">
+                    <strong>Cuplikan Postingan:</strong>
+                    <span class="report-post-snippet-text">&ldquo;<em>{{ $post['cuplikan'] }}</em>&rdquo;</span>
+                </div>
+            </div>
+
+            {{-- Baris aksi tombol postingan --}}
+            <div class="report-actions-row">
+                @if ($post['status'] === 'selesai')
+                    <p class="report-completed-text">
+                        Laporan selesai: postingan sudah disembunyikan.
+                    </p>
+                @else
+                    <div class="report-btn-group">
+                        {{-- TODO: sambungkan ke route backend (id postingan) --}}
+                        <button type="button" class="btn-action btn-ignore btn-ignore-post" data-post-id="{{ $post['id'] }}">
+                            Abaikan Laporan
+                        </button>
+
+                        {{-- TODO: sambungkan ke route backend (id postingan) --}}
+                        <button type="button" class="btn-action btn-warn btn-hide-post" data-post-id="{{ $post['id'] }}" data-author="{{ $post['penulis'] }}">
+                            Sembunyikan Postingan
+                        </button>
+
+                        {{-- TODO: sambungkan ke route backend (id postingan) --}}
+                        <button type="button" class="btn-action btn-delete-post" data-post-id="{{ $post['id'] }}" data-author="{{ $post['penulis'] }}">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                            Hapus Postingan
+                        </button>
+                    </div>
+                @endif
+            </div>
+
+        </div>
+    @endforeach
 
 </div>
 
+{{-- Pesan kosong jika tidak ada kartu dalam kategori/status yang dipilih --}}
+<div class="report-empty-state" id="reportEmptyState" style="display: none;">
+    <p>Tidak ada laporan pada kategori ini.</p>
+</div>
+
 {{-- =============================================
-     FOOTER DAFTAR & PAGINASI
+     FOOTER DAFTAR & PAGINASI (HANYA PAGINASI DI KANAN)
      ============================================= --}}
 <div class="report-footer">
-    <p class="report-footer-info">
-        Menampilkan 3 dari 12 berkas aktif &bull; Pembaruan otomatis tiap 60 detik
-    </p>
-
     <div class="report-pagination">
         <button type="button" class="page-btn page-btn-nav" disabled>
             Sebelumnya
@@ -417,7 +521,7 @@
 @section('modals')
 
 {{-- =============================================
-     POP-UP BANNED DURATION (MODAL BARU)
+     POP-UP BANNED DURATION (MODAL)
      ============================================= --}}
 <div class="ban-overlay" id="banOverlay" role="dialog" aria-modal="true" aria-labelledby="banModalTitle" aria-hidden="true">
     <div class="ban-modal" id="banModal" data-id="" data-username="">
@@ -434,7 +538,7 @@
 
         {{-- Form input tanggal dan jam --}}
         <form class="ban-form" id="banForm" novalidate>
-            <div class="ban-fields-grid">
+            <div class="ban-fields-grid" id="banFieldsGrid">
                 {{-- Kolom Date --}}
                 <div class="ban-field">
                     <label for="banDate" class="ban-field-label">Date</label>
@@ -448,6 +552,14 @@
                     <input type="time" class="ban-field-input" id="banTime" name="ban_time">
                     <p class="field-error" id="timeError" role="alert"></p>
                 </div>
+            </div>
+
+            {{-- Checkbox Banned Permanen --}}
+            <div class="ban-permanent-wrapper">
+                <label class="ban-checkbox-label" for="banPermanent">
+                    <input type="checkbox" id="banPermanent" name="ban_permanent" class="ban-checkbox">
+                    <span class="ban-checkbox-text">Banned akun secara permanen</span>
+                </label>
             </div>
 
             {{-- Tombol Simpan di tengah --}}
@@ -523,6 +635,72 @@
             </div>
         </form>
     </div>
+</div>
+
+{{-- =============================================
+     POP-UP KONFIRMASI SEMBUNYIKAN POSTINGAN (MODAL)
+     ============================================= --}}
+<div class="unban-overlay" id="hidePostOverlay" role="dialog" aria-modal="true" aria-labelledby="hidePostModalTitle" aria-hidden="true">
+    <div class="unban-modal" id="hidePostModal" data-post-id="" data-author="">
+        {{-- Tombol panah kembali di pojok kiri atas --}}
+        <button type="button" class="unban-modal-back ban-modal-back" id="btnHidePostBack" aria-label="Tutup pop-up sembunyikan postingan">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+
+        <h2 class="unban-modal-title" id="hidePostModalTitle">Sembunyikan Postingan</h2>
+        <p class="unban-modal-desc" id="hidePostModalDesc">
+            Postingan <strong id="hidePostTargetId">#PST-1042</strong> oleh <strong id="hidePostTargetAuthor">@penulis</strong> tidak akan ditampilkan lagi kepada pembaca di feed publik.
+        </p>
+        <div class="unban-modal-actions">
+            <button type="button" class="btn-unban-cancel" id="btnCancelHidePost">
+                Batal
+            </button>
+            <button type="button" class="btn-warning-confirm" id="btnConfirmHidePost">
+                Ya, Sembunyikan
+            </button>
+        </div>
+    </div>
+</div>
+
+{{-- =============================================
+     POP-UP KONFIRMASI HAPUS POSTINGAN (MODAL)
+     ============================================= --}}
+<div class="unban-overlay" id="deletePostOverlay" role="dialog" aria-modal="true" aria-labelledby="deletePostModalTitle" aria-hidden="true">
+    <div class="unban-modal" id="deletePostModal" data-post-id="" data-author="">
+        {{-- Tombol panah kembali di pojok kiri atas --}}
+        <button type="button" class="unban-modal-back ban-modal-back" id="btnDeletePostBack" aria-label="Tutup pop-up hapus postingan">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+
+        <h2 class="unban-modal-title" id="deletePostModalTitle">Hapus Postingan</h2>
+        <p class="unban-modal-desc" id="deletePostModalDesc">
+            Postingan <strong id="deletePostTargetId">#PST-1042</strong> oleh <strong id="deletePostTargetAuthor">@penulis</strong> akan dihapus secara permanen dari sistem. Tindakan ini tidak dapat dibatalkan.
+        </p>
+        <div class="unban-modal-actions">
+            <button type="button" class="btn-unban-cancel" id="btnCancelDeletePost">
+                Batal
+            </button>
+            <button type="button" class="btn-danger-confirm" id="btnConfirmDeletePost">
+                Ya, Hapus Postingan
+            </button>
+        </div>
+    </div>
+</div>
+
+{{-- Toast Notifikasi Pojok Kanan Atas --}}
+<div id="toastNotification" class="toast-notification" role="status" aria-live="polite">
+    <span class="toast-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+    </span>
+    <span class="toast-text" id="toastMessage"></span>
 </div>
 
 @endsection
