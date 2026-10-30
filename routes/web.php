@@ -4,10 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminProfilController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 // Halaman login admin (boleh dibuka tanpa login)
 Route::get('/admin/login', fn () => view('admin.login'))
     ->name('admin.login');
