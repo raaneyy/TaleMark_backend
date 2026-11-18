@@ -1,15 +1,15 @@
 {{-- resources/views/admin/profil.blade.php
-     Halaman Setting Akun (Profil Admin) TaleMark
+     Halaman Pengaturan Akun (Profil Admin) TaleMark
      Data diambil dari AdminProfilController (tabel `admin`)
 --}}
 @extends('layouts.admin')
 
-@section('title', 'Setting Akun')
+@section('title', 'Pengaturan Akun')
 
 @section('styles')
     <style>
         /* =============================================
-           SETTING AKUN
+           PENGATURAN AKUN
            ============================================= */
         .profil-wrap {
             max-width: 640px;
@@ -23,8 +23,8 @@
             padding: 22px 28px 24px;
         }
 
-        /* Header kartu: judul kiri, EDIT kanan */
-        /* Baris atas: judul (kiri) — foto (tengah) — EDIT (kanan) */
+        /* Header kartu: judul kiri, UBAH kanan */
+        /* Baris atas: judul (kiri) — foto (tengah) — UBAH (kanan) */
         .profil-head {
             display: grid;
             grid-template-columns: 1fr auto 1fr;
@@ -194,7 +194,7 @@
         }
         .profil-error:empty { display: none; }
 
-        /* Kolom password (muncul di mode edit) */
+        /* Kolom kata sandi (muncul di mode edit) */
         .profil-pass-view { font-size: 16px; letter-spacing: 3px; }
         .profil-pass-group {
             display: none;
@@ -228,7 +228,7 @@
             color: #9CA3AF;
         }
 
-        /* Tombol Save & Logout */
+        /* Tombol Simpan & Keluar */
         .profil-actions {
             display: flex;
             flex-direction: column;
@@ -272,7 +272,7 @@
         .profil-alert-sukses { background: #F0FDF4; border: 1px solid #BBF7D0; color: #166534; }
         .profil-alert-gagal  { background: #FEF2F2; border: 1px solid #FECACA; color: #991B1B; }
 
-        /* Pop-up konfirmasi logout */
+        /* Pop-up konfirmasi keluar */
         .profil-modal {
             position: fixed;
             inset: 0;
@@ -323,7 +323,7 @@
             to   { opacity: 1; transform: none; }
         }
 
-        /* HP */
+        /* Tampilan Seluler (HP) */
         @media (max-width: 640px) {
             .profil-card { padding: 18px 16px 20px; }
             .profil-title { font-size: 22px; }
@@ -372,9 +372,8 @@
         <div class="profil-alert profil-alert-gagal" role="alert">Perubahan belum disimpan. Periksa kembali kolom yang ditandai merah.</div>
     @endif
 
-    {{-- TODO: pastikan route admin.profil.update sudah dibuat (lihat routes/web.php) --}}
     <form method="POST"
-          action="{{ route('admin.profil.update') }}"
+          action="{{ Route::has('admin.profil.update') ? route('admin.profil.update') : '#' }}"
           enctype="multipart/form-data"
           class="profil-card profil-form {{ $modeEdit ? 'sedang-edit' : '' }}"
           id="formProfil"
@@ -382,11 +381,11 @@
         @csrf
         @method('PUT')
 
-        {{-- Baris atas: judul — foto profil — tombol EDIT --}}
+        {{-- Baris atas: judul — foto profil — tombol UBAH --}}
         <div class="profil-head">
             <div class="profil-head-judul">
                 <p class="profil-kicker">Profil Admin</p>
-                <h1 class="profil-title">Setting Akun</h1>
+                <h1 class="profil-title">Pengaturan Akun</h1>
             </div>
 
             {{-- Foto profil + tombol kamera --}}
@@ -419,7 +418,7 @@
                         <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
                     </svg>
                 </span>
-                <span id="teksEditProfil">{{ $modeEdit ? 'BATAL' : 'EDIT' }}</span>
+                <span id="teksEditProfil">{{ $modeEdit ? 'BATAL' : 'UBAH' }}</span>
             </button>
         </div>
         <template id="avatarKosongTpl">
@@ -435,7 +434,7 @@
         <dl class="profil-list">
 
             <div class="profil-row">
-                <dt><label for="inputNama">Nama</label></dt>
+                <dt><label for="inputNama">Nama Lengkap</label></dt>
                 <span class="profil-titik">:</span>
                 <dd>
                     <input type="text" id="inputNama" name="nama" maxlength="100"
@@ -457,7 +456,7 @@
             </div>
 
             <div class="profil-row">
-                <dt><label for="inputEmail">Email</label></dt>
+                <dt><label for="inputEmail">Alamat Email</label></dt>
                 <span class="profil-titik">:</span>
                 <dd>
                     <input type="email" id="inputEmail" name="email" maxlength="150" autocomplete="email"
@@ -468,20 +467,20 @@
             </div>
 
             <div class="profil-row">
-                <dt><label for="inputPasswordLama">Ubah Password</label></dt>
+                <dt><label for="inputPasswordLama">Ubah Kata Sandi</label></dt>
                 <span class="profil-titik">:</span>
                 <dd>
-                    {{-- Mode lihat: password tidak pernah ditampilkan --}}
-                    <input type="text" class="profil-input profil-pass-view" value="••••••••" readonly tabindex="-1" aria-label="Password tersembunyi">
+                    {{-- Mode lihat: kata sandi tidak pernah ditampilkan --}}
+                    <input type="text" class="profil-input profil-pass-view" value="••••••••" readonly tabindex="-1" aria-label="Kata sandi tersembunyi">
 
-                    {{-- Mode edit: isi hanya jika ingin mengganti password --}}
+                    {{-- Mode edit: isi hanya jika ingin mengganti kata sandi --}}
                     <div class="profil-pass-group">
-                        <p class="profil-hint">Kosongkan jika tidak ingin mengganti password.</p>
+                        <p class="profil-hint">Kosongkan jika tidak ingin mengganti kata sandi.</p>
 
                         <div class="profil-pass-field">
                             <input type="password" id="inputPasswordLama" name="password_lama" autocomplete="current-password"
-                                   class="profil-input @error('password_lama') is-invalid @enderror" placeholder="Password saat ini" data-edit>
-                            <button type="button" class="profil-pass-toggle" data-toggle-pass aria-label="Tampilkan password">
+                                   class="profil-input @error('password_lama') is-invalid @enderror" placeholder="Kata sandi saat ini" data-edit>
+                            <button type="button" class="profil-pass-toggle" data-toggle-pass aria-label="Tampilkan kata sandi">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                             </button>
                         </div>
@@ -489,8 +488,8 @@
 
                         <div class="profil-pass-field">
                             <input type="password" id="inputPassword" name="password" autocomplete="new-password"
-                                   class="profil-input @error('password') is-invalid @enderror" placeholder="Password baru (min. 8 karakter)" data-edit>
-                            <button type="button" class="profil-pass-toggle" data-toggle-pass aria-label="Tampilkan password">
+                                   class="profil-input @error('password') is-invalid @enderror" placeholder="Kata sandi baru (min. 8 karakter)" data-edit>
+                            <button type="button" class="profil-pass-toggle" data-toggle-pass aria-label="Tampilkan kata sandi">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                             </button>
                         </div>
@@ -498,8 +497,8 @@
 
                         <div class="profil-pass-field">
                             <input type="password" id="inputPasswordKonfirmasi" name="password_confirmation" autocomplete="new-password"
-                                   class="profil-input" placeholder="Ulangi password baru" data-edit>
-                            <button type="button" class="profil-pass-toggle" data-toggle-pass aria-label="Tampilkan password">
+                                   class="profil-input" placeholder="Ulangi kata sandi baru" data-edit>
+                            <button type="button" class="profil-pass-toggle" data-toggle-pass aria-label="Tampilkan kata sandi">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                             </button>
                         </div>
@@ -510,10 +509,10 @@
 
         </dl>
 
-        {{-- Tombol Save & Logout --}}
+        {{-- Tombol Simpan & Keluar --}}
         <div class="profil-actions">
-            <button type="submit" class="profil-btn profil-btn-save" id="btnSaveProfil" {{ $modeEdit ? '' : 'disabled' }}>Save</button>
-            <button type="button" class="profil-btn profil-btn-logout" id="btnLogout">Logout</button>
+            <button type="submit" class="profil-btn profil-btn-save" id="btnSaveProfil" {{ $modeEdit ? '' : 'disabled' }}>Simpan Perubahan</button>
+            <button type="button" class="profil-btn profil-btn-logout" id="btnLogout">Keluar Akun</button>
         </div>
     </form>
 
@@ -522,18 +521,18 @@
 @endsection
 
 @push('modals')
-{{-- Pop-up konfirmasi logout --}}
+{{-- Pop-up konfirmasi keluar --}}
 <div class="profil-modal" id="modalLogout" hidden>
     <div class="profil-modal-backdrop" data-tutup-logout></div>
     <div class="profil-modal-box" role="dialog" aria-modal="true" aria-labelledby="judulLogout">
         <h2 id="judulLogout">Keluar dari akun?</h2>
-        <p>Kamu perlu masuk kembali untuk membuka panel admin.</p>
+        <p>Anda perlu masuk kembali untuk mengakses panel admin TaleMark.</p>
 
-        {{-- TODO: pastikan route admin.logout (POST) sudah ada --}}
-        <form method="POST" action="{{ route('admin.logout') }}" class="profil-modal-actions">
+        {{-- Form Logout mengarah ke route logout admin --}}
+        <form method="POST" action="{{ Route::has('admin.logout') ? route('admin.logout') : (Route::has('logout') ? route('logout') : url('/admin/login')) }}" class="profil-modal-actions">
             @csrf
             <button type="button" class="profil-btn profil-btn-batal" data-tutup-logout>Batal</button>
-            <button type="submit" class="profil-btn profil-btn-keluar">Ya, Logout</button>
+            <button type="submit" class="profil-btn profil-btn-keluar">Ya, Keluar</button>
         </form>
     </div>
 </div>
@@ -542,14 +541,14 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const form       = document.getElementById('formProfil');
-    const btnEdit    = document.getElementById('btnEditProfil');
-    const teksEdit   = document.getElementById('teksEditProfil');
-    const btnSave    = document.getElementById('btnSaveProfil');
-    const inputFoto  = document.getElementById('inputFoto');
-    const preview    = document.getElementById('avatarPreview');
-    const errorFoto  = document.getElementById('errorFoto');
-    const kolomEdit  = form.querySelectorAll('[data-edit]');
+    const form        = document.getElementById('formProfil');
+    const btnEdit     = document.getElementById('btnEditProfil');
+    const teksEdit    = document.getElementById('teksEditProfil');
+    const btnSave     = document.getElementById('btnSaveProfil');
+    const inputFoto   = document.getElementById('inputFoto');
+    const preview     = document.getElementById('avatarPreview');
+    const errorFoto   = document.getElementById('errorFoto');
+    const kolomEdit   = form.querySelectorAll('[data-edit]');
     const previewAwal = preview.innerHTML;
 
     // Simpan nilai awal untuk tombol BATAL
@@ -561,7 +560,7 @@ document.addEventListener('DOMContentLoaded', function () {
         form.classList.toggle('sedang-edit', aktif);
         kolomEdit.forEach(i => { i.readOnly = !aktif; });
         btnSave.disabled = !aktif;
-        teksEdit.textContent = aktif ? 'BATAL' : 'EDIT';
+        teksEdit.textContent = aktif ? 'BATAL' : 'UBAH';
         btnEdit.setAttribute('aria-pressed', aktif ? 'true' : 'false');
         if (aktif) {
             document.getElementById('inputNama').focus();
@@ -596,13 +595,13 @@ document.addEventListener('DOMContentLoaded', function () {
         preview.innerHTML = '<img src="' + url + '" alt="Pratinjau foto profil" class="profil-avatar-img">';
     });
 
-    /* ---------- Lihat / sembunyikan password ---------- */
+    /* ---------- Lihat / sembunyikan kata sandi ---------- */
     form.querySelectorAll('[data-toggle-pass]').forEach(btn => {
         btn.addEventListener('click', () => {
             const input = btn.previousElementSibling;
             const lihat = input.type === 'password';
             input.type = lihat ? 'text' : 'password';
-            btn.setAttribute('aria-label', lihat ? 'Sembunyikan password' : 'Tampilkan password');
+            btn.setAttribute('aria-label', lihat ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi');
         });
     });
 
@@ -620,18 +619,18 @@ document.addEventListener('DOMContentLoaded', function () {
         const v = (id) => document.getElementById(id).value.trim();
         const passLama = v('inputPasswordLama'), passBaru = v('inputPassword'), passUlang = v('inputPasswordKonfirmasi');
         const hasil = [
-            setError('nama', v('inputNama') ? '' : 'Nama wajib diisi.'),
+            setError('nama', v('inputNama') ? '' : 'Nama lengkap wajib diisi.'),
             setError('username',
                 !v('inputUsername') ? 'Nama pengguna wajib diisi.'
                 : !/^[A-Za-z0-9_.-]+$/.test(v('inputUsername')) ? 'Hanya huruf, angka, titik, garis bawah, dan tanda hubung.'
                 : ''),
             setError('email',
-                !v('inputEmail') ? 'Email wajib diisi.'
+                !v('inputEmail') ? 'Alamat email wajib diisi.'
                 : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('inputEmail')) ? 'Format email tidak valid.'
                 : ''),
-            setError('password_lama', (passBaru || passUlang) && !passLama ? 'Masukkan password saat ini.' : ''),
-            setError('password', passBaru && passBaru.length < 8 ? 'Password baru minimal 8 karakter.' : (passLama && !passBaru ? 'Masukkan password baru.' : '')),
-            setError('password_confirmation', passBaru && passBaru !== passUlang ? 'Konfirmasi password tidak sama.' : ''),
+            setError('password_lama', (passBaru || passUlang) && !passLama ? 'Masukkan kata sandi saat ini.' : ''),
+            setError('password', passBaru && passBaru.length < 8 ? 'Kata sandi baru minimal 8 karakter.' : (passLama && !passBaru ? 'Masukkan kata sandi baru.' : '')),
+            setError('password_confirmation', passBaru && passBaru !== passUlang ? 'Konfirmasi kata sandi tidak sama.' : ''),
         ];
         if (hasil.includes(false)) {
             e.preventDefault();

@@ -34,4 +34,17 @@ class AdminAuthController extends Controller
 
         return redirect()->route('admin.dashboard');
     }
+
+    public function logout(Request $request)
+    {
+        // Hapus data session admin
+        $request->session()->forget('admin_id');
+        
+        // Invalidate session & regenerate CSRF token demi keamanan
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Redirect kembali ke halaman login (sesuaikan nama route jika berbeda)
+        return redirect()->route('admin.login')->with('success', 'Berhasil keluar.');
+    }
 }

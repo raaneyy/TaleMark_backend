@@ -81,8 +81,7 @@
                         {{-- Baris label + link "Lupa?" --}}
                         <div class="label-row">
                             <label class="form-label" for="password">KATA SANDI</label>
-                            {{-- TODO: Ganti href="#" dengan route lupa password dari backend --}}
-                            <a href="#" class="link-forgot">Lupa?</a>
+                            <a href="{{ route('password.request') }}" class="link-forgot">Lupa?</a>
                         </div>
 
                         {{-- Input password dengan tombol show/hide --}}

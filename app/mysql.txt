@@ -1,0 +1,6 @@
+CREATE DATABASE IF NOT EXISTS talemark;
+CREATE USER IF NOT EXISTS 'talemark'@'localhost' IDENTIFIED BY 'talemark314';
+ALTER USER 'talemark'@'localhost' IDENTIFIED BY 'talemark314';
+GRANT ALL PRIVILEGES ON talemark.* TO 'talemark'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;

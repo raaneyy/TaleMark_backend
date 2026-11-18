@@ -106,7 +106,7 @@
                                 <line x1="17" y1="17.5" x2="20.5" y2="20"/>
                             </svg>
                         </span>
-                        Siaran Notifikasi
+                        Notifikasi
                     </a>
                 </li>
             </ul>

@@ -21,6 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectKanal = document.getElementById('selectKanal');
     const emptyState = document.getElementById('reportEmptyState');
 
+    // Bar filter, paginasi, & filter kategori (akun / postingan)
+    const filterBar = document.getElementById('reportFilterBar');
+    const reportFooter = document.getElementById('reportFooter');
+    const filterKategoriAkun = document.getElementById('filterKategoriAkun');
+    const filterKategoriPostingan = document.getElementById('filterKategoriPostingan');
+    const selectKategoriAkun = document.getElementById('selectKategoriAkun');
+    const selectKategoriPostingan = document.getElementById('selectKategoriPostingan');
+
     // Toast Notifikasi
     const toastNotification = document.getElementById('toastNotification');
     const toastMessage = document.getElementById('toastMessage');
@@ -78,6 +86,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // --------------------------------------------------------------------------
     const applyStatusFilter = () => {
         const isAkunActive = tabLaporanAkun && tabLaporanAkun.classList.contains('is-active');
+        const isPostinganActive = tabLaporanPostingan && tabLaporanPostingan.classList.contains('is-active');
+
+        // Belum ada kartu yang diklik: sembunyikan semua data, filter, & paginasi
+        if (!isAkunActive && !isPostinganActive) {
+            if (sectionLaporanAkun) sectionLaporanAkun.style.display = 'none';
+            if (sectionLaporanPostingan) sectionLaporanPostingan.style.display = 'none';
+            if (filterBar) filterBar.style.display = 'none';
+            if (reportFooter) reportFooter.style.display = 'none';
+            if (emptyState) emptyState.style.display = 'none';
+            return;
+        }
+
+        if (filterBar) filterBar.style.display = '';
+        if (reportFooter) reportFooter.style.display = '';
+
+        // Tampilkan dropdown kategori sesuai jenis laporan yang aktif
+        if (filterKategoriAkun) filterKategoriAkun.style.display = isAkunActive ? '' : 'none';
+        if (filterKategoriPostingan) filterKategoriPostingan.style.display = isAkunActive ? 'none' : '';
+
         const activeContainer = isAkunActive ? sectionLaporanAkun : sectionLaporanPostingan;
         const inactiveContainer = isAkunActive ? sectionLaporanPostingan : sectionLaporanAkun;
 
@@ -89,11 +116,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const selectedValue = selectStatus ? selectStatus.value : 'semua';
+        const activeKategoriSelect = isAkunActive ? selectKategoriAkun : selectKategoriPostingan;
+        const selectedKategori = activeKategoriSelect ? activeKategoriSelect.value : 'semua';
         const cards = activeContainer ? activeContainer.querySelectorAll('.report-card') : [];
         let visibleCount = 0;
 
         cards.forEach(card => {
             const cardStatus = card.getAttribute('data-status');
+            const cardKategori = card.getAttribute('data-kategori');
             let isMatch = false;
 
             if (selectedValue === 'semua') {
@@ -104,6 +134,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 isMatch = (cardStatus === 'banned');
             } else if (selectedValue === 'selesai') {
                 isMatch = (cardStatus === 'selesai');
+            }
+
+            // Filter kategori (SARA, spam, dll.)
+            if (isMatch && selectedKategori !== 'semua') {
+                isMatch = (cardKategori === selectedKategori);
             }
 
             if (isMatch) {
@@ -125,6 +160,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event listener saat dropdown status diubah
     if (selectStatus) {
         selectStatus.addEventListener('change', applyStatusFilter);
+    }
+
+    // Event listener saat dropdown kategori akun / postingan diubah
+    if (selectKategoriAkun) {
+        selectKategoriAkun.addEventListener('change', applyStatusFilter);
+    }
+    if (selectKategoriPostingan) {
+        selectKategoriPostingan.addEventListener('change', applyStatusFilter);
     }
 
     // --------------------------------------------------------------------------

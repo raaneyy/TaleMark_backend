@@ -645,9 +645,7 @@
      ============================================= --}}
 <div class="page-header">
     <div class="page-header-left">
-        <h1 class="page-title">Ringkasan Pustaka &amp; Statistik Platform</h1>
-        <p class="page-subtitle">Arsip data aktivitas pembaca dan pertumbuhan katalog buku per November 2024</p>
-    </div>
+        <h1 class="page-title"> Statistik Platform</h1>    </div>
 
 {{-- =============================================
      BARIS TENGAH: kolom kiri (lebar) + kolom kanan (sempit)
@@ -668,7 +666,7 @@
             {{-- Header grafik --}}
             <div class="chart-card-header">
                 <div class="chart-card-header-left">
-                    <p class="chart-section-label">Pertumbuhan Pengguna</p>
+                    <p class="chart-section-label">Statistik Pengguna</p>
                     <h2 class="chart-card-title">Total Pengguna Aktif</h2>
                 </div>
                 <div class="chart-card-header-right">
@@ -709,7 +707,7 @@
             {{-- Header grafik --}}
             <div class="chart-card-header">
                 <div class="chart-card-header-left">
-                    <p class="chart-section-label">Pertumbuhan Katalog</p>
+                    <p class="chart-section-label">statistik Buku</p>
                     <h2 class="chart-card-title">Total Buku</h2>
                 </div>
                 <div class="chart-card-header-right">
@@ -752,8 +750,8 @@
         <div class="card genre-card">
             <div class="genre-card-header">
                 <div>
-                    <p class="genre-section-label">Katalog Platform</p>
-                    <h2 class="genre-card-title">Distribusi Genre Terpopuler</h2>
+                    <p class="genre-section-label">Genre Paling Banyak Dibaca</p>
+                    <h2 class="genre-card-title">Genre Terpopuler</h2>
                 </div>
                 <span class="genre-period">Bulan Ini</span>
             </div>

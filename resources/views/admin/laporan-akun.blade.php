@@ -190,7 +190,7 @@
 <div class="report-stats-grid" role="tablist" aria-label="Pemilih jenis laporan">
 
     {{-- Kartu Pemilih 1: Laporan Akun --}}
-    <button type="button" class="stat-card selector-card is-active" id="tabLaporanAkun" role="tab" aria-selected="true" aria-controls="sectionLaporanAkun" tabindex="0">
+    <button type="button" class="stat-card selector-card" id="tabLaporanAkun" role="tab" aria-selected="false" aria-controls="sectionLaporanAkun" tabindex="0">
         <span class="stat-card-label">LAPORAN AKUN</span>
         <span class="stat-card-number">12</span>
         <h3 class="stat-card-title">Laporan Akun Membutuhkan Review</h3>
@@ -208,8 +208,38 @@
 {{-- =============================================
      BARIS FILTER (RATA KIRI, TEPAT DI BAWAH KARTU PEMILIH)
      ============================================= --}}
-<div class="report-filter-bar">
+<div class="report-filter-bar" id="reportFilterBar" style="display: none;">
     <div class="report-filter-controls">
+        {{-- Filter kategori laporan AKUN (tampil saat kartu Laporan Akun diklik) --}}
+        <div class="select-btn-wrapper" id="filterKategoriAkun" style="display: none;">
+            <svg class="select-btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M6 12h12M10 18h4"/></svg>
+            <select class="select-btn" id="selectKategoriAkun" aria-label="Kategori laporan akun">
+                <option value="semua">Semua Kategori</option>
+                <option value="spam">Spam &amp; Promosi</option>
+                <option value="sara">SARA</option>
+                <option value="pelecehan">Pelecehan / Perundungan</option>
+                <option value="penipuan">Penipuan / Phishing</option>
+                <option value="akun_palsu">Akun Palsu / Bot</option>
+                <option value="plagiarisme">Plagiarisme / Pembajakan</option>
+            </select>
+        </div>
+
+        {{-- Filter kategori laporan POSTINGAN (tampil saat kartu Laporan Postingan diklik) --}}
+        <div class="select-btn-wrapper" id="filterKategoriPostingan" style="display: none;">
+            <svg class="select-btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M6 12h12M10 18h4"/></svg>
+            <select class="select-btn" id="selectKategoriPostingan" aria-label="Kategori laporan postingan">
+                <option value="semua">Semua Kategori</option>
+                <option value="sara">SARA</option>
+                <option value="ujaran_kebencian">Ujaran Kebencian</option>
+                <option value="pornografi">Pornografi / Konten Dewasa</option>
+                <option value="kekerasan">Kekerasan / Ancaman</option>
+                <option value="judi">Judi Online</option>
+                <option value="spam">Spam / Promosi</option>
+                <option value="hoaks">Hoaks / Misinformasi</option>
+                <option value="plagiarisme">Plagiarisme / Hak Cipta</option>
+            </select>
+        </div>
+
         {{-- TODO: sambungkan pengurutan ke route backend --}}
         <div class="select-btn-wrapper">
             <svg class="select-btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h13M3 18h6"/></svg>
@@ -236,7 +266,7 @@
 {{-- =============================================
      DAFTAR KARTU LAPORAN AKUN (TAB 1)
      ============================================= --}}
-<div class="report-cards-list" id="sectionLaporanAkun">
+<div class="report-cards-list" id="sectionLaporanAkun" style="display: none;">
 
     @foreach ($laporanAkun as $item)
         @php
@@ -491,7 +521,7 @@
 {{-- =============================================
      FOOTER DAFTAR & PAGINASI (HANYA PAGINASI DI KANAN)
      ============================================= --}}
-<div class="report-footer">
+<div class="report-footer" id="reportFooter" style="display: none;">
     <div class="report-pagination">
         <button type="button" class="page-btn page-btn-nav" disabled>
             Sebelumnya
@@ -707,5 +737,4 @@
 
 {{-- Script JS khusus halaman laporan akun --}}
 @section('scripts')
-    <script src="{{ asset('js/admin-laporan-akun.js') }}?v={{ file_exists(public_path('js/admin-laporan-akun.js')) ? filemtime(public_path('js/admin-laporan-akun.js')) : time() }}"></script>
-@endsection
+    <script src="{{ asset('js/admin-laporan-akun.js') }}?v={{ file_exists(public_path('js/admin-laporan-akun.js')) ? filemtime(public_path('js/admin-laporan-akun.js')) : time() }}"></script>@endsection

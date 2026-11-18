@@ -167,7 +167,7 @@
             <div class="form-actions">
                 <button type="submit" id="btnSubmit" class="btn-send">
                     <svg viewBox="0 0 24 20.3" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M0 0L24 10L0 20.3ZM2.8 4L17.5 10L2.8 16ZM2.8 8.3L10.5 10L2.8 12Z"/></svg>
-                    <span id="btnSubmitText">Kirim Siaran Notifikasi Sekarang</span>
+                    <span id="btnSubmitText">Kirim Notifikasi Sekarang</span>
                 </button>
             </div>
 
@@ -182,8 +182,8 @@
 
         {{-- Header Panel --}}
         <div class="broadcast-history-header">
-            <p class="history-panel-label">ARSIP SIARAN</p>
-            <h2 class="history-panel-title">Riwayat Siaran</h2>
+            <p class="history-panel-label">ARSIP Notifikasi</p>
+            <h2 class="history-panel-title">Riwayat Notifikasi</h2>
         </div>
 
         {{-- Tab Filter Pill --}}
