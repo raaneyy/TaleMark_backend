@@ -12,6 +12,20 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (! Schema::hasTable('admin')) {
+            Schema::create('admin', function (Blueprint $table) {
+                $table->increments('id_admin');
+                $table->string('username', 50)->unique();
+                $table->string('password');
+                $table->string('nama', 100)->nullable();
+                $table->string('name', 100)->nullable();
+                $table->string('email', 150)->nullable()->unique();
+                $table->string('foto')->nullable();
+            });
+
+            return;
+        }
+
         Schema::table('admin', function (Blueprint $table) {
             if (! Schema::hasColumn('admin', 'nama')) {
                 $table->string('nama', 100)->nullable();
